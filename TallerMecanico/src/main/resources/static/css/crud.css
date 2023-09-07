@@ -18,7 +18,7 @@ th, td {
 }
 
 #datoAuto{
-    color: white;
+  color: white;
 }
 
 h3 {
@@ -58,7 +58,7 @@ h3 {
   width: 50px;
 }
 
-.botoncrud{
+#botoncrud{
   border: none;
   background: none;
   padding: 0;
@@ -69,4 +69,8 @@ h3 {
 #imgcrud{
   height: 90%;
   width: 90%;
+}
+
+#inputMarca{
+  border-radius: 12px;
 }

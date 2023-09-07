@@ -18,16 +18,16 @@
 </head>
 <body>
         <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-            <input type="hidden" name="id_marca" th:field="*{id_marca}">  <!--<!-- ESTA LINEA ES PARA QUE EVITE DUPLICAR LOS DATOS Y SE MODIFIQUEN EN EL MISMO REGISTRO -->
-                    <div>
-                        <label for="nombre">Nombre: </label>
-                        <input type="text" name="nombre"/>
-                    </div>
-                    <div>
-                        <label for="nombre">estado </label>
-                        <input type="text" name="estado" />
-                    </div>
-                    <input type="submit" value="Agregar marca" class="btn btn-success">
-                </form>
+            <input type="hidden" name="id_marca" th:field="*{id_marca}">  <!--ESTA LINEA ES PARA QUE EVITE DUPLICAR LOS DATOS Y SE MODIFIQUEN EN EL MISMO REGISTRO -->
+                <div>
+                    <label for="nombre">Nombre: </label>
+                    <input type="text" name="nombre"/>
+                </div>
+                <div>
+                    <label for="nombre">estado </label>
+                    <input type="text" name="estado" />
+                </div>
+            <input type="submit" value="Agregar marca" class="btn btn-success">
+        </form>
     </body>
 </html>
