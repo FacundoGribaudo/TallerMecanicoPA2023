@@ -1,0 +1,31 @@
+html,body{
+    /*background-image: url('../img/rayomq.jpg'); /* Cambia 'ruta/a/tu/imagen.jpg' por la ubicación de tu imagen */
+    /*background-size: cover; /* Ajusta el tamaño de la imagen al tamaño de la ventana del navegador */
+    /*background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+    /*background: #c4d8ec;*/
+}
+
+.contasiner{
+    margin-top: 5%;
+}
+
+.cuadradito{
+    height: 180px;
+    width: 180px;
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 25px;
+    margin: 0 0 20px 60px;
+    background-color: #000000e3;
+    font-size: 25px;
+    box-shadow: 0 0 15px #ffffffe0; /* Agrega una sombra celeste alrededor */
+    transition: transform 0.8s; /* Transición para los efectos */
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.cuadradito:hover {
+    box-shadow: 0 0 15px #f51818; /* Agrega una sombra celeste alrededor */
+    transform: scale(1.05); /* Hace el cuadro un poco más grande al pasar el cursor */
+}

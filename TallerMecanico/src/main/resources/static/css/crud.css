@@ -1,0 +1,72 @@
+body{
+  background: #c4d8ec;
+}
+
+.row{
+  margin-top: 10%;
+}
+
+input, .modal {
+  color: black;
+}
+
+.alert {
+  margin-top: 25px;
+}
+th, td {
+  border-top: none !important;
+}
+
+#datoAuto{
+    color: white;
+}
+
+h3 {
+  background-color: #333;
+  padding: 12px;
+  border-top-right-radius: 20px;
+  font-weight: bolder;
+  letter-spacing: .1em;
+}
+
+.modal-content{
+  border-radius: 0;
+}
+
+.modal-header, .modal-footer {
+  background-color: #333;
+  color: white;
+  border: 0;
+}
+
+.modal-body {
+  background: #2c3e50;
+  color: white;
+}
+
+.close, .close:hover {
+  color: white;
+}
+
+.btn {
+  font-weight: bolder;
+  letter-spacing: .2em;
+}
+
+#tdbotones{
+  padding: 0;
+  width: 50px;
+}
+
+.botoncrud{
+  border: none;
+  background: none;
+  padding: 0;
+  height: 40px;
+  width: 40px;
+}
+
+#imgcrud{
+  height: 90%;
+  width: 90%;
+}
