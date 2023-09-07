@@ -75,10 +75,18 @@
                         <label for="nombre">Nombre: </label>
                         <input type="text" name="nombre"/>
                     </div>
-                    <div>
+                   <!-- <div>
                         <label for="nombre">estado </label>
                         <input type="text" name="estado" />
-                    </div>
+                    </div>-->
+                   <div> 
+                       <label for="nombre">Estado: </label>
+                       <select name="estado" form="addUserForm">
+                           <option value="--">--</option>
+                           <option value="Activo">Activo</option>
+                           <option value="Inactvio">Inactivo</option>
+                       </select>
+                   </div>
                     <input type="submit" value="Agregar marca" class="btn btn-success">
                 </form>
 
@@ -108,7 +116,7 @@
                             <td class="MARCAData" th:text="${marca.nombre}"></td>
                             <td class="MARCAData" th:text="${marca.estado}"></td>
                             <td id="tdbotones"><a th:href="@{/editarMarca/}+${marca.id_marca}" class="btn btn-warning">Editar</a></td>
-                            <td id="tdbotones"><a class="btn btn-danger">Eliminar</a></td>
+                            <td id="tdbotones"><a th:href="@{/eliminarMarca/}+${marca.id_marca}" class="btn btn-danger">Eliminar</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -133,6 +141,11 @@
             </div>
         </div>
     </div>
-    
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="funciones.j"></script>
 </body>
 </html>

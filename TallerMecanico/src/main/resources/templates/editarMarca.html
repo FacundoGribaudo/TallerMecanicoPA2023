@@ -16,8 +16,7 @@
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
 
 </head>
-    <body>
-        <h1>${marca.nombre}</h1>
+<body>
         <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
             <input type="hidden" name="id_marca" th:field="*{id_marca}">  <!--<!-- ESTA LINEA ES PARA QUE EVITE DUPLICAR LOS DATOS Y SE MODIFIQUEN EN EL MISMO REGISTRO -->
                     <div>

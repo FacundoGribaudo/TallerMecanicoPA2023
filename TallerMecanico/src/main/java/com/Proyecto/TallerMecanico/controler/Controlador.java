@@ -51,4 +51,10 @@ public class Controlador {
         return "editarMarca"; 
     }
     
+    @GetMapping("/eliminarMarca/{id_marca}")
+    public String eliminarMarca(Model model, @PathVariable int id_marca){
+        service.delete(id_marca);
+        return "redirect:/marca"; 
+    }
+    
 }
