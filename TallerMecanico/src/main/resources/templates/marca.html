@@ -54,7 +54,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4" style="text-align: center;">
-                <h3>NUEVO MARCA</h3>
+                <h3>NUEVA MARCA</h3>
                     
                 <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
                     <div style="margin-bottom: 6px;">
@@ -71,11 +71,14 @@
                 </form>
             </div>
             <div class="col-md-8">
-                <h3>MARCAS REGISTRADOS</h3>
-                <form class="d-flex" role="search" id="formBuscar">
-                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Marca" aria-label="Search">
+                <h3>MARCAS REGISTRADAS</h3>
+
+                <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscar}" method="POST">
+                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Marca" aria-label="Search" name="nombre">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
+                    <!--<td id="tdbotones"><a id="botoncrud" th:href="@{/editarMarca/}+${marca.id_marca}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>-->
                 </form>
+
                 <table id="userTable" class="table table-striped">
                     <thead>
                         <tr>

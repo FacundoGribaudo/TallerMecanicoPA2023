@@ -16,7 +16,7 @@ public class Marca {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_marca;
+    private Integer id_marca;
     private String nombre;
     private String estado;
     

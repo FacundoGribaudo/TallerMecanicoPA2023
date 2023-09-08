@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.ArrayList;
 
 
 
@@ -30,11 +31,10 @@ public class Controlador {
     // ------------- ABM MARCA -------------
     @GetMapping("/marca")
     public String listar(Model model){
-        
         List<Marca> marcas = service.listarMarcas();
+        //System.out.println(marcas);
         model.addAttribute("marcas", marcas); 
         return "marca";
-        
     }
     
     @PostMapping("/save")
@@ -46,7 +46,7 @@ public class Controlador {
     @GetMapping("/editarMarca/{id_marca}")
     public String editarMarca(@PathVariable int id_marca, Model model){
         Optional<Marca> marca = service.listarIdMarca(id_marca);
-        System.out.println(service.listarIdMarca(id_marca));
+        //System.out.println(service.listarIdMarca(id_marca));
         model.addAttribute("marca", marca); 
         return "editarMarca"; 
     }
@@ -57,4 +57,19 @@ public class Controlador {
         return "redirect:/marca"; 
     }
     
+    @PostMapping("/buscar")
+    public String buscarMarca(Model model, String nombre){
+        
+        List<Marca> marcas = service.listarMarcas(); //Traigo todos los objetos de la db
+        List<Marca> marcasBuscadas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+        
+        for (int i = 0; i<marcas.size(); i++){
+            if(marcas.get(i).getNombre().equals(nombre)){
+                System.out.println("ENTRO PORQUE EL NOMBRE COINCIDE");
+                marcasBuscadas.add(marcas.get(i));
+            }
+        }
+        model.addAttribute("marcas", marcasBuscadas); 
+        return "marca"; 
+    }
 }
