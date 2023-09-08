@@ -72,13 +72,10 @@
             </div>
             <div class="col-md-8">
                 <h3>MARCAS REGISTRADAS</h3>
-
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscar}" method="POST">
                     <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Marca" aria-label="Search" name="nombre">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
-                    <!--<td id="tdbotones"><a id="botoncrud" th:href="@{/editarMarca/}+${marca.id_marca}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>-->
                 </form>
-
                 <table id="userTable" class="table table-striped">
                     <thead>
                         <tr>
@@ -95,37 +92,15 @@
                             <td class="MARCAData" th:text="${marca.nombre}"></td>
                             <td class="MARCAData" th:text="${marca.estado}"></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarMarca/}+${marca.id_marca}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/eliminarMarca/}+${marca.id_marca}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarMarca/}+${marca.id_marca}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="updateModalLabel">Update User</h4>
-                </div>
-                <div class="modal-body" id="updateModalBody">
-                    <!-- El formulario de actualización se agregará aquí -->
-                </div>
-                <div class="modal-footer" id="updateModalFooter">
-                    <!-- Los botones se agregarán aquí -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-  <script src="js/marca.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="js/marca.js"></script>
     <script src="sweetalert2.all.min.js"></script>
-    <script src="../static/js/funciones.js"></script>
 </body>
 </html>

@@ -1,33 +1,75 @@
-
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller Mecánico</title>
     <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
+    <link rel="stylesheet" href="../css/editarMarca.css">
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
-
 </head>
 <body>
-        <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-            <input type="hidden" name="id_marca" th:field="*{id_marca}">  <!--ESTA LINEA ES PARA QUE EVITE DUPLICAR LOS DATOS Y SE MODIFIQUEN EN EL MISMO REGISTRO -->
-                <div>
-                    <label for="nombre">Nombre: </label>
-                    <input type="text" name="nombre"/>
-                </div>
-                <div>
-                    <label for="nombre">estado </label>
-                    <input type="text" name="estado" />
-                </div>
-            <input type="submit" value="Agregar marca" class="btn btn-success">
-        </form>
-    </body>
+    <nav class="navbar navbar-expand-lg" id="barraNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="vehiculos.html">Vehículo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="modelo.html">Modelo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="clientes.html">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="tecnicos.html">Técnicos</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h3>EDITAR MARCA</h3>
+                <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
+                    <input type="hidden" name="id_marca" th:field="*{id_marca}">
+                    <div style="margin-bottom: 6px;">
+                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}">
+                    </div>
+                    <div style="margin-bottom: 6px;">
+                        <select name="estado" id="inputState" class="form-select" form="addUserForm">
+                            <option selected hidden>Estado</option>
+                            <option value="Activo" th:selected="${marca.estado == 'Activo'}">Activo</option>
+                            <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
+                </form>  
+            </div>
+        </div>
+    </div> 
+    <script src="../js/marca.js"></script>
+</body>
 </html>

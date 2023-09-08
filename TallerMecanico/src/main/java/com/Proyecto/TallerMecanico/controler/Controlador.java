@@ -45,9 +45,16 @@ public class Controlador {
     
     @GetMapping("/editarMarca/{id_marca}")
     public String editarMarca(@PathVariable int id_marca, Model model){
-        Optional<Marca> marca = service.listarIdMarca(id_marca);
-        //System.out.println(service.listarIdMarca(id_marca));
-        model.addAttribute("marca", marca); 
+        Optional<Marca> optionalMarca = service.listarIdMarca(id_marca);
+
+        // Verifica si la marca existe antes de agregarla al modelo
+        if (optionalMarca.isPresent()) {
+            Marca marca = optionalMarca.get();
+            model.addAttribute("marca", marca);
+        } else {
+            // Manejar el caso en el que la marca no existe (puedes redirigir o mostrar un mensaje de error)
+        }
+
         return "editarMarca"; 
     }
     
