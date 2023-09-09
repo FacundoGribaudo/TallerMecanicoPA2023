@@ -1,10 +1,7 @@
 package com.Proyecto.TallerMecanico.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.*;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data //Facilita los gettes y setter
@@ -16,10 +13,15 @@ public class Marca {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_marca")
     private Integer id_marca;
-    private String nombre;
-    private String estado;
     
+    @Column(name="nombre")
+    private String nombre;
+
+    @Column(name="estado")
+    private String estado;
+
     public Marca(){
         
     }
@@ -30,5 +32,6 @@ public class Marca {
         this.nombre = nombre;
         this.estado = estado;
     }
-            
+    
+
 }

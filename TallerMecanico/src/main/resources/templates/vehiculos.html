@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
 
     <nav class="navbar navbar-expand-lg" id="barraNav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">
+            <a class="navbar-brand" th:href="@{/}">
                 <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,10 +29,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="vehiculos.html">Vehículo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="marca.html">Marca</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page" href="modelo.html">Modelo</a>
@@ -55,28 +55,23 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>NUEVO VEHÍCULO</h3>
-                <form id="addUserForm" action="#">
+                
+                
+                <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="text" id="name" placeholder="Patente" required>
+                        <input name="patente" class="form-control" type="text" id="name" placeholder="Patente" required>
+                        <input name="kilometros" class="form-control" type="text" id="name" placeholder="Kilometros" required>
                     </div>
-                    <div class="form-group">
-                        <select class="form-control" name="" id="">
-                            <option selected hidden>Marca</option>
-                            <option value="Marca 1">Marca 1</option>
-                            <option value="Marca 2">Marca 2</option>
-                            <option value="Marca 3">Marca 3</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="" id="">
-                            <option selected hidden>Modelo</option>
-                            <option value="Modelo 1">Modelo 1</option>
-                            <option value="Modelo 2">Modelo 2</option>
-                            <option value="Modelo 3">Modelo 3</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary form-control" type="button" id="submitBtn">Agregar</button>
+                    <select name="marca" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Marca</option>
+                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
+                      </select>
+                    <input type="submit" value="Agregar vehiculo" class="btn btn-success">
                 </form>
+
+
+
+
             </div>
             <div class="col-md-8">
                 <h3>VEHÍCULOS REGISTRADOS</h3>
@@ -89,6 +84,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Patente</th>
+                            <th>Kilometros</th>
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th></th>
@@ -96,37 +92,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="userData">1</td>
-                            <td class="userData">AAA 150</td>
-                            <td class="userData">Citroen</td>
-                            <td class="userData">C4 Lounge</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td class="userData">1</td>
-                            <td class="userData">AAA 150</td>
-                            <td class="userData">Citroen</td>
-                            <td class="userData">C4 Lounge</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td class="userData">1</td>
-                            <td class="userData">AAA 150</td>
-                            <td class="userData">Citroen</td>
-                            <td class="userData">C4 Lounge</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td class="userData">1</td>
-                            <td class="userData">AAA 150</td>
-                            <td class="userData">Citroen</td>
-                            <td class="userData">C4 Lounge</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
+                        <tr th:each="vehiculo : ${vehiculo}">
+                            <td class="VEHICULOData" th:text="${vehiculo.id_vehiculo}"></td>
+                            <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
+                            <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
+                            <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>  
                         </tr>
                     </tbody>
                 </table>

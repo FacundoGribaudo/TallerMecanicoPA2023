@@ -2,7 +2,10 @@ package com.Proyecto.TallerMecanico.controler;
 
 import org.springframework.ui.Model;
 import com.Proyecto.TallerMecanico.domain.Marca;
+import com.Proyecto.TallerMecanico.domain.Vehiculo;
 import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
+import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -21,6 +26,8 @@ public class Controlador {
     
     @Autowired
     private ImarcaServices service; 
+    @Autowired
+    private IvehiculoServices servicesVehiculo;
     
     @GetMapping("/")
     public String home(Model model){
@@ -70,13 +77,57 @@ public class Controlador {
         List<Marca> marcas = service.listarMarcas(); //Traigo todos los objetos de la db
         List<Marca> marcasBuscadas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
         
+        
         for (int i = 0; i<marcas.size(); i++){
-            if(marcas.get(i).getNombre().equals(nombre)){
+            if(marcas.get(i).getNombre().toUpperCase().equals(nombre.toUpperCase())){
                 System.out.println("ENTRO PORQUE EL NOMBRE COINCIDE");
                 marcasBuscadas.add(marcas.get(i));
             }
         }
+
+        if(marcasBuscadas.size() == 0){
+            marcasBuscadas = marcas; 
+        }
+
         model.addAttribute("marcas", marcasBuscadas); 
         return "marca"; 
     }
+
+
+    // ------------- ABM VEHICULO -------------
+    @GetMapping("/vehiculos")
+    public String listarVehiculos(Model model){
+        
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+        
+        System.out.println("VEHICULOS GUARDADOS");
+        System.out.println(vehiculos);
+
+        //Marcas 
+        List<Marca> marcas = service.listarMarcas();
+        List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+
+        for(int i=0; i<marcas.size(); i++){
+            if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
+                marcasActivas.add(marcas.get(i));
+            }
+        }
+
+        
+
+        model.addAttribute("vehiculo", vehiculos); 
+        model.addAttribute("marcasActivas", marcasActivas); 
+        return "vehiculos";
+    }
+
+    @PostMapping("/saveVehiculo")
+    public String guardarVehiculo(Vehiculo v, Model model){
+        servicesVehiculo.save(v);
+        return "redirect:/vehiculos"; 
+    }  
+
 }
+
+
+
+
