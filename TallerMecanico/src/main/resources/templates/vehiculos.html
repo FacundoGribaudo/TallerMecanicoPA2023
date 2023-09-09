@@ -65,18 +65,15 @@
                     <select name="marca" id="inputState" class="form-select" form="addUserForm">
                         <option selected hidden>Marca</option>
                         <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
-                      </select>
+                    </select>
                     <input type="submit" value="Agregar vehiculo" class="btn btn-success">
                 </form>
-
-
-
 
             </div>
             <div class="col-md-8">
                 <h3>VEHÍCULOS REGISTRADOS</h3>
-                <form class="d-flex" role="search" id="formBuscar">
-                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Vehículo" aria-label="Search">
+                <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
+                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Vehículo" aria-label="Search" name="patente">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">
@@ -97,6 +94,7 @@
                             <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>  
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -122,5 +120,6 @@
         </div>
     </div>
     
+    <script src="js/marca.js"></script>
 </body>
 </html>

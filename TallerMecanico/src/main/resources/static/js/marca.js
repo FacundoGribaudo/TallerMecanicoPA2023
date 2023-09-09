@@ -24,19 +24,6 @@ function validarFormulario(event) {
     }
 } 
 
-function eliminarMarca(event) {
-    event.preventDefault();
-    Swal.fire({
-        title: '¿Está seguro de que desea eliminar la marca?',
-        text: "Esta acción NO se puede revertir",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, borrar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            console.log("confirmado");
-        }
-    });
+function confirmarEliminar(){
+    return confirm("Estas seguro de eliminar?");
 }

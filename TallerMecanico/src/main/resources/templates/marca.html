@@ -36,7 +36,7 @@
                     <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="modelo.html">Modelo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page" href="clientes.html">Clientes</a>
@@ -92,7 +92,7 @@
                             <td class="MARCAData" th:text="${marca.nombre}"></td>
                             <td class="MARCAData" th:text="${marca.estado}"></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarMarca/}+${marca.id_marca}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarMarca/}+${marca.id_marca}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarMarca/}+${marca.id_marca}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>

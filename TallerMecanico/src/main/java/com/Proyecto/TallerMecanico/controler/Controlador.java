@@ -2,7 +2,9 @@ package com.Proyecto.TallerMecanico.controler;
 
 import org.springframework.ui.Model;
 import com.Proyecto.TallerMecanico.domain.Marca;
+import com.Proyecto.TallerMecanico.domain.Modelo;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
+import com.Proyecto.TallerMecanico.interfaceServices.IModeloServices;
 import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 
@@ -28,6 +30,8 @@ public class Controlador {
     private ImarcaServices service; 
     @Autowired
     private IvehiculoServices servicesVehiculo;
+    @Autowired
+    private IModeloServices servicesModelo;
     
     @GetMapping("/")
     public String home(Model model){
@@ -126,6 +130,75 @@ public class Controlador {
         return "redirect:/vehiculos"; 
     }  
 
+    @GetMapping("/eliminarVehiculo/{id_vehiculo}")
+    public String delete(Vehiculo vehiculos,@PathVariable int id_vehiculo){
+        servicesVehiculo.delete(id_vehiculo);
+        return "redirect:/vehiculos"; 
+    }
+
+
+
+    // ------------- ABM MODELO -------------
+    // Cambia el nombre del atributo para los modelos en el modelo
+    @GetMapping("/modelo")
+    public String listarModelos(Model model){
+        List<Modelo> modelos = servicesModelo.listarModelos(); // Obtén la lista de modelos
+        model.addAttribute("modelos", modelos); // Usa "modelos" como el nombre del atributo en el modelo
+
+        //Marcas 
+        List<Marca> marcas = service.listarMarcas();
+        List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+
+        for(int i=0; i<marcas.size(); i++){
+            if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
+                marcasActivas.add(marcas.get(i));
+            }
+        }
+
+        model.addAttribute("marcasActivas", marcasActivas); 
+
+        return "modelo"; // Retorna la vista "modelo" para mostrar los modelos
+    }
+
+    @PostMapping("/saveModelo")
+    public String agregarModelo(Modelo mo, Model model) {
+        servicesModelo.save(mo); 
+        // Redirige a la página de modelos para mostrar la lista actualizada
+        return "redirect:/modelo";
+    }
+ 
+    @GetMapping("/eliminarModelo/{id_modelo}")
+    public String delete(Modelo modelo,@PathVariable int id_modelo){
+        servicesModelo.delete(id_modelo);
+        return "redirect:/modelo"; 
+    }
+
+    @GetMapping("/editarModelo/{id_modelo}")
+    public String editarModelo(@PathVariable int id_modelo, Model model){
+        Optional<Modelo> optionalModelo = servicesModelo.listarIdModelo(id_modelo);
+
+        //Marcas 
+        List<Marca> marcas = service.listarMarcas();
+        List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+
+        for(int i=0; i<marcas.size(); i++){
+            if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
+                marcasActivas.add(marcas.get(i));
+            }
+        }
+
+        model.addAttribute("marcasActivas", marcasActivas); 
+
+        // Verifica si la marca existe antes de agregarla al modelo
+        if (optionalModelo.isPresent()) {
+            Modelo modelo = optionalModelo.get();
+            model.addAttribute("modelo", modelo);
+        } else {
+            // Manejar el caso en el que la marca no existe (puedes redirigir o mostrar un mensaje de error)
+        }
+
+        return "editarModelo"; 
+    }
 }
 
 

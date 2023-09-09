@@ -20,7 +20,7 @@
 
     <nav class="navbar navbar-expand-lg" id="barraNav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">
+            <a class="navbar-brand" th:href="@{/}">
                 <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +29,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="vehiculos.html">Vehículo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="marca.html">Marca</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="modelo.html">Modelo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page" href="clientes.html">Clientes</a>
@@ -68,15 +68,34 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>NUEVO MODELO</h3>
-                <form id="addUserForm" action="#">
+                <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="text" id="nombreMarca" placeholder="Nombre" required>
+                        <select name="marca" id="inputState" class="form-select" form="addUserForm">
+                            <option selected hidden>Marca</option>
+                            <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="descMarca" placeholder="Descripcion" required>
+                        <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
                     </div>
-                    <button class="btn btn-primary form-control" type="button" id="submitBtn">Agregar</button>
-                </form>
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Descripción" required>
+                    </div>
+                    <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
+                </form>      
+                <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
+                    <div style="margin-bottom: 6px;">
+                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search">
+                    </div>  
+                   <div style="margin-bottom: 6px;"> 
+                       <select name="estado" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                      </select>
+                   </div>
+                    <input onclick="validarFormulario(event)" type="submit" value="Agregar marca" class="btn btn-success">
+                </form>           -->
             </div>
             <div class="col-md-8">
                 <h3>MODELOS REGISTRADOS</h3>
@@ -88,40 +107,22 @@
                     <thead id="encabezado">
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
                             <th>Descripcion</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="modeloData">1</td>
-                            <td class="modeloData">C4 Lounge</td>
-                            <td class="modeloData">Descripcion 1</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td class="modeloData">1</td>
-                            <td class="modeloData">C4 Lounge</td>
-                            <td class="modeloData">Descripcion 1</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td class="modeloData">1</td>
-                            <td class="modeloData">C4 Lounge</td>
-                            <td class="modeloData">Descripcion 1</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td class="modeloData">1</td>
-                            <td class="modeloData">C4 Lounge</td>
-                            <td class="modeloData">Descripcion 1</td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/edit.png" width="20" alt=""></button></td>
-                            <td id="tdbotones"><button id="botoncrud"><img id="imgcrud" src="../img/delete.png" width="20" alt=""></button></td>
+                        <!-- Itera a través de los modelos -->
+                        <tr th:each="modelo : ${modelos}">
+                            <td class="modeloData" th:text="${modelo.id_modelo}"></td>
+                            <td class="modeloData" th:text="${modelo.marca.nombre}"></td>
+                            <td class="modeloData" th:text="${modelo.nombre}"></td>
+                            <td class="modeloData" th:text="${modelo.descripcion}"></td>
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarModelo/}+${modelo.id_modelo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -146,6 +147,6 @@
             </div>
         </div>
     </div>
-    
+    <script src="js/marca.js"></script>
 </body>
 </html>
