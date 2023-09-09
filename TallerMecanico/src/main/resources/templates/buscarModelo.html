@@ -68,7 +68,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <h3>NUEVO MODELO</h3>
                 <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
                     <div class="form-group">
@@ -84,7 +84,7 @@
                         <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Descripción" required>
                     </div>
                     <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
-                </form>      
+                </form>       -->
                 <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
                     <div style="margin-bottom: 6px;">
                         <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search">
@@ -97,10 +97,10 @@
                       </select>
                    </div>
                     <input onclick="validarFormulario(event)" type="submit" value="Agregar marca" class="btn btn-success">
-                </form>           -->
-            </div>
-            <div class="col-md-8">
-                <h3>MODELOS REGISTRADOS</h3>
+                </form> 
+            </div>-->
+            <div class="col-md-12">
+                <h3>MODELOS ENCONTRADOS</h3>
                 <form class="d-flex" th:action="@{/buscarModelo}" method="post">
                     <input id="inputBuscar" class="form-control me-2" type="text" name="marca" placeholder="Buscar Marca" aria-label="Search">
                     <input id="inputBuscar" class="form-control me-2" type="text" name="nombreModelo" placeholder="Buscar Modelo" aria-label="Search">
@@ -130,6 +130,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <a class="btn btn-danger" id="botoncrud" th:href="@{/modelo}"><img id="imgcrud" src="img/return.png" alt=""></a>
             </div>
         </div>
     </div>

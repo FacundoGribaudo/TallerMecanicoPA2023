@@ -35,13 +35,13 @@
                     <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="modelo.html">Modelo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="clientes.html">Clientes</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="tecnicos.html">Técnicos</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
                 </li>
                 
                 </ul>
@@ -66,6 +66,10 @@
                         <option selected hidden>Marca</option>
                         <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
                     </select>
+                    <!-- <select name="modelo" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Modelo</option>
+                        <option th:each="modelo : ${modelos}" th:value="${modelo.id_modelo}" th:text="${modelo.nombre}"></option>
+                    </select>                     -->
                     <input type="submit" value="Agregar vehiculo" class="btn btn-success">
                 </form>
 
@@ -94,6 +98,8 @@
                             <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>  
+                            <td></td>
+                            <td></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>

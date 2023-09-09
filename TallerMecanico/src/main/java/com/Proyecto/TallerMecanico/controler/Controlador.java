@@ -117,8 +117,6 @@ public class Controlador {
             }
         }
 
-        
-
         model.addAttribute("vehiculo", vehiculos); 
         model.addAttribute("marcasActivas", marcasActivas); 
         return "vehiculos";
@@ -173,6 +171,7 @@ public class Controlador {
         return "redirect:/modelo"; 
     }
 
+    //VER PORQUE NO CREO NECESARIO
     @GetMapping("/editarModelo/{id_modelo}")
     public String editarModelo(@PathVariable int id_modelo, Model model){
         Optional<Modelo> optionalModelo = servicesModelo.listarIdModelo(id_modelo);
@@ -199,6 +198,53 @@ public class Controlador {
 
         return "editarModelo"; 
     }
+
+    @PostMapping("/buscarModelo")
+    public String buscarModelo(Model model, @RequestParam("marca") String marca, @RequestParam("nombreModelo") String nombreModelo) {
+        List<Modelo> modelos = servicesModelo.listarModelos();
+        List<Modelo> modelosBuscados = new ArrayList<>();
+
+        // Normaliza las cadenas de búsqueda a mayúsculas para una comparación insensible a mayúsculas/minúsculas
+        String marcaBuscada = marca.toUpperCase();
+        String nombreModeloBuscado = nombreModelo.toUpperCase();
+
+        for (Modelo modelo : modelos) {
+            String nombreModeloActual = modelo.getNombre().toUpperCase();
+            String marcaActual = modelo.getMarca().getNombre().toUpperCase();
+
+            boolean coincideNombre = false;
+            boolean coincideMarca = false;
+
+            // Comprueba si el nombre del modelo coincide con la búsqueda
+            if (nombreModeloActual.equalsIgnoreCase(nombreModeloBuscado)) {
+                coincideNombre = true;
+            }
+
+            // Comprueba si la marca coincide con la búsqueda
+            if (marcaActual.equalsIgnoreCase(marcaBuscada)) {
+                coincideMarca = true;
+            }
+
+            // Si alguna de las búsquedas coincide (o ambas), agrega el modelo a la lista de resultados
+            if (coincideNombre || coincideMarca) {
+                modelosBuscados.add(modelo);
+            }
+        }
+
+        model.addAttribute("modelos", modelosBuscados);
+
+        // Verifica si no se encontraron modelos o si no se ingresó texto en ninguna de las búsquedas
+        if (modelosBuscados.isEmpty() || (marca.isEmpty() && nombreModelo.isEmpty())) {
+            return "redirect:/modelo";
+        }
+
+        return "buscarModelo";
+    }
+
+
+
+
+
 }
 
 
