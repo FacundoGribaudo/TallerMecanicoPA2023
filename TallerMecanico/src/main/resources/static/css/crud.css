@@ -3,18 +3,7 @@ body{
 }
 
 .row{
-  margin-top: 10%;
-}
-
-input, .modal {
-  color: black;
-}
-
-.alert {
-  margin-top: 25px;
-}
-th, td {
-  border-top: none !important;
+  margin-top: 5%;
 }
 
 #datoAuto{
@@ -29,28 +18,17 @@ h3 {
   letter-spacing: .1em;
 }
 
-.modal-content{
-  border-radius: 0;
+form{
+  text-align: center;
 }
 
-.modal-header, .modal-footer {
-  background-color: #333;
-  color: white;
-  border: 0;
+input{
+  margin-top: 3px;
+  margin-right: 10px;
 }
 
-.modal-body {
-  background: #2c3e50;
-  color: white;
-}
-
-.close, .close:hover {
-  color: white;
-}
-
-.btn {
-  font-weight: bolder;
-  letter-spacing: .2em;
+select{
+  margin-top: 3px;
 }
 
 #tdbotones{
@@ -73,4 +51,8 @@ h3 {
 
 #inputMarca{
   border-radius: 12px;
+}
+
+#botonAgregar{
+  margin-top: 5px;
 }

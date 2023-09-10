@@ -240,7 +240,7 @@ public class Controlador {
         }
 
         model.addAttribute("vehiculo", vehiculosBuscados);
-        return "vehiculos";
+        return "buscarVehiculo";
 
     }
 

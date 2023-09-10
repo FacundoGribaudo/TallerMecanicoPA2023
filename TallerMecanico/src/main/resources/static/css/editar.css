@@ -1,0 +1,26 @@
+body{
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.container{
+    max-width: 350px;
+    margin-top: 140px;
+}
+
+input{
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+select{
+    margin-top: 3px;
+}
+
+#botones{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

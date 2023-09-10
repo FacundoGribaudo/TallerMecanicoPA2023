@@ -24,7 +24,7 @@ h1{
 
 .container{
     padding: 0;
-    margin-top: 4%;
+    margin-top: 1%;
 }
 
 div.row{
@@ -53,4 +53,15 @@ div.row{
 
 #botonBuscar:hover{
     background-color:#1abc86 ;   /* fallback for old browsers */
+}
+
+#botonVolverBucar{
+    position: fixed;
+    padding: 5px; 
+    background-color: white; 
+    border-radius: 50%;
+}
+
+#botonVolverBucar:hover{
+    background-color: #1abc86;
 }

@@ -66,25 +66,25 @@
                 <h3>NUEVO VEHÍCULO</h3>
                 <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <div class="form-group">
-                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required>
-                        <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required>
+                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required disabled>
+                        <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required disabled>
                     </div>
-                    <select required name="marca" id="marcaAuto" class="form-select" form="addUserForm">
+                    <select disabled required name="marca" id="marcaAuto" class="form-select" form="addUserForm">
                         <option selected hidden>Marca</option>
                         <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
                             th:text="${marca.nombre}"></option>
                     </select>
-                    <select required name="modelo" id="modeloAuto" class="form-select" form="addUserForm">
+                    <select disabled required name="modelo" id="modeloAuto" class="form-select" form="addUserForm">
                         <option selected hidden>Modelo</option>
                         <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
                             th:text="${modelo.nombre}"></option>
                     </select>
-                    <select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
+                    <select disabled required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
                         <option selected hidden>Cliente</option>
                         <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
                             th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
                     </select>
-                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">
+                    <input disabled onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">
                 </form>
             </div>
 
@@ -122,6 +122,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <a id="botonVolverBucar" th:href="@{/vehiculos}"><img src="img/return.png" width="35px"></a>
             </div>
         </div>
     </div>
