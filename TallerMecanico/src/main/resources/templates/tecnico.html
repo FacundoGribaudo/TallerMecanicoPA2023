@@ -86,11 +86,17 @@
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                       </select>
+
+                      <select name="vehiculo" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Vehiculo</option>
+                        <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}"
+                            th:text="${v.patente}"></option>
+                    </select>
                     <input type="submit" value="Agregar Cliente" class="btn btn-success">
                 </form>
             </div>
             <div class="col-md-8">
-                <h3>CLIENTES REGISTRADOS</h3>
+                <h3>TECNICOS REGISTRADOS</h3>
                 <form th:action="@{/buscarTecnico}" method="POST" class="d-flex" role="search" id="formBuscar">
                     <input name="datosBuscados" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Cliente" aria-label="Search">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
@@ -103,6 +109,7 @@
                             <th>Apellido</th>
                             <th>Telefono</th>
                             <th>Direccion</th>
+                            <th>Vehiculo Asignado</th>
                             <th>Estado</th>
                             <th></th>
                             <th></th>
@@ -115,6 +122,7 @@
                             <td class="TECNICOData" th:text="${tecnico.apellido}"></td>
                             <td class="TECNICOData" th:text="${tecnico.telefono}"></td>
                             <td class="TECNICOData" th:text="${tecnico.direccion}"></td>
+                            <td class="TECNICOData" th:text="${tecnico.vehiculo.marca.nombre}+' '+${tecnico.vehiculo.modelo.nombre}+' - '+${tecnico.vehiculo.patente}"></td>
                             <td class="TECNICOData" th:text="${tecnico.estado}"></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarTecnico/}+${tecnico.id_tecnico}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>

@@ -1,5 +1,7 @@
 package com.Proyecto.TallerMecanico.domain;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -33,9 +35,15 @@ public class Vehiculo {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente; 
 
-    // @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    // @JoinColumn(name = "id_tecnico")
-    // private Tecnico tecnico;
+    //TODO Implementar correctamente la relacion muchos a muchos con tecnico. Pero preguntar como se hace. 
+    // @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    // @JoinTable(
+    //     name = "vehiculo_tecnico", joinColumns = @JoinColumn(name="id_vehiculo"),
+    //     inverseJoinColumns = @JoinColumn(name="id_tecnico")
+    // )
+    // private List<Tecnico> tecnicos; 
+
+    
 
     public Vehiculo(){
 

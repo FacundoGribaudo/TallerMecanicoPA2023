@@ -75,6 +75,7 @@
                             th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
                     </select>
                     <input type="submit" value="Agregar vehiculo" class="btn btn-success">
+                    <a th:href="@{/vehiculos}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
                 </form>  
             </div>
         </div>

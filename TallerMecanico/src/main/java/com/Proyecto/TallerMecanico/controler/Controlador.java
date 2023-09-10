@@ -126,8 +126,9 @@ public class Controlador {
         //Cliente
         List<Cliente> clientes = servicesCliente.listarClientes();
 
-        //Tecnicos
+        // //Tecnicos
         // List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+        // System.out.println(""+"Los tecnicos son: " + tecnicos); 
         // List<Tecnico> tecnicosActivos = new ArrayList<Tecnico>(); 
 
         //Unicamente permito vincular modelos de aquellas marcas que estan activas. 
@@ -146,14 +147,15 @@ public class Controlador {
             }
         }
 
-        //Unicamente permito seleccionar aquellos tecnicos que tienen estado "activo" (estan disponibles)
-        // for(Tecnico t:tecnicos){
-        //     if(t.getEstado().toUpperCase().equals("activo".toUpperCase(null))){
-        //         tecnicosActivos.add(t);
+        // //Muestro los tecnicos que estan en estado "activo" --> Disponibles para trabajar
+        // for (Tecnico t:tecnicos){
+        //     if(t.getEstado().toUpperCase().equals("activo".toUpperCase())){
+        //         // System.out.println(""+ "Los tecnicos activos son: " + t.getNombre()); 
+        //         tecnicosActivos.add(t); 
         //     }
         // }
 
-
+        System.out.println(""+ "Los objetos VEHICULO estan asi: " + vehiculos);
         
         model.addAttribute("vehiculo", vehiculos); 
         model.addAttribute("marcasActivas", marcasActivas); 
@@ -175,7 +177,7 @@ public class Controlador {
         return "redirect:/vehiculos"; 
     }
 
-    @GetMapping("/editarVehiculo/{id_vehiculo}") //TODO YA SE EDITA CORRECTAMENTE, FALTA AGREGAR EL TECNICO Y QUE SE AUTO COMPLETEN LOS CAMPOS DEL EDITAR
+    @GetMapping("/editarVehiculo/{id_vehiculo}")
     public String editarVehiculo(@PathVariable int id_vehiculo, Model model){
         Optional<Vehiculo> optionalVehiculo = servicesVehiculo.listarIdVehiculo(id_vehiculo);
 
@@ -253,7 +255,7 @@ public class Controlador {
 
         //Marcas 
         List<Marca> marcas = service.listarMarcas();
-        /* //TODO No importa si la marca esta activa o no, le puedo asociar un modelo igual.
+        /*
         List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
 
         for(int i=0; i<marcas.size(); i++){
@@ -394,8 +396,19 @@ public class Controlador {
     // ------------- ABM TECNICOS -------------
     @GetMapping("/tecnicos")
     public String listarTecnicos(Model model){
+        
+        /*
+         * DEFINIMOS QUE MUCHOS TECNICOS PUEDAN ESTAR EN UN MISMO VEHICULO
+         * ASI QUE DEBEMOS PODER SELECCIONAR Y MOSTRAR LOS VEHICULOS DONDE ESTAN 
+         * TRABAJANDO LOS TECNICOS
+         */
+        
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+
         model.addAttribute("tecnicos", tecnicos);
+        model.addAttribute("vehiculos", vehiculos);
+        
         return "tecnico";
     }
 
@@ -414,6 +427,7 @@ public class Controlador {
     @GetMapping("/editarTecnico/{id_tecnico}")
     public String editarTecnico(@PathVariable int id_tecnico, Model model){
         Optional<Tecnico> optionalTecnico = servicesTecnico.listarIdTecnico(id_tecnico);
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
 
         // Verifica si la marca existe antes de agregarla al modelo
         if (optionalTecnico.isPresent()) {
@@ -423,6 +437,7 @@ public class Controlador {
             // Manejar el caso en el que la marca no existe (puedes redirigir o mostrar un mensaje de error)
         }
 
+        model.addAttribute("vehiculos", vehiculos);
         return "editarTecnico"; 
     }
 
@@ -431,6 +446,8 @@ public class Controlador {
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
         List<Tecnico> tecnicosEncontrados = new ArrayList<Tecnico>();
         
+        
+
         for (Tecnico t:tecnicos){
             if(t.getEstado().toUpperCase().equals(estado.toUpperCase())){
                 tecnicosEncontrados.add(t);
@@ -441,6 +458,7 @@ public class Controlador {
             tecnicosEncontrados = tecnicos;
         }
 
+       
         model.addAttribute("tecnicos", tecnicosEncontrados);
 
         return "tecnico";

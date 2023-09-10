@@ -31,6 +31,10 @@ Probar ordenando el select para que quede mas lindo.
 
 - VERIFICAR TODAS LAS RELACIONES MUCHOS A 1
 
+
+- SE TIENE QUE IMPLEMENTAR CORRECTAMENTE LA RELACION MUCHOS A MUCHOS ENTRE VEHICULO Y CLIENTE, PERO TENEMOS QUE PREGUNTAR COMO HACERLO.
+ASI COMO ESTA FUNCIONA, PERO ES UNA RELACION MUCHOS A 1 (MUCOS TECNICOS A UN MISMO VEHICULO)
+
 ------------------------------------------------ DOCUMENTACION ------------------------------------------------
 
 - Usar DER nico pero terminarlo, faltan keys de referencia

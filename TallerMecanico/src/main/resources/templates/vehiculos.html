@@ -62,8 +62,6 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>NUEVO VEHÍCULO</h3>
-
-
                 <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <div class="form-group">
                         <input name="patente" class="form-control" type="text" id="name" placeholder="Patente" required>

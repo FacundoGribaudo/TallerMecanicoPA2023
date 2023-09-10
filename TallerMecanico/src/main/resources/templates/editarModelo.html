@@ -69,6 +69,7 @@
                         <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
                     </select>
                     <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
+                    <a th:href="@{/modelo}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
                 </form>
             </div>            
         </div>
