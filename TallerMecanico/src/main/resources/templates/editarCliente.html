@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,24 +52,27 @@
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
                 <h3>EDITAR MARCA</h3>
-                <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <input type="hidden" name="id_marca" th:field="*{id_marca}">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}">
+                <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
+                    <input type="hidden" name="id_cliente" th:field="*{id_cliente}">
+                    <div class="form-group">
+                        <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="nombre" required>
                     </div>
-                    <div style="margin-bottom: 6px;">
-                        <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                            <option selected hidden>Estado</option>
-                            <option value="Activo" th:selected="${marca.estado == 'Activo'}">Activo</option>
-                            <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
-                        </select>
+                    <div class="form-group">
+                        <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="apellido" required>
                     </div>
-
-                    <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
+                    <div class="form-group">
+                        <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" required>
+                    </div>
+                    <div class="form-group">
+                        <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <input name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required>
+                    </div>
+                    <input type="submit" value="Actualizar" class="btn btn-success" >
                 </form>  
             </div>
         </div>
     </div> 
     <script src="../js/marca.js"></script>
 </body>
-</html>

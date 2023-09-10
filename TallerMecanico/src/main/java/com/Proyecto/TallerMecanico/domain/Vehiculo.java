@@ -25,6 +25,18 @@ public class Vehiculo {
     @JoinColumn(name = "id_marca")
     private Marca marca; 
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_modelo")
+    private Modelo modelo; 
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente; 
+
+    // @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    // @JoinColumn(name = "id_tecnico")
+    // private Tecnico tecnico;
+
     public Vehiculo(){
 
     }

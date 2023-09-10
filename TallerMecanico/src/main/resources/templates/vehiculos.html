@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller Mecánico</title>
     <!--BOOTSTRAP-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
 
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
@@ -16,6 +20,7 @@
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
 
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg" id="barraNav">
@@ -23,27 +28,29 @@
             <a class="navbar-brand" th:href="@{/}">
                 <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
-                </li>
-                
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -55,30 +62,43 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>NUEVO VEHÍCULO</h3>
-                
-                
+
+
                 <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <div class="form-group">
                         <input name="patente" class="form-control" type="text" id="name" placeholder="Patente" required>
-                        <input name="kilometros" class="form-control" type="text" id="name" placeholder="Kilometros" required>
+                        <input name="kilometros" class="form-control" type="text" id="name" placeholder="Kilometros"
+                            required>
                     </div>
                     <select name="marca" id="inputState" class="form-select" form="addUserForm">
                         <option selected hidden>Marca</option>
-                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
+                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
+                            th:text="${marca.nombre}"></option>
                     </select>
-                    <!-- <select name="modelo" id="inputState" class="form-select" form="addUserForm">
+                    <select name="modelo" id="inputState" class="form-select" form="addUserForm">
                         <option selected hidden>Modelo</option>
-                        <option th:each="modelo : ${modelos}" th:value="${modelo.id_modelo}" th:text="${modelo.nombre}"></option>
-                    </select>                     -->
+                        <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
+                            th:text="${modelo.nombre}"></option>
+                    </select>
+                    <select name="cliente" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Cliente</option>
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
+                            th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
+                    </select>
                     <input type="submit" value="Agregar vehiculo" class="btn btn-success">
                 </form>
+
+
+
 
             </div>
             <div class="col-md-8">
                 <h3>VEHÍCULOS REGISTRADOS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
-                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Vehículo" aria-label="Search" name="patente">
-                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
+                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Vehículo"
+                        aria-label="Search">
+                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
+                            alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">
                     <thead>
@@ -88,6 +108,7 @@
                             <th>Kilometros</th>
                             <th>Marca</th>
                             <th>Modelo</th>
+                            <th>Cliente</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -97,10 +118,11 @@
                             <td class="VEHICULOData" th:text="${vehiculo.id_vehiculo}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>  
-                            <td></td>
-                            <td></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                            <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>
+                            <td class="VEHICULOData" th:text="${vehiculo.modelo.nombre}"></td>
+                            <td class="VEHICULOData" th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}"></td>
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>                        
                         </tr>
                     </tbody>
                 </table>
@@ -113,7 +135,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="updateModalLabel">Update User</h4>
                 </div>
                 <div class="modal-body" id="updateModalBody">
@@ -125,7 +148,7 @@
             </div>
         </div>
     </div>
-    
-    <script src="js/marca.js"></script>
+
 </body>
+
 </html>

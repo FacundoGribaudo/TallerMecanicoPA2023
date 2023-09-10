@@ -51,21 +51,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR MARCA</h3>
-                <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <input type="hidden" name="id_marca" th:field="*{id_marca}">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}">
+                <h3>EDITAR VEHICULO</h3>
+                <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
+                    <input type="hidden" name="id_vehiculo" th:field="*{id_vehiculo}">
+                    <div class="form-group">
+                        <input name="patente" class="form-control" type="text" id="name" placeholder="Patente" required>
+                        <input name="kilometros" class="form-control" type="text" id="name" placeholder="Kilometros"
+                            required>
                     </div>
-                    <div style="margin-bottom: 6px;">
-                        <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                            <option selected hidden>Estado</option>
-                            <option value="Activo" th:selected="${marca.estado == 'Activo'}">Activo</option>
-                            <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
-                        </select>
-                    </div>
-
-                    <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
+                    <select name="marca" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Marca</option>
+                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
+                            th:text="${marca.nombre}"></option>
+                    </select>
+                    <select name="modelo" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Modelo</option>
+                        <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
+                            th:text="${modelo.nombre}"></option>
+                    </select>
+                    <select name="cliente" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Cliente</option>
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
+                            th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
+                    </select>
+                    <input type="submit" value="Agregar vehiculo" class="btn btn-success">
                 </form>  
             </div>
         </div>

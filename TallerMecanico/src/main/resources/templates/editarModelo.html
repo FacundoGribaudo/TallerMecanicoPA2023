@@ -30,19 +30,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="vehiculos.html">Vehículo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="modelo.html">Modelo</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="clientes.html">Clientes</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="tecnicos.html">Técnicos</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
                 </li>
                 </ul>
             </div>
@@ -55,18 +55,20 @@
                 <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
                     <input type="hidden" name="id_modelo" th:field="*{id_modelo}">
                     <div class="form-group">
-                        <select name="marca" id="inputState" class="form-select" form="addUserForm" th:field="*{marca.id_marca}">
-                            <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input class="form-control" th:value="${modelo.nombre}" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" th:value="${modelo.descripcion}" type="text" id="descripcion" name="descripcion" placeholder="Descripción" required>
+                        <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
                     </div>
-                    <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success">
+                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                    <select name="marca" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Marca</option>
+                        <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
+                    </select>
+                    <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
                 </form>
             </div>            
         </div>

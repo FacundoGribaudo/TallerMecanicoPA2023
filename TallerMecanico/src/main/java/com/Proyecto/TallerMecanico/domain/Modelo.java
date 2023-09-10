@@ -8,11 +8,6 @@ import lombok.Data;
 @Table(name = "modelo") // Nombre de la tabla de modelos en la base de datos
 public class Modelo {
 
-    public Modelo(String nombre, String descripcion, String marca) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }    
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_modelo")
@@ -21,8 +16,8 @@ public class Modelo {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "estado")
+    private String estado;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "id_marca")
@@ -32,8 +27,14 @@ public class Modelo {
 
     }
 
+    public Modelo(String nombre, String estado, String marca) {
+        this.nombre = nombre;
+        this.estado = estado;
+    }  
+
+    /* 
     public Modelo(String nombre) {
         super();
         this.nombre = nombre;
-    }
+    }*/
 }

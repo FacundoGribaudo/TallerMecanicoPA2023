@@ -3,20 +3,26 @@ package com.Proyecto.TallerMecanico.controler;
 import org.springframework.ui.Model;
 import com.Proyecto.TallerMecanico.domain.Marca;
 import com.Proyecto.TallerMecanico.domain.Modelo;
+import com.Proyecto.TallerMecanico.domain.Tecnico;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
+import com.Proyecto.TallerMecanico.domain.Cliente;
 import com.Proyecto.TallerMecanico.interfaceServices.IModeloServices;
+import com.Proyecto.TallerMecanico.interfaceServices.IclienteServices;
 import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
+import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
-
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.ArrayList;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -32,6 +38,10 @@ public class Controlador {
     private IvehiculoServices servicesVehiculo;
     @Autowired
     private IModeloServices servicesModelo;
+    @Autowired
+    private IclienteServices servicesCliente;
+    @Autowired
+    private ItecnicoServices servicesTecnico; 
     
     @GetMapping("/")
     public String home(Model model){
@@ -98,18 +108,37 @@ public class Controlador {
     }
 
 
+
     // ------------- ABM VEHICULO -------------
     @GetMapping("/vehiculos")
     public String listarVehiculos(Model model){
         
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
-        
-        System.out.println("VEHICULOS GUARDADOS");
-        System.out.println(vehiculos);
 
         //Marcas 
         List<Marca> marcas = service.listarMarcas();
         List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+
+        //Modelo
+        List<Modelo> modelos = servicesModelo.listarModelos();
+        List<Modelo> modelosPermitidos = new ArrayList<Modelo>();
+
+        //Cliente
+        List<Cliente> clientes = servicesCliente.listarClientes();
+
+        //Tecnicos
+        // List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+        // List<Tecnico> tecnicosActivos = new ArrayList<Tecnico>(); 
+
+        //Unicamente permito vincular modelos de aquellas marcas que estan activas. 
+        for (Modelo m : modelos){
+            System.out.println(m.getMarca().getEstado());
+            if(m.getMarca().getEstado().toUpperCase().equals("activo".toUpperCase())){
+                modelosPermitidos.add(m);
+            }
+            System.out.println(modelosPermitidos);
+        }
+
 
         for(int i=0; i<marcas.size(); i++){
             if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
@@ -117,8 +146,20 @@ public class Controlador {
             }
         }
 
+        //Unicamente permito seleccionar aquellos tecnicos que tienen estado "activo" (estan disponibles)
+        // for(Tecnico t:tecnicos){
+        //     if(t.getEstado().toUpperCase().equals("activo".toUpperCase(null))){
+        //         tecnicosActivos.add(t);
+        //     }
+        // }
+
+
+        
         model.addAttribute("vehiculo", vehiculos); 
         model.addAttribute("marcasActivas", marcasActivas); 
+        model.addAttribute("modelosPermitidos", modelosPermitidos);
+        // model.addAttribute("tecnicos", tecnicosActivos);
+        model.addAttribute("clientes", clientes);
         return "vehiculos";
     }
 
@@ -129,9 +170,76 @@ public class Controlador {
     }  
 
     @GetMapping("/eliminarVehiculo/{id_vehiculo}")
-    public String delete(Vehiculo vehiculos,@PathVariable int id_vehiculo){
+    public String eliminarVehiculo(Model model, @PathVariable int id_vehiculo){
         servicesVehiculo.delete(id_vehiculo);
         return "redirect:/vehiculos"; 
+    }
+
+    @GetMapping("/editarVehiculo/{id_vehiculo}") //TODO YA SE EDITA CORRECTAMENTE, FALTA AGREGAR EL TECNICO Y QUE SE AUTO COMPLETEN LOS CAMPOS DEL EDITAR
+    public String editarVehiculo(@PathVariable int id_vehiculo, Model model){
+        Optional<Vehiculo> optionalVehiculo = servicesVehiculo.listarIdVehiculo(id_vehiculo);
+
+        // Verifica si la marca existe antes de agregarla al modelo
+        if (optionalVehiculo.isPresent()) {
+            Vehiculo vehiculo = optionalVehiculo.get();
+            model.addAttribute("vehiculo", vehiculo);
+        } else {
+            // Manejar el caso en el que la marca no existe (puedes redirigir o mostrar un mensaje de error)
+        }
+
+        //Marcas 
+        List<Marca> marcas = service.listarMarcas();
+        List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+
+        //Modelo
+        List<Modelo> modelos = servicesModelo.listarModelos();
+        List<Modelo> modelosPermitidos = new ArrayList<Modelo>();
+
+        //Cliente
+        List<Cliente> clientes = servicesCliente.listarClientes();
+
+        //Unicamente permito vincular modelos de aquellas marcas que estan activas. 
+        for (Modelo m : modelos){
+            System.out.println(m.getMarca().getEstado());
+            if(m.getMarca().getEstado().toUpperCase().equals("activo".toUpperCase())){
+                modelosPermitidos.add(m);
+            }
+            System.out.println(modelosPermitidos);
+        }
+        
+        for(int i=0; i<marcas.size(); i++){
+            if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
+                marcasActivas.add(marcas.get(i));
+            }
+        }
+
+        //model.addAttribute("vehiculo", vehiculos); 
+        model.addAttribute("marcasActivas", marcasActivas); 
+        model.addAttribute("modelosPermitidos", modelosPermitidos);
+        model.addAttribute("clientes", clientes);
+
+        return "editarVehiculo"; 
+    }
+
+    @PostMapping("/buscarVehiculo")
+    public String buscarVehiculo(Model model, String patente){
+
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos(); //Traigo todos los objetos de la db
+        List<Vehiculo> vehiculosBuscados = new ArrayList<Vehiculo>(); //Un segundo array que me almacena los objetos vehiculos que coinciden con la patente buscada
+
+        for(int i=0; i<vehiculos.size(); i++){
+            if(vehiculos.get(i).getPatente().toUpperCase().equals(patente.toUpperCase())){
+                vehiculosBuscados.add(vehiculos.get(i));
+            }
+        }
+
+        if(vehiculosBuscados.size() == 0){
+            vehiculosBuscados = vehiculos; 
+        }
+
+        model.addAttribute("vehiculo", vehiculosBuscados);
+        return "vehiculos";
+
     }
 
 
@@ -145,15 +253,16 @@ public class Controlador {
 
         //Marcas 
         List<Marca> marcas = service.listarMarcas();
+        /* //TODO No importa si la marca esta activa o no, le puedo asociar un modelo igual.
         List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
 
         for(int i=0; i<marcas.size(); i++){
             if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
                 marcasActivas.add(marcas.get(i));
             }
-        }
+        }*/ 
 
-        model.addAttribute("marcasActivas", marcasActivas); 
+        model.addAttribute("marcas", marcas); 
 
         return "modelo"; // Retorna la vista "modelo" para mostrar los modelos
     }
@@ -171,22 +280,23 @@ public class Controlador {
         return "redirect:/modelo"; 
     }
 
-    //VER PORQUE NO CREO NECESARIO
     @GetMapping("/editarModelo/{id_modelo}")
     public String editarModelo(@PathVariable int id_modelo, Model model){
         Optional<Modelo> optionalModelo = servicesModelo.listarIdModelo(id_modelo);
 
         //Marcas 
         List<Marca> marcas = service.listarMarcas();
-        List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
+        
+        //List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
 
+        /* 
         for(int i=0; i<marcas.size(); i++){
             if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
                 marcasActivas.add(marcas.get(i));
             }
-        }
+        }*/
 
-        model.addAttribute("marcasActivas", marcasActivas); 
+        model.addAttribute("marcas", marcas); 
 
         // Verifica si la marca existe antes de agregarla al modelo
         if (optionalModelo.isPresent()) {
@@ -200,52 +310,144 @@ public class Controlador {
     }
 
     @PostMapping("/buscarModelo")
-    public String buscarModelo(Model model, @RequestParam("marca") String marca, @RequestParam("nombreModelo") String nombreModelo) {
+    //TODO Ver si se busca tambien por marca, mepa medio al pedo.
+    public String buscarModelo(Model model, @RequestParam("nombreModelo") String nombre){
         List<Modelo> modelos = servicesModelo.listarModelos();
-        List<Modelo> modelosBuscados = new ArrayList<>();
-
-        // Normaliza las cadenas de búsqueda a mayúsculas para una comparación insensible a mayúsculas/minúsculas
-        String marcaBuscada = marca.toUpperCase();
-        String nombreModeloBuscado = nombreModelo.toUpperCase();
-
-        for (Modelo modelo : modelos) {
-            String nombreModeloActual = modelo.getNombre().toUpperCase();
-            String marcaActual = modelo.getMarca().getNombre().toUpperCase();
-
-            boolean coincideNombre = false;
-            boolean coincideMarca = false;
-
-            // Comprueba si el nombre del modelo coincide con la búsqueda
-            if (nombreModeloActual.equalsIgnoreCase(nombreModeloBuscado)) {
-                coincideNombre = true;
+        List<Modelo> modelosBuscados = new ArrayList<Modelo>();
+        
+        for(Modelo m : modelos){
+            if (m.getNombre().toUpperCase().equals(nombre.toUpperCase())){
+                modelosBuscados.add(m); 
             }
+        }
 
-            // Comprueba si la marca coincide con la búsqueda
-            if (marcaActual.equalsIgnoreCase(marcaBuscada)) {
-                coincideMarca = true;
-            }
-
-            // Si alguna de las búsquedas coincide (o ambas), agrega el modelo a la lista de resultados
-            if (coincideNombre || coincideMarca) {
-                modelosBuscados.add(modelo);
-            }
+        if (modelosBuscados.size() == 0){
+            modelosBuscados = modelos; 
         }
 
         model.addAttribute("modelos", modelosBuscados);
 
-        // Verifica si no se encontraron modelos o si no se ingresó texto en ninguna de las búsquedas
-        if (modelosBuscados.isEmpty() || (marca.isEmpty() && nombreModelo.isEmpty())) {
-            return "redirect:/modelo";
-        }
-
-        return "buscarModelo";
+        return "modelo"; 
     }
 
 
+    // ------------- ABM CLIENTE -------------
+    @GetMapping("/clientes")
+    public String listarClientes(Model model){
+        List<Cliente> clientes = servicesCliente.listarClientes();
+        model.addAttribute("clientes", clientes);
+        return "clientes"; 
+    }
+    
+    @PostMapping("/saveCliente")
+    public String agregarCliente(Cliente c, Model model){
+        servicesCliente.save(c);
+        return "redirect:/clientes"; 
+    }
+
+    @GetMapping("/eliminarCliente/{id_cliente}")
+    public String eliminarCliente(Model model, @PathVariable int id_cliente){
+        servicesCliente.delete(id_cliente);
+        return "redirect:/clientes";
+    }
+
+    @GetMapping("/editarCliente/{id_cliente}")
+    public String editarCliente(@PathVariable int id_cliente, Model model){
+        Optional<Cliente> optionalCliente = servicesCliente.listarIdCliente(id_cliente);
+
+        // Verifica si la marca existe antes de agregarla al modelo
+        if (optionalCliente.isPresent()) {
+            Cliente cliente = optionalCliente.get();
+            model.addAttribute("cliente", cliente);
+        } else {
+            // Manejar el caso en el que la marca no existe (puedes redirigir o mostrar un mensaje de error)
+        }
+
+        return "editarCliente"; 
+    }
+    
+    @PostMapping("/buscarCliente")
+    public String buscarCliente(Model model, @RequestParam("datoCliente") String dni){
+        List<Cliente> clientes = servicesCliente.listarClientes();
+        List<Cliente> clientesBuscados = new ArrayList<Cliente>();
+
+        
+        if(dni != " " && dni !="" ){
+            int dniEntero = Integer.parseInt(dni);
+            for (Cliente c:clientes){
+                if(c.getDni().intValue() == dniEntero){
+                    System.out.println("LOS VALORES COINCIDEN SE BUSCARA...");
+                    clientesBuscados.add(c);
+                }
+            }
+        }else{
+            System.out.println("SE INGRESO UNA CADENA VACIA, NO BUSCA NADA..");
+            clientesBuscados = clientes;
+        }
+
+        model.addAttribute("clientes", clientesBuscados);
+        return "clientes";
+
+    }
 
 
+    // ------------- ABM TECNICOS -------------
+    @GetMapping("/tecnicos")
+    public String listarTecnicos(Model model){
+        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+        model.addAttribute("tecnicos", tecnicos);
+        return "tecnico";
+    }
 
+    @PostMapping("/saveTecnico")
+    public String guardarTecnico(Tecnico t){
+        servicesTecnico.save(t);
+        return "redirect:/tecnicos";
+    }
+
+    @GetMapping("/eliminarTecnico/{id_tecnico}")
+    public String eliminarTecnico(Model model, @PathVariable int id_tecnico){
+        servicesTecnico.delete(id_tecnico);
+        return "redirect:/tecnicos"; 
+    }
+
+    @GetMapping("/editarTecnico/{id_tecnico}")
+    public String editarTecnico(@PathVariable int id_tecnico, Model model){
+        Optional<Tecnico> optionalTecnico = servicesTecnico.listarIdTecnico(id_tecnico);
+
+        // Verifica si la marca existe antes de agregarla al modelo
+        if (optionalTecnico.isPresent()) {
+            Tecnico tecnico = optionalTecnico.get();
+            model.addAttribute("tecnico", tecnico);
+        } else {
+            // Manejar el caso en el que la marca no existe (puedes redirigir o mostrar un mensaje de error)
+        }
+
+        return "editarTecnico"; 
+    }
+
+    @PostMapping("/buscarTecnico") //TODO Definir por que parametro buscar, esta filtrado por "estado"
+    public String buscarTecnico(Model model, @RequestParam("datosBuscados") String estado){
+        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+        List<Tecnico> tecnicosEncontrados = new ArrayList<Tecnico>();
+        
+        for (Tecnico t:tecnicos){
+            if(t.getEstado().toUpperCase().equals(estado.toUpperCase())){
+                tecnicosEncontrados.add(t);
+            }
+        }
+
+        if (tecnicosEncontrados.size() == 0){
+            tecnicosEncontrados = tecnicos;
+        }
+
+        model.addAttribute("tecnicos", tecnicosEncontrados);
+
+        return "tecnico";
+    }
 }
+
+
 
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,10 +40,10 @@
                     <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="clientes.html">Clientes</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="tecnicos.html">Técnicos</a>
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
                 </li>
                 <!--
                 <li class="nav-item dropdown">
@@ -72,17 +72,19 @@
                 <h3>NUEVO MODELO</h3>
                 <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
                     <div class="form-group">
-                        <select name="marca" id="inputState" class="form-select" form="addUserForm">
-                            <option selected hidden>Marca</option>
-                            <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
-                        </select>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Descripción" required>
-                    </div>
+                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                    <select name="marca" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Marca</option>
+                        <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
+                    </select>
                     <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
                 </form>      
                 <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
@@ -112,7 +114,7 @@
                             <th>ID</th>
                             <th>Marca</th>
                             <th>Modelo</th>
-                            <th>Descripcion</th>
+                            <th>Estado</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -123,9 +125,9 @@
                             <td class="modeloData" th:text="${modelo.id_modelo}"></td>
                             <td class="modeloData" th:text="${modelo.marca.nombre}"></td>
                             <td class="modeloData" th:text="${modelo.nombre}"></td>
-                            <td class="modeloData" th:text="${modelo.descripcion}"></td>
+                            <td class="modeloData" th:text="${modelo.estado}"></td>
                             <td></td>
-                            <!-- <td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td> -->
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarModelo/}+${modelo.id_modelo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>

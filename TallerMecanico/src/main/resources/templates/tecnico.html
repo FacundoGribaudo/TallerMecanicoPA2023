@@ -62,13 +62,13 @@
         </div>
     </nav>
 
-    <h1>CLIENTES</h1>
+    <h1>TECNICOS</h1>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3>NUEVO CLIENTES</h3>
-                <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
+                <h3>NUEVO TECNICO</h3>
+                <form id="addUserForm" th:action="@{/saveTecnico}" th:object="${tecnico}" method="POST">
                     <div class="form-group">
                         <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="nombre" required>
                     </div>
@@ -76,21 +76,23 @@
                         <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="apellido" required>
                     </div>
                     <div class="form-group">
-                        <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" required>
-                    </div>
-                    <div class="form-group">
                         <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required>
                     </div>
                     <div class="form-group">
-                        <input name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required>
+                        <input name="direccion" class="form-control" type="text" id="localidadCliente" placeholder="Direccion" required>
                     </div>
+                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
+                        <option selected hidden>Estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                      </select>
                     <input type="submit" value="Agregar Cliente" class="btn btn-success">
                 </form>
             </div>
             <div class="col-md-8">
                 <h3>CLIENTES REGISTRADOS</h3>
-                <form th:action="@{/buscarCliente}" method="POST" class="d-flex" role="search" id="formBuscar">
-                    <input name="datoCliente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Cliente" aria-label="Search">
+                <form th:action="@{/buscarTecnico}" method="POST" class="d-flex" role="search" id="formBuscar">
+                    <input name="datosBuscados" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Cliente" aria-label="Search">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">
@@ -99,23 +101,23 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <th>DNI</th>
                             <th>Telefono</th>
-                            <th>Localidad</th>
+                            <th>Direccion</th>
+                            <th>Estado</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="cliente : ${clientes}">
-                            <td class="CLIENTEData" th:text="${cliente.id_cliente}"></td>
-                            <td class="CLIENTEData" th:text="${cliente.nombre}"></td>
-                            <td class="CLIENTEData" th:text="${cliente.apellido}"></td> 
-                            <td class="CLIENTEData" th:text="${cliente.dni}"></td>
-                            <td class="CLIENTEData" th:text="${cliente.telefono}"></td> 
-                            <td class="CLIENTEData" th:text="${cliente.localidad}"></td>  
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarCliente/}+${cliente.id_cliente}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarCliente/}+${cliente.id_cliente}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                        <tr th:each="tecnico : ${tecnicos}">
+                            <td class="TECNICOData" th:text="${tecnico.id_tecnico}"></td>
+                            <td class="TECNICOData" th:text="${tecnico.nombre}"></td>
+                            <td class="TECNICOData" th:text="${tecnico.apellido}"></td>
+                            <td class="TECNICOData" th:text="${tecnico.telefono}"></td>
+                            <td class="TECNICOData" th:text="${tecnico.direccion}"></td>
+                            <td class="TECNICOData" th:text="${tecnico.estado}"></td>
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarTecnico/}+${tecnico.id_tecnico}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
