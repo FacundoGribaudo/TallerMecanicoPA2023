@@ -1,16 +1,3 @@
-#botonBuscar{
-    height: 50px;
-    width: 120px;
-    border-radius: 55%;
-    border: none;
-    background-color: white;
-    padding: 0;
-}
-
-#botonBuscar:hover{
-    background-color:#1abc86 ;   /* fallback for old browsers */
-}
-
 .d-flex{
     margin-bottom: 8px;
 }

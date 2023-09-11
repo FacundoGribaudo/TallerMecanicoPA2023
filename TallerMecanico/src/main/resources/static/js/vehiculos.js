@@ -17,7 +17,15 @@ function agregarVehiculo(event){
             'error'
         );
         return
-    }else{
+    }else if(isNaN(km)){ //si no es un nro es verdadero y entra
+        Swal.fire(
+            'Error!',
+            'Los kilómetros deben ser un número!',
+            'error'
+        );
+        return
+    }
+    else{
         document.getElementById("addUserForm").submit();
     }
 

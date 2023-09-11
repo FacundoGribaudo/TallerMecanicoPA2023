@@ -13,7 +13,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/editarMarca.css">
+    <link rel="stylesheet" href="../css/editar.css">
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
@@ -51,29 +51,32 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR MARCA</h3>
+                <h3>EDITAR CLIENTE</h3>
                 <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
                     <input type="hidden" name="id_cliente" th:field="*{id_cliente}">
                     <div class="form-group">
-                        <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="nombre" required>
+                        <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="Nombre" th:value="${cliente.nombre}" required>
                     </div>
                     <div class="form-group">
-                        <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="apellido" required>
+                        <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="Apellido" th:value="${cliente.apellido}" required>
                     </div>
                     <div class="form-group">
-                        <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" required>
+                        <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" required th:value="${cliente.dni}" maxlength="8">
                     </div>
                     <div class="form-group">
-                        <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required>
+                        <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required th:value="${cliente.telefono}">
                     </div>
                     <div class="form-group">
-                        <input name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required>
+                        <input name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required th:value="${cliente.localidad}">
                     </div>
-                    <input type="submit" value="Actualizar" class="btn btn-success" >
-                    <a th:href="@{/clientes}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    <div id="botones">
+                        <input onclick="agregarCliente(event)" type="submit" value="Actualizar" class="btn btn-success" >
+                        <a th:href="@{/clientes}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    </div>
+                    
                 </form>  
             </div>
         </div>
     </div> 
-    <script src="../js/marca.js"></script>
+    <script src="../js/clientes.js"></script>
 </body>

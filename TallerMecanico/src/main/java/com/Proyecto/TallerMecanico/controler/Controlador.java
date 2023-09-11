@@ -433,7 +433,7 @@ public class Controlador {
         List<Cliente> clientesBuscados = new ArrayList<Cliente>();
 
         
-        if(dni != " " && dni !="" ){
+        if(dni != null && !dni.isEmpty() && dni.matches("\\d+")){
             int dniEntero = Integer.parseInt(dni);
             for (Cliente c:clientes){
                 if(c.getDni().intValue() == dniEntero){

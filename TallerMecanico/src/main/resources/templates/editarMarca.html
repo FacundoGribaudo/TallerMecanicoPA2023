@@ -64,9 +64,12 @@
                             <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
                         </select>
                     </div>
+                    <div id="botones">
+                        <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
+                        <a th:href="@{/marca}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    </div>
 
-                    <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
-                    <a th:href="@{/marca}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    
                 </form>  
             </div>
         </div>

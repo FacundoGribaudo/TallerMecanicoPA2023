@@ -1,4 +1,4 @@
-console.log("vinculado");
+console.log("vinculado marca.js");
 function validarFormulario(event) {
     event.preventDefault(); // Evita el envío del formulario por defecto
 
@@ -22,8 +22,4 @@ function validarFormulario(event) {
     else{
         document.getElementById("addUserForm").submit();
     }
-} 
-
-function confirmarEliminar(){
-    return confirm("Estas seguro de eliminar?");
 }

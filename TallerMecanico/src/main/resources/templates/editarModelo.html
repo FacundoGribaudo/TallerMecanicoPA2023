@@ -13,7 +13,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/editarMarca.css">
+    <link rel="stylesheet" href="../css/editar.css">
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
@@ -57,22 +57,26 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                        <input th:value="${modelo.nombre}" class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" required>
                     </div>
-                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
+                    <select th:value="${modelo.estado}" name="estado" id="estadoModelo" class="form-select" form="addUserForm">
+                        <option selected hidden th:value="${modelo.estado}" th:text="${modelo.estado}"></option>
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
-                    <select name="marca" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Marca</option>
+                    <select th:value="${modelo.marca.id_marca}" name="marca" id="marcaModelo" class="form-select" form="addUserForm">
+                        <option selected hidden th:value="${modelo.marca.id_marca}" th:text="${modelo.marca.nombre}"></option>
                         <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
                     </select>
-                    <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
-                    <a th:href="@{/modelo}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    <div id="botones">
+                        <input id="botonAgregar" onclick="agregarModelo(event)" type="submit" value="Actualizar" class="btn btn-success">
+                        <a th:href="@{/modelo}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    </div>
                 </form>
             </div>            
         </div>
     </div> 
+
+    <script src="../js/modelo.js"></script>
 </body>
 </html>
