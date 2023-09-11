@@ -14,13 +14,6 @@ function agregarModelo(event){
             'error'
         );
         return
-    }else if(!isNaN(modelo)){
-        Swal.fire(
-            'Error!',
-            'El modelo no puede ser un número',
-            'error'
-        );
-        return
     }else{
         document.getElementById("addUserForm").submit();
     }
