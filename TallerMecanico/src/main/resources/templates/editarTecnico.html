@@ -13,7 +13,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/editarMarca.css">
+    <link rel="stylesheet" href="../css/editar.css">
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
@@ -51,35 +51,39 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR TECNICO</h3>
+                <h3>EDITAR TÉCNICO</h3>
                 <form id="addUserForm" th:action="@{/saveTecnico}" th:object="${tecnico}" method="POST">
                     <input type="hidden" name="id_tecnico" th:field="*{id_tecnico}">
                     <div class="form-group">
-                        <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="nombre" required>
+                        <input hidden name="legajo" class="form-control" type="text" id="legajoTecnico" placeholder="Legajo" required th:value="${tecnico.legajo}">
+                        <input type="text" class="form-control" disabled th:value="${tecnico.legajo}">
                     </div>
                     <div class="form-group">
-                        <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="apellido" required>
+                        <input name="nombre" class="form-control" type="text" id="nombreTecnico" placeholder="Nombre" required th:value="${tecnico.nombre}">
                     </div>
                     <div class="form-group">
-                        <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required>
+                        <input name="apellido" class="form-control" type="text" id="apellidoTecnico" placeholder="Apellido" required th:value="${tecnico.apellido}">
                     </div>
                     <div class="form-group">
-                        <input name="legajo" class="form-control" type="text" id="localidadCliente" placeholder="Legajo" required>
+                        <input name="telefono" class="form-control" type="text" id="telefonoTecnico" placeholder="Telefono" required th:value="${tecnico.telefono}">
                     </div>
-                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
+                    <select name="estado" id="estadoTecnico" class="form-select" form="addUserForm">
+                        <option selected hidden th:value="${tecnico.estado}" th:text="${tecnico.estado}"></option>
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
-                    <select name="vehiculo" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Vehiculo</option>
-                        <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}" th:text="${v.patente}"></option>
+                    <select name="vehiculo" id="vehiculoTecnico" class="form-select" form="addUserForm">
+                        <option selected hidden th:value="${tecnico.vehiculo.id_vehiculo}" th:text="${tecnico.vehiculo.marca.nombre}+' '+${tecnico.vehiculo.modelo.nombre}+' - '+${tecnico.vehiculo.patente}"></option>
+                        <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}" th:text="${v.marca.nombre}+' '+${v.modelo.nombre}+' - '+${v.patente}"></option>
                     </select>
-                    <input type="submit" value="Agregar Cliente" class="btn btn-success">
-                    <a th:href="@{/tecnicos}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    <div id="botones">
+                        <input onclick="agregarTecnico(event)" type="submit" value="Actualizar" class="btn btn-success">
+                        <a th:href="@{/tecnicos}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                    </div>
+                    
                 </form>  
             </div>
         </div>
     </div> 
-    <script src="../js/marca.js"></script>
+    <script src="../js/tecnico.js"></script>
 </body>

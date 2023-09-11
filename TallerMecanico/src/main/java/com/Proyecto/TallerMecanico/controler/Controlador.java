@@ -458,7 +458,6 @@ public class Controlador {
     public String buscarCliente(Model model, @RequestParam("datoCliente") String dni){
         List<Cliente> clientes = servicesCliente.listarClientes();
         List<Cliente> clientesBuscados = new ArrayList<Cliente>();
-
         
         if(dni != null && !dni.isEmpty() && dni.matches("\\d+")){
             int dniEntero = Integer.parseInt(dni);

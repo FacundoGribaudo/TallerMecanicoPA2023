@@ -55,7 +55,9 @@
                 <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <input type="hidden" name="id_vehiculo" th:field="*{id_vehiculo}">
                     <div class="form-group">
-                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" th:value="${vehiculo.patente}" required>
+                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" th:value="${vehiculo.patente}" required hidden>
+                        <input type="text" class="form-control" disabled th:value="${vehiculo.patente}">
+
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" th:value="${vehiculo.kilometros}" required>
                     </div>
                     <select name="marca" id="marcaAuto" class="form-select" form="addUserForm">
