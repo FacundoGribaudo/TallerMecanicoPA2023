@@ -1,5 +1,5 @@
-- al actualizar un vehiculo, solo los km no se actualizan
-
 - cuando se registra un tecnico o cliente, se debería poder registrar SIN asociar a un vehiculo
 
 - ver que no se agreguen dos cosas iguales (vehiculo, modelo, marca, cliente y tecnico)
+
+- SI VALIDAMOS QUE SE REPITAN LOS DATOS, FUNCIONA MAL EL MODIFICAR (VER)

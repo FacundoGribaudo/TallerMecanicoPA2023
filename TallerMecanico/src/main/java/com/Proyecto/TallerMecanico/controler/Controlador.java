@@ -59,19 +59,20 @@ public class Controlador {
     
     @PostMapping("/save")
     public String saveMarca(Marca m, Model model){
-        List<Marca> marcas = service.listarMarcas();
-        Boolean guardoMarca = true;
+        // List<Marca> marcas = service.listarMarcas();
+        // Boolean guardoMarca = true;
 
-        for(Marca mar:marcas){
-            if(mar.getNombre().toUpperCase().equals(m.getNombre().toUpperCase())){
-                System.out.println("son iguale ");
-                guardoMarca = false;
-            }
-        }
+        // for(Marca mar:marcas){
+        //     if(mar.getNombre().toUpperCase().equals(m.getNombre().toUpperCase())){
+        //         System.out.println("son iguale ");
+        //         guardoMarca = false;
+        //     }
+        // }
         
-        if(guardoMarca == true){
-            service.save(m); 
-        }
+        // if(guardoMarca == true){
+        //     service.save(m); 
+        // }
+        service.save(m);
         return "redirect:/marca";
     }
     
@@ -196,18 +197,19 @@ public class Controlador {
 
     @PostMapping("/saveVehiculo")
     public String guardarVehiculo(Vehiculo v, Model model){
-        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
-        Boolean guardarVehiculo = true;
+        // List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+        // Boolean guardarVehiculo = true;
 
-        for(Vehiculo ve:vehiculos){
-            if(ve.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())){
-                guardarVehiculo = false;
-            }
-        }
+        // for(Vehiculo ve:vehiculos){
+        //     if(ve.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())){
+        //         guardarVehiculo = false;
+        //     }
+        // }
 
-        if(guardarVehiculo == true){
-            servicesVehiculo.save(v);
-        }
+        // if(guardarVehiculo == true){
+        //     servicesVehiculo.save(v);
+        // }
+        servicesVehiculo.save(v);
         return "redirect:/vehiculos"; 
     }  
 
@@ -315,19 +317,20 @@ public class Controlador {
 
     @PostMapping("/saveModelo")
     public String agregarModelo(Modelo mo, Model model) {
-        List<Modelo> modelos = servicesModelo.listarModelos();
-        Boolean guardoModelo = true;
+        // List<Modelo> modelos = servicesModelo.listarModelos();
+        // Boolean guardoModelo = true;
 
-        for(Modelo mod:modelos){
-            if(mod.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())){
-                System.out.println("son iguale ");
-                guardoModelo = false;
-            }
-        }
+        // for(Modelo mod:modelos){
+        //     if(mod.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())){
+        //         System.out.println("son iguale ");
+        //         guardoModelo = false;
+        //     }
+        // }
         
-        if(guardoModelo == true){
-            servicesModelo.save(mo); 
-        }
+        // if(guardoModelo == true){
+        //     servicesModelo.save(mo); 
+        // }
+        servicesModelo.save(mo); 
         return "redirect:/modelo";
     }
  
@@ -401,18 +404,19 @@ public class Controlador {
     
     @PostMapping("/saveCliente")
     public String agregarCliente(Cliente c, Model model){
-        List<Cliente> clientes = servicesCliente.listarClientes();
-        Boolean cargarCliente = true;
+        // List<Cliente> clientes = servicesCliente.listarClientes();
+        // Boolean cargarCliente = true;
 
-        for(Cliente cliente:clientes){
-            if(cliente.getDni().equals(c.getDni())){
-                cargarCliente = false;
-            }
-        }
+        // for(Cliente cliente:clientes){
+        //     if(cliente.getDni().equals(c.getDni())){
+        //         cargarCliente = false;
+        //     }
+        // }
         
-        if(cargarCliente == true){
-            servicesCliente.save(c);
-        }
+        // if(cargarCliente == true){
+        //     servicesCliente.save(c);
+        // }
+        servicesCliente.save(c);
         return "redirect:/clientes"; 
     }
 
@@ -496,18 +500,18 @@ public class Controlador {
 
     @PostMapping("/saveTecnico")
     public String guardarTecnico(Tecnico t){
-        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
-        Boolean guardarTecnico = true;
+        // List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+        // Boolean guardarTecnico = true;
 
-        for(Tecnico tec:tecnicos){
-            if(tec.getLegajo().toUpperCase().equals(t.getLegajo().toUpperCase()))
-                guardarTecnico = false;
-        }
+        // for(Tecnico tec:tecnicos){
+        //     if(tec.getLegajo().toUpperCase().equals(t.getLegajo().toUpperCase()))
+        //         guardarTecnico = false;
+        // }
 
-        if (guardarTecnico == true){
-            servicesTecnico.save(t);
-        }
-
+        // if (guardarTecnico == true){
+        //     servicesTecnico.save(t);
+        // }
+        servicesTecnico.save(t);
         return "redirect:/tecnicos";
     }
 
