@@ -25,8 +25,8 @@ public class Tecnico {
     @Column(name = "telefono")
     private BigInteger telefono;
 
-    @Column(name = "direccion")
-    private String direccion; 
+    @Column(name = "legajo")
+    private String legajo; 
 
     @Column(name = "estado")
     private String estado; 
@@ -41,12 +41,12 @@ public class Tecnico {
 
     public Tecnico(){}
 
-    public Tecnico(String nombre, String apellido, BigInteger tel, String direccion, String estado){
+    public Tecnico(String nombre, String apellido, BigInteger tel, String leg, String estado){
         super();
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = tel;
-        this.direccion = direccion;
+        this.legajo = leg;
         this.estado = estado; 
     }
 

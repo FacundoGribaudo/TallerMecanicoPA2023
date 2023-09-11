@@ -11,8 +11,6 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/modelo.css">
-
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
@@ -52,8 +50,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Vehículo</a></li>
-                        <li><a class="dropdown-item" href="#">Marca</a></li>
-                        <li><a class="dropdown-item" href="#">Modelo</a></li>
+                        <li><a class="dropdown-item" href="#">Cliente</a></li>
+                        <li><a class="dropdown-item" href="#">Cliente</a></li>
                         <li><a class="dropdown-item" href="#">Cliente</a></li>
                         <li><a class="dropdown-item" href="#">Técnico</a></li>
                     </ul>
@@ -64,77 +62,85 @@
         </div>
     </nav>
 
-    <h1>MODELO</h1>
+    <h1>CLIENTES</h1>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3>NUEVO MODELO</h3>
-                <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
+                <h3>NUEVO CLIENTES</h3>
+                <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
                     <div class="form-group">
+                        <input disabled name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="nombre" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                        <input disabled name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="apellido" required>
                     </div>
-                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
-                    <select name="marca" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Marca</option>
-                        <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
-                    </select>
-                    <button class="btn btn-primary form-control" type="submit" id="submitBtn">Agregar</button>
-                </form>      
-                <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search">
-                    </div>  
-                   <div style="margin-bottom: 6px;"> 
-                       <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                      </select>
-                   </div>
-                    <input onclick="validarFormulario(event)" type="submit" value="Agregar marca" class="btn btn-success">
-                </form>           -->
+                    <div class="form-group">
+                        <input disabled name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" required>
+                    </div>
+                    <div class="form-group">
+                        <input disabled name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <input disabled name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required>
+                    </div>
+                    <input disabled type="submit" value="Agregar Cliente" class="btn btn-primary form-control">
+                </form>
             </div>
             <div class="col-md-8">
-                <h3>MODELOS REGISTRADOS</h3>
-                <form class="d-flex" th:action="@{/buscarModelo}" method="post">
-                   <!--<input id="inputBuscar" class="form-control me-2" type="text" name="marca" placeholder="Buscar Marca" aria-label="Search">-->
-                    <input id="inputBuscar" class="form-control me-2" type="text" name="nombreModelo" placeholder="Buscar nombre modelo" aria-label="Search">
+                <h3>CLIENTES REGISTRADOS</h3>
+                <form th:action="@{/buscarCliente}" method="POST" class="d-flex" role="search" id="formBuscar">
+                    <input name="datoCliente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar DNI Cliente" aria-label="Search">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
-                </form>                
+                </form>
                 <table id="userTable" class="table table-striped">
-                    <thead id="encabezado">
+                    <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Estado</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Telefono</th>
+                            <th>Localidad</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Itera a través de los modelos -->
-                        <tr th:each="modelo : ${modelos}">
-                            <td class="modeloData" th:text="${modelo.id_modelo}"></td>
-                            <td class="modeloData" th:text="${modelo.marca.nombre}"></td>
-                            <td class="modeloData" th:text="${modelo.nombre}"></td>
-                            <td class="modeloData" th:text="${modelo.estado}"></td>
-                            <td></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarModelo/}+${modelo.id_modelo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                        <tr th:each="cliente : ${clientes}">
+                            <td class="CLIENTEData" th:text="${cliente.id_cliente}"></td>
+                            <td class="CLIENTEData" th:text="${cliente.nombre}"></td>
+                            <td class="CLIENTEData" th:text="${cliente.apellido}"></td> 
+                            <td class="CLIENTEData" th:text="${cliente.dni}"></td>
+                            <td class="CLIENTEData" th:text="${cliente.telefono}"></td> 
+                            <td class="CLIENTEData" th:text="${cliente.localidad}"></td>  
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarCliente/}+${cliente.id_cliente}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarCliente/}+${cliente.id_cliente}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
+                <a id="botonVolverBucar" th:href="@{/clientes}"><img src="img/return.png" width="35px"></a>
             </div>
         </div>
     </div>
-    <script src="js/marca.js"></script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="updateModalLabel">Update User</h4>
+                </div>
+                <div class="modal-body" id="updateModalBody">
+                    <!-- El formulario de actualización se agregará aquí -->
+                </div>
+                <div class="modal-footer" id="updateModalFooter">
+                    <!-- Los botones se agregarán aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
