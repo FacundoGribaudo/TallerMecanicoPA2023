@@ -59,7 +59,19 @@ public class Controlador {
     
     @PostMapping("/save")
     public String saveMarca(Marca m, Model model){
-        service.save(m); 
+        List<Marca> marcas = service.listarMarcas();
+        Boolean guardoMarca = true;
+
+        for(Marca mar:marcas){
+            if(mar.getNombre().toUpperCase().equals(m.getNombre().toUpperCase())){
+                System.out.println("son iguale ");
+                guardoMarca = false;
+            }
+        }
+        
+        if(guardoMarca == true){
+            service.save(m); 
+        }
         return "redirect:/marca";
     }
     
@@ -303,8 +315,19 @@ public class Controlador {
 
     @PostMapping("/saveModelo")
     public String agregarModelo(Modelo mo, Model model) {
+        List<Modelo> modelos = servicesModelo.listarModelos();
+        Boolean guardoModelo = true;
+
+        for(Modelo mod:modelos){
+            if(mod.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())){
+                System.out.println("son iguale ");
+                guardoModelo = false;
+            }
+        }
         
-        servicesModelo.save(mo); 
+        if(guardoModelo == true){
+            servicesModelo.save(mo); 
+        }
         return "redirect:/modelo";
     }
  
