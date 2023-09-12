@@ -34,3 +34,15 @@ function agregarVehiculo(event){
 function eliminarVehiculo(){
     return confirm("Esta seguro de eliminar el vehículo?");
 }
+
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
+if (mensaje == 'false') {
+    Swal.fire(
+        'Error!',
+        'Este vehículo tiene asociado un técnico registrado, no es posible borrar',
+        'error'
+    );
+}

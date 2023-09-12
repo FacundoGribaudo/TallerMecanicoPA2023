@@ -18,3 +18,15 @@ function agregarModelo(event){
         document.getElementById("addUserForm").submit();
     }
 }
+
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
+if (mensaje == 'false') {
+    Swal.fire(
+        'Error!',
+        'Este Modelo está asociada a un vehículo registrado, no es posible borrar',
+        'error'
+    );
+}

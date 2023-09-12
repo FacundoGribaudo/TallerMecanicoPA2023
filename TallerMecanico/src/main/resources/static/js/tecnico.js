@@ -24,7 +24,15 @@ function agregarTecnico(event){
             'error'
         );
         return
-    }else{
+    }else if(isNaN(legajoTecnico)){
+        Swal.fire(
+            'Error!',
+            'El legajo debe ser un número',
+            'error'
+        );
+        return
+    }
+    else{
         document.getElementById("addUserForm").submit();
     }
 

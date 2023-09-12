@@ -96,7 +96,15 @@
                         </tr>
                     </tbody>
                 </table>
-                <div th:if="${mensaje == false}"><h4>ELIMINA LOS REGISTROS RELACIONADOS</h4></div>
+                <div th:if="${param.mensaje == 'true'}">
+                    <p>La marca ha sido eliminada con éxito.</p>
+                </div>
+                <div th:if="${param.mensaje == 'false'}">
+                    <p>Hay registros relacionados y no se puede eliminar la marca.</p>
+                </div>
+                 
+                 
+                                
             </div>
         </div>
     </div>

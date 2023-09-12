@@ -110,9 +110,12 @@ public class Controlador {
             service.delete(id_marca);
         }else{System.out.println("HAY REGISTROS RELACIONADOS");}        
         
-        //TODO Puse esta condicion en el html pero no se como pasarla para que la entienda. Porque ahora lo que estoy haciendo es redirigir al primer url que renderiza todo sin esta condicion 
-        model.addAttribute("mensaje", eliminarMarca);
-        return "redirect:/marca"; 
+        // Antes de la redirección
+        String mensaje = eliminarMarca ? "true" : "false";
+        String urlRedireccion = "redirect:/marca?mensaje=" + mensaje;
+        return urlRedireccion;
+
+
     }
     
     @PostMapping("/buscar")
@@ -229,7 +232,10 @@ public class Controlador {
             servicesVehiculo.delete(id_vehiculo);
         }else{System.out.println("NO SE PUEDE ELIMINAR EL VEHICULO, ELIMINA LOS REGISTROS RELACIONADOS");}
         
-        return "redirect:/vehiculos"; 
+        // Antes de la redirección
+        String mensaje = eliminarVehiculo ? "true" : "false";
+        String urlRedireccion = "redirect:/vehiculos?mensaje=" + mensaje;
+        return urlRedireccion;
     }
 
     @GetMapping("/editarVehiculo/{id_vehiculo}")
@@ -351,8 +357,10 @@ public class Controlador {
             servicesModelo.delete(id_modelo);
         }else{System.out.println("NO PODES ELIMINAR, ESTA RELACIONADO");}
 
-        
-        return "redirect:/modelo"; 
+        // Antes de la redirección
+        String mensaje = eliminarModelo ? "true" : "false";
+        String urlRedireccion = "redirect:/modelo?mensaje=" + mensaje;
+        return urlRedireccion;
     }
 
     @GetMapping("/editarModelo/{id_modelo}")
@@ -436,7 +444,10 @@ public class Controlador {
             servicesCliente.delete(id_cliente);
         }else{System.out.println("NO PODES ELIMINAR, ESTA RELACIONADO");}
         
-        return "redirect:/clientes";
+        // Antes de la redirección
+        String mensaje = eliminarCliente ? "true" : "false";
+        String urlRedireccion = "redirect:/clientes?mensaje=" + mensaje;
+        return urlRedireccion;
     }
 
     @GetMapping("/editarCliente/{id_cliente}")

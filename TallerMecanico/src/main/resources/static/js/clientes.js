@@ -33,15 +33,7 @@ function agregarCliente(event){
             'error'
         );
         return
-    }else if(dniCliente.length < 8){
-        Swal.fire(
-            'Error!',
-            'El DNI debe tener 8 dígitos',
-            'error'
-        );
-        return
-    }
-    else{
+    }else{
         document.getElementById("addUserForm").submit();
     }
 }
@@ -67,4 +59,16 @@ function validarBuscar(event){
     }else{
         document.getElementById("formBuscar").submit();
     }
+}
+
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
+if (mensaje == 'false') {
+    Swal.fire(
+        'Error!',
+        'Este cliente está asociada a un vehículo registrado, no es posible borrar',
+        'error'
+    );
 }

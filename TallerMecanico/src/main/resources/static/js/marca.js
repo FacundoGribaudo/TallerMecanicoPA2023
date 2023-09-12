@@ -23,3 +23,16 @@ function validarFormulario(event) {
         document.getElementById("addUserForm").submit();
     }
 }
+
+// Obtener la URL actual
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
+if (mensaje == 'false') {
+    Swal.fire(
+        'Error!',
+        'Esta marca está asociada a un vehículo registrado, no es posible borrar',
+        'error'
+    );
+}
