@@ -1,4 +1,3 @@
 Consideraciones para la segunda entrega
 - resolver el hecho de que no se puedan cargar varias veces los mismos datos 
 - ver la relacion muchos a mucho entre tecnico y vehiculo (implementarla correctamente) 
-- Corregir los estado (cuando se agrega un registro sin seleccionar el estado, por defecto debe ser "activado")
