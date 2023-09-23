@@ -37,3 +37,11 @@ function agregarTecnico(event){
     }
 
 }
+
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'tecnicoRepetido' y mostrar una alerta
+if (mensaje === 'tecnicoRepetido') {
+    Swal.fire('Error!', 'Ya existe un Técnico registrado con este Legajo', 'error');
+}

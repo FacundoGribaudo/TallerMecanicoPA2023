@@ -38,20 +38,16 @@ public class MarcaController {
     }
     
     @PostMapping("/save")
-    public String saveMarca(Marca m, Model model){
-        // List<Marca> marcas = service.listarMarcas();
-        // Boolean guardoMarca = true;
+    public String saveMarca(Marca m){
+        List<Marca> marcas = servicesMarca.listarMarcas();
 
-        // for(Marca mar:marcas){
-        //     if(mar.getNombre().toUpperCase().equals(m.getNombre().toUpperCase())){
-        //         System.out.println("son iguale ");
-        //         guardoMarca = false;
-        //     }
-        // }
-        
-        // if(guardoMarca == true){
-        //     service.save(m); 
-        // }
+        for (Marca marcaExistente : marcas) {
+            if(marcaExistente.getNombre().toUpperCase().equals(m.getNombre().toUpperCase())) {
+                //Si ya existe la Marca, redirige con mensaje de Marca repetida
+                return "redirect:/marca?mensaje=marcaRepetida";
+            }
+        }
+
         servicesMarca.save(m);
         return "redirect:/marca";
     }

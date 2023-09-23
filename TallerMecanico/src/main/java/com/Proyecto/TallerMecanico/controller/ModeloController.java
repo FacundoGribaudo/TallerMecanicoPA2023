@@ -44,20 +44,18 @@ public class ModeloController {
     }
 
     @PostMapping("/saveModelo")
-    public String agregarModelo(Modelo mo, Model model) {
-        // List<Modelo> modelos = servicesModelo.listarModelos();
-        // Boolean guardoModelo = true;
+    public String agregarModelo(Modelo mo) {
+        List<Modelo> modelos = servicesModelo.listarModelos();
 
-        // for(Modelo mod:modelos){
-        //     if(mod.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())){
-        //         System.out.println("son iguale ");
-        //         guardoModelo = false;
-        //     }
-        // }
-        
-        // if(guardoModelo == true){
-        //     servicesModelo.save(mo); 
-        // }
+        for (Modelo modeloExistente : modelos) {
+            if(modeloExistente.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())) {
+                //Se controla que NO se repita el modelo en la misma marca. Puede existir el mismo modelo pero de distinta MARCA
+                if (modeloExistente.getMarca().getNombre().toUpperCase().equals(mo.getMarca().getNombre().toUpperCase())){ 
+                    //Si ya existe el Modelo, redirige con mensaje de Modelo repetido
+                    return "redirect:/modelo?mensaje=modeloRepetido";
+                }
+            }
+        }
         servicesModelo.save(mo); 
         return "redirect:/modelo";
     }

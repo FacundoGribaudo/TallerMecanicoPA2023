@@ -36,3 +36,8 @@ if (mensaje == 'false') {
         'error'
     );
 }
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'marcaRepetida' y mostrar una alerta
+if (mensaje === 'marcaRepetida') {
+    Swal.fire('Error!', 'Ya existe esta Marca registrada', 'error');
+}

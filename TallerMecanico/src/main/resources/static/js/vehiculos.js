@@ -49,5 +49,5 @@ if (mensaje == 'false') {
 
 // Verificar si el valor del parámetro 'mensaje' es igual a 'patenteRepetida' y mostrar una alerta
 if (mensaje === 'patenteRepetida') {
-    Swal.fire('Error!', 'Ya existe un vehículo con la misma patente', 'error');
+    Swal.fire('Error!', 'Ya existe un vehículo registrado con esta patente', 'error');
 }

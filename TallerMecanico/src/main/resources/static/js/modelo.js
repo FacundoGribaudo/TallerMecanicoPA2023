@@ -30,3 +30,8 @@ if (mensaje == 'false') {
         'error'
     );
 }
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'modeloRepetida' y mostrar una alerta
+if (mensaje === 'modeloRepetido') {
+    Swal.fire('Error!', 'Ya existe este Modelo registrado para esta marca', 'error');
+}

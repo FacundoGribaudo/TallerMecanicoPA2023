@@ -72,3 +72,8 @@ if (mensaje == 'false') {
         'error'
     );
 }
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'clienteRepetido' y mostrar una alerta
+if (mensaje === 'clienteRepetido') {
+    Swal.fire('Error!', 'Ya existe un Cliente registrado con este DNI', 'error');
+}

@@ -100,13 +100,11 @@ public class VehiculoController {
     }
 
     @PostMapping("/saveVehiculo")
-    public String guardarVehiculo(Vehiculo v, Model model){
-        //Verificar si ya existe un vehiculo con la misma patente
-        String patente = v.getPatente().toUpperCase();
+    public String guardarVehiculo(Vehiculo v){
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
 
         for(Vehiculo vehiculoExistente : vehiculos) {
-            if(vehiculoExistente.getPatente().toUpperCase().equals(patente)) {
+            if(vehiculoExistente.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())) {
                 // Si ya existe un vehículo con la misma patente, redirige con mensaje de patente repetida
                 return "redirect:/vehiculos?mensaje=patenteRepetida";
             }

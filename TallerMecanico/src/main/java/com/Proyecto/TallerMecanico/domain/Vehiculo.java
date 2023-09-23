@@ -1,6 +1,5 @@
 package com.Proyecto.TallerMecanico.domain;
 
-import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -36,19 +36,16 @@ public class ClienteController {
     }
     
     @PostMapping("/saveCliente")
-    public String agregarCliente(Cliente c, Model model){
-        // List<Cliente> clientes = servicesCliente.listarClientes();
-        // Boolean cargarCliente = true;
+    public String agregarCliente(Cliente c){
+        List<Cliente> clientes = servicesCliente.listarClientes();
 
-        // for(Cliente cliente:clientes){
-        //     if(cliente.getDni().equals(c.getDni())){
-        //         cargarCliente = false;
-        //     }
-        // }
-        
-        // if(cargarCliente == true){
-        //     servicesCliente.save(c);
-        // }
+        for (Cliente clienteExistente : clientes) {
+            if(clienteExistente.getDni().equals(c.getDni())) {
+                //Si ya existe el DNI, redirige con mensaje de Cliente repetido
+                return "redirect:/clientes?mensaje=clienteRepetido";
+            }
+        }
+
         servicesCliente.save(c);
         return "redirect:/clientes"; 
     }

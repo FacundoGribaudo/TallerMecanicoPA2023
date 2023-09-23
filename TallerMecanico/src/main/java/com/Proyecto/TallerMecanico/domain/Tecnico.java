@@ -1,7 +1,6 @@
 package com.Proyecto.TallerMecanico.domain;
 
 import java.math.BigInteger;
-import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;

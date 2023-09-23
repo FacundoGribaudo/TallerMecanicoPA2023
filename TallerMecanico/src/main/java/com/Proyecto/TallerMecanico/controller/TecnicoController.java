@@ -48,17 +48,14 @@ public class TecnicoController {
 
     @PostMapping("/saveTecnico")
     public String guardarTecnico(Tecnico t){
-        // List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
-        // Boolean guardarTecnico = true;
+        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
 
-        // for(Tecnico tec:tecnicos){
-        //     if(tec.getLegajo().toUpperCase().equals(t.getLegajo().toUpperCase()))
-        //         guardarTecnico = false;
-        // }
-
-        // if (guardarTecnico == true){
-        //     servicesTecnico.save(t);
-        // }
+        for (Tecnico tecnicoExistente : tecnicos) {
+            if(tecnicoExistente.getLegajo().equals(t.getLegajo())) {
+                //Si ya existe el DNI, redirige con mensaje de Cliente repetido
+                return "redirect:/tecnicos?mensaje=tecnicoRepetido";
+            }
+        }
         servicesTecnico.save(t);
         return "redirect:/tecnicos";
     }
