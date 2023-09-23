@@ -101,21 +101,21 @@ public class VehiculoController {
 
     @PostMapping("/saveVehiculo")
     public String guardarVehiculo(Vehiculo v, Model model){
-        // List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
-        // Boolean guardarVehiculo = true;
+        //Verificar si ya existe un vehiculo con la misma patente
+        String patente = v.getPatente().toUpperCase();
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
 
-        // for(Vehiculo ve:vehiculos){
-        //     if(ve.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())){
-        //         guardarVehiculo = false;
-        //     }
-        // }
+        for(Vehiculo vehiculoExistente : vehiculos) {
+            if(vehiculoExistente.getPatente().toUpperCase().equals(patente)) {
+                // Si ya existe un vehículo con la misma patente, redirige con mensaje de patente repetida
+                return "redirect:/vehiculos?mensaje=patenteRepetida";
+            }
+        }
 
-        // if(guardarVehiculo == true){
-        //     servicesVehiculo.save(v);
-        // }
+        // Si no existe un vehículo con la misma patente, guarda el vehículo
         servicesVehiculo.save(v);
         return "redirect:/vehiculos"; 
-    }  
+    }
 
     @GetMapping("/eliminarVehiculo/{id_vehiculo}")
     public String eliminarVehiculo(Model model, @PathVariable int id_vehiculo){
