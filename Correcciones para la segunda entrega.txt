@@ -1,3 +1,2 @@
 Consideraciones para la segunda entrega
-- resolver el hecho de que se muestren los modelos de la marca seleccionada al registrar un vehiculo
 - ver la relacion muchos a mucho entre tecnico y vehiculo (implementarla correctamente) 

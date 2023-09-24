@@ -51,3 +51,32 @@ if (mensaje == 'false') {
 if (mensaje === 'patenteRepetida') {
     Swal.fire('Error!', 'Ya existe un vehículo registrado con esta patente', 'error');
 }
+
+
+//----------------CARGAR MODELOS SEGUN MARCA SELECCIONADA--------------------
+function cargarModelosPorMarca() {
+    const marcaId = document.getElementById("marcaAuto").value;
+    const modelosSelect = document.getElementById("modeloAuto");
+    modelosSelect.innerHTML = '<option selected hidden>Modelo</option>';
+
+    if (marcaId === "Marca") {
+        return;
+    }
+
+    const url = `/vehiculos/listar?marcaId=${marcaId}`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            modelosSelect.innerHTML = '<option selected hidden>Modelo</option>';
+            data.forEach(modelo => {
+                modelosSelect.innerHTML += `<option value="${modelo.id_modelo}">${modelo.nombre}</option>`;
+            });
+        })
+        .catch(error => console.error("Error al obtener modelos:", error));
+}

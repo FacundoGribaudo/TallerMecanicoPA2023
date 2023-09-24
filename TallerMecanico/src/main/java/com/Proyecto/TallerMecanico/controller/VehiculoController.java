@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Proyecto.TallerMecanico.domain.Cliente;
 import com.Proyecto.TallerMecanico.domain.Marca;
@@ -40,17 +42,13 @@ public class VehiculoController {
 
     
     @GetMapping("/vehiculos")
-    public String listarVehiculos(Model model){
+    public String listarVehiculos(Model model, @RequestParam(name = "marcaId", required = false) Integer marcaId){
         
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
 
         //Marcas 
         List<Marca> marcas = servicesMarca.listarMarcas();
         List<Marca> marcasActivas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
-
-        //Modelo
-        List<Modelo> modelos = servicesModelo.listarModelos();
-        List<Modelo> modelosPermitidos = new ArrayList<Modelo>();
 
         //Cliente
         List<Cliente> clientes = servicesCliente.listarClientes();
@@ -60,26 +58,13 @@ public class VehiculoController {
         // System.out.println(""+"Los tecnicos son: " + tecnicos); 
         // List<Tecnico> tecnicosActivos = new ArrayList<Tecnico>(); 
 
-        //Unicamente permito vincular modelos de aquellas marcas que estan activas. 
 
-        for (Modelo m : modelos){
-            System.out.println(m.getMarca().getEstado());
-            if(m.getMarca().getEstado().toUpperCase().equals("activo".toUpperCase())){ //Muestra solo las MARCAS ACTIVAS
-                //System.out.println(m.getNombre());
-                if(m.getEstado().toUpperCase().equals("activo".toUpperCase())) { //Muestra solo los MODELOS ACTIVOS
-                    modelosPermitidos.add(m);
-                }
-                
-            }
-            System.out.println(modelosPermitidos);
-        }
-
-
-        for(int i=0; i<marcas.size(); i++){
-            if(marcas.get(i).getEstado().toUpperCase().equals("activo".toUpperCase())){
-                marcasActivas.add(marcas.get(i));
+        for (Marca marca : marcas) {
+            if (marca.getEstado().toUpperCase().equals("activo".toUpperCase())) {
+                marcasActivas.add(marca);
             }
         }
+
 
         // //Muestro los tecnicos que estan en estado "activo" --> Disponibles para trabajar
         // for (Tecnico t:tecnicos){
@@ -93,10 +78,26 @@ public class VehiculoController {
         
         model.addAttribute("vehiculo", vehiculos); 
         model.addAttribute("marcasActivas", marcasActivas); 
-        model.addAttribute("modelosPermitidos", modelosPermitidos);
         // model.addAttribute("tecnicos", tecnicosActivos);
         model.addAttribute("clientes", clientes);
         return "vehiculos";
+    }
+
+    //Obtencion de Modelos segun la Marca seleccionada
+    @GetMapping("/vehiculos/listar")
+    @ResponseBody
+    public List<Modelo> obtenerModelosPorMarca(@RequestParam(name = "marcaId", required = false) Integer marcaId) {
+        List<Modelo> modelos = servicesModelo.listarModelos();
+
+        List<Modelo> modelosPermitidos = new ArrayList<>();
+
+        for (Modelo m : modelos) {
+            if (m.getEstado().equalsIgnoreCase("activo") && (marcaId == null || m.getMarca().getId_marca().equals(marcaId))) {
+                modelosPermitidos.add(m);
+            }
+        }
+        System.out.println(modelosPermitidos);
+        return modelosPermitidos;
     }
 
     @PostMapping("/saveVehiculo")
