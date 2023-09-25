@@ -57,7 +57,7 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group">
-                        <input th:value="${modelo.nombre}" class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" required>
+                        <input th:value="${modelo.nombre}" class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" required oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <select th:value="${modelo.estado}" name="estado" id="estadoModelo" class="form-select" form="addUserForm">
                         <option selected hidden th:value="${modelo.estado}" th:text="${modelo.estado}"></option>

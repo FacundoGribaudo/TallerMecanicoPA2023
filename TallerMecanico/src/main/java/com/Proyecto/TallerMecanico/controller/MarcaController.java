@@ -42,7 +42,7 @@ public class MarcaController {
         List<Marca> marcas = servicesMarca.listarMarcas();
 
         for (Marca marcaExistente : marcas) {
-            if(marcaExistente.getNombre().toUpperCase().equals(m.getNombre().toUpperCase())) {
+            if (!marcaExistente.getId_marca().equals(m.getId_marca()) && marcaExistente.getNombre().equalsIgnoreCase(m.getNombre())) {
                 //Si ya existe la Marca, redirige con mensaje de Marca repetida
                 return "redirect:/marca?mensaje=marcaRepetida";
             }

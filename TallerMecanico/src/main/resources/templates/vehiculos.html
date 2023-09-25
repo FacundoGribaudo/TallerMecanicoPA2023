@@ -65,7 +65,7 @@
                 <h3>NUEVO VEHÍCULO</h3>
                 <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <div class="form-group">
-                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required>
+                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required oninput="this.value = this.value.toUpperCase()">
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required>
                     </div>
                     <select required name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()">
@@ -90,8 +90,7 @@
             <div class="col-md-8">
                 <h3>VEHÍCULOS REGISTRADOS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
-                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente"
-                        aria-label="Search">
+                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>

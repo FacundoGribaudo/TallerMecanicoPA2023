@@ -84,9 +84,9 @@ public class VehiculoController {
     }
 
     //Obtencion de Modelos segun la Marca seleccionada
-    @GetMapping("/vehiculos/listar")
+    @GetMapping("/vehiculos/listarModelosPorMarca")
     @ResponseBody
-    public List<Modelo> obtenerModelosPorMarca(@RequestParam(name = "marcaId", required = false) Integer marcaId) {
+    public List<Modelo> listarModelosPorMarca(@RequestParam(name = "marcaId", required = false) Integer marcaId) {
         List<Modelo> modelos = servicesModelo.listarModelos();
 
         List<Modelo> modelosPermitidos = new ArrayList<>();
@@ -105,7 +105,7 @@ public class VehiculoController {
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
 
         for(Vehiculo vehiculoExistente : vehiculos) {
-            if(vehiculoExistente.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())) {
+            if(!vehiculoExistente.getId_vehiculo().equals(v.getId_vehiculo()) && vehiculoExistente.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())) {
                 // Si ya existe un vehículo con la misma patente, redirige con mensaje de patente repetida
                 return "redirect:/vehiculos?mensaje=patenteRepetida";
             }

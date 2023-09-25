@@ -60,20 +60,17 @@
 
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" th:value="${vehiculo.kilometros}" required>
                     </div>
-                    <select name="marca" id="marcaAuto" class="form-select" form="addUserForm">
+                    <select name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()">
                         <option selected hidden th:text="${vehiculo.marca.nombre}" th:value="${vehiculo.marca.id_marca}"></option>
-                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
-                            th:text="${marca.nombre}"></option>
+                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
                     </select>
                     <select name="modelo" id="modeloAuto" class="form-select" form="addUserForm">
                         <option selected hidden th:text="${vehiculo.modelo.nombre}" th:value="${vehiculo.modelo.id_modelo}"></option>
-                        <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
-                            th:text="${modelo.nombre}"></option>
+                        <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}" th:text="${modelo.nombre}"></option>
                     </select>
                     <select name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
                         <option selected hidden th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}" th:value="${vehiculo.cliente.id_cliente}"></option>
-                        <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
-                            th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}" th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
                     </select>
                     <div id="botones">
                         <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Actualizar" class="btn btn-success">

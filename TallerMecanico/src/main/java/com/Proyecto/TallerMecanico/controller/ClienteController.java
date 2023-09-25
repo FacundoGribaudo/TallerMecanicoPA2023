@@ -40,7 +40,7 @@ public class ClienteController {
         List<Cliente> clientes = servicesCliente.listarClientes();
 
         for (Cliente clienteExistente : clientes) {
-            if(clienteExistente.getDni().equals(c.getDni())) {
+            if(!clienteExistente.getId_cliente().equals(c.getId_cliente()) && clienteExistente.getDni().equals(c.getDni())) {
                 //Si ya existe el DNI, redirige con mensaje de Cliente repetido
                 return "redirect:/clientes?mensaje=clienteRepetido";
             }

@@ -51,7 +51,7 @@ public class TecnicoController {
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
 
         for (Tecnico tecnicoExistente : tecnicos) {
-            if(tecnicoExistente.getLegajo().equals(t.getLegajo())) {
+            if(!tecnicoExistente.getId_tecnico().equals(t.getId_tecnico()) && tecnicoExistente.getLegajo().equals(t.getLegajo())) {
                 //Si ya existe el DNI, redirige con mensaje de Cliente repetido
                 return "redirect:/tecnicos?mensaje=tecnicoRepetido";
             }

@@ -1,2 +1,3 @@
 Consideraciones para la segunda entrega
 - ver la relacion muchos a mucho entre tecnico y vehiculo (implementarla correctamente) 
+- Al editar vehiculo, si abrimos los modelos aparecen todos los posibles, pero si primero elegimos la marca van a aparecer solo los modelos de esa marca.

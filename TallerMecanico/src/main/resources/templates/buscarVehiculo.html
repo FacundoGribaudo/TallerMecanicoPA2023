@@ -16,7 +16,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/vehiculo.css">
+    <!-- <link rel="stylesheet" href="../css/vehiculo.css"> -->
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
@@ -91,8 +91,7 @@
             <div class="col-md-8">
                 <h3>VEHÍCULOS REGISTRADOS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
-                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente"
-                        aria-label="Search">
+                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>

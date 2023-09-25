@@ -103,7 +103,7 @@
                 <h3>MODELOS REGISTRADOS</h3>
                 <form class="d-flex" th:action="@{/buscarModelo}" method="post">
                    <!--<input id="inputBuscar" class="form-control me-2" type="text" name="marca" placeholder="Buscar Marca" aria-label="Search">-->
-                    <input id="inputBuscar" class="form-control me-2" type="text" name="nombreModelo" placeholder="Buscar nombre modelo" aria-label="Search">
+                    <input id="inputBuscar" class="form-control me-2" type="text" name="nombreModelo" placeholder="Buscar nombre modelo" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>                
                 <table id="userTable" class="table table-striped">

@@ -55,10 +55,10 @@
                 <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
                     <input type="hidden" name="id_cliente" th:field="*{id_cliente}">
                     <div class="form-group">
-                        <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="Nombre" th:value="${cliente.nombre}" required>
+                        <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="Nombre" th:value="${cliente.nombre}" required oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
-                        <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="Apellido" th:value="${cliente.apellido}" required>
+                        <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="Apellido" th:value="${cliente.apellido}" required oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
                         <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" required th:value="${cliente.dni}" maxlength="8" hidden>
@@ -68,7 +68,7 @@
                         <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono" required th:value="${cliente.telefono}">
                     </div>
                     <div class="form-group">
-                        <input name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required th:value="${cliente.localidad}">
+                        <input name="localidad" class="form-control" type="text" id="localidadCliente" placeholder="Localidad" required th:value="${cliente.localidad}" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div id="botones">
                         <input onclick="agregarCliente(event)" type="submit" value="Actualizar" class="btn btn-success" >
@@ -79,5 +79,5 @@
             </div>
         </div>
     </div> 
-    <!-- <script src="../js/clientes.js"></script> -->
+    <script src="../js/editarClientes.js"></script>
 </body>

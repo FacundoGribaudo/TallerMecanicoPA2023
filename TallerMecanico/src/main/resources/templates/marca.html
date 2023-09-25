@@ -72,7 +72,7 @@
             <div class="col-md-8">
                 <h3>MARCAS REGISTRADAS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscar}" method="POST">
-                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar nombre marca" aria-label="Search" name="nombre">
+                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar nombre marca" aria-label="Search" name="nombre" oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">

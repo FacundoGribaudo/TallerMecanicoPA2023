@@ -55,7 +55,7 @@
                 <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
                     <input type="hidden" name="id_marca" th:field="*{id_marca}">
                     <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}">
+                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div style="margin-bottom: 6px;">
                         <select name="estado" id="inputState" class="form-select" form="addUserForm">

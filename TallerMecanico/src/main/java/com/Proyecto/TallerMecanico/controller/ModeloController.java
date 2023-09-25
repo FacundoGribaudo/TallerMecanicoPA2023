@@ -48,7 +48,7 @@ public class ModeloController {
         List<Modelo> modelos = servicesModelo.listarModelos();
 
         for (Modelo modeloExistente : modelos) {
-            if(modeloExistente.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())) {
+            if(!modeloExistente.getId_modelo().equals(mo.getId_modelo()) && modeloExistente.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())) {
                 //Se controla que NO se repita el modelo en la misma marca. Puede existir el mismo modelo pero de distinta MARCA
                 if (modeloExistente.getMarca().getNombre().toUpperCase().equals(mo.getMarca().getNombre().toUpperCase())){ 
                     //Si ya existe el Modelo, redirige con mensaje de Modelo repetido
