@@ -109,7 +109,7 @@
                             <td class="CLIENTEData" th:text="${cliente.dni}"></td>
                             <td class="CLIENTEData" th:text="${cliente.telefono}"></td> 
                             <td class="CLIENTEData" th:text="${cliente.localidad}"></td>
-                            <td id="tdbotones"><a th:href="@{/historialServicios/}+${cliente.id_cliente}" style="margin-right: 20px;">Consultar</a></td>
+                            <td id="tdbotones" class="CLIENTEData historialTD"><a class="aHistorial" th:href="@{/historialServicios/}+${cliente.id_cliente}">Consultar</a></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarCliente/}+${cliente.id_cliente}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a onclick="return confirmarEliminar()" type="submit" id="botoncrud" th:href="@{/eliminarCliente/}+${cliente.id_cliente}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>

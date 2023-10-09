@@ -56,3 +56,15 @@ select{
 #botonAgregar{
   margin-top: 5px;
 }
+
+.historialTD{
+  padding-top: 8px !important;
+}
+
+.aHistorial{
+  color: rgb(78, 78, 78);
+}
+
+.aHistorial:hover{
+  color: #0b5ed7;
+}

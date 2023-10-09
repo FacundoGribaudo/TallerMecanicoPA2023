@@ -8,19 +8,20 @@ function agregarVehiculo(event){
     const marca = document.getElementById("marcaAuto").value;
     const modelo = document.getElementById("modeloAuto").value;
     const cte = document.getElementById("clienteAuto").value;
+    const anioFabricacion = document.getElementById("anioFabr").value;
 
 
-    if (patente == "" || km=="" || marca == "Marca" || modelo == "Modelo" || cte == "Cliente"){
+    if (patente == "" || km=="" || marca == "Marca" || modelo == "Modelo" || cte == "Cliente" || anioFabricacion == ""){
         Swal.fire(
             'Error!',
             'Por favor complete todos los campos',
             'error'
         );
         return
-    }else if(isNaN(km)){ //si no es un nro es verdadero y entra
+    }else if(isNaN(km) || isNaN(anioFabricacion)){ //si no es un nro es verdadero y entra
         Swal.fire(
             'Error!',
-            'Los kilómetros deben ser un número!',
+            'Los kilómetros y año de fabricación deben ser un número!',
             'error'
         );
         return

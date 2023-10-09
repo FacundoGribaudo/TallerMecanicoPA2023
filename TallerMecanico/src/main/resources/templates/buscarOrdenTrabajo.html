@@ -10,7 +10,7 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--CSS-->
@@ -52,10 +52,12 @@
                         <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
+                        <a class="nav-link active text-white" aria-current="page"
+                            th:href="@{/serviciosTaller}">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden
+                            Trabajo</a>
                     </li>
                 </ul>
             </div>
@@ -66,6 +68,9 @@
 
     <div class="container">
         <div class="row">
+            <div class="col-md-1">
+                <a id="botonVolverBucar" th:href="@{/ordenTrabajo}"><img src="img/return.png" width="35px"></a>
+            </div>
             <div class="col-md-4">
                 <h3>NUEVA ORDEN</h3>
                 <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
@@ -73,70 +78,77 @@
                         <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required oninput="this.value = this.value.toUpperCase()">
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required>
                     </div>-->
-                    
-                    
-                    
-                    <select required name="vehiculoPertenece" id="marcaAuto" class="form-select" form="addUserForm">
+
+                    <select required name="vehiculoPertenece" id="marcaAuto" class="form-select" form="addUserForm"
+                        disabled>
                         <option selected hidden>Vehiculo</option>
-                        <option th:each = "vehiculo : ${lista_vehiculos}" th:text = "${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}"> 
+                        <option th:each="vehiculo : ${lista_vehiculos}" th:text="${vehiculo.patente}"
+                            th:value="${vehiculo.id_vehiculo}">
                     </select>
 
-                    <select required name="servicioRealizar" id="modeloAuto" class="form-select" form="addUserForm">
+                    <select required name="servicioRealizar" id="modeloAuto" class="form-select" form="addUserForm"
+                        disabled>
                         <option selected hidden>Servicios</option>
-                        <option th:each = "servicio : ${lista_servicios}" th:text = "${servicio.nombre}" th:value = "${servicio.id_servicio}"> 
+                        <option th:each="servicio : ${lista_servicios}" th:text="${servicio.nombre}"
+                            th:value="${servicio.id_servicio}">
                     </select>
-                    <input type="submit" value="Crear Orden"> 
+                    <input type="submit" value="Crear Orden" class="btn btn-primary form-control" disabled>
                     <!--<select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
                         <option selected hidden>Cliente</option>
                         <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
                             th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
                     </select>
                     
-                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">--> 
+                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">-->
                 </form>
             </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <h3>ORDENES REALIZADAS</h3>
+            <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarOrden}" method="POST">
+                <input name="orden" id="inputBuscar" class="form-control me-2" type="search"
+                    placeholder="Buscar Fecha Orden" aria-label="Search"
+                    oninput="this.value = this.value.toUpperCase()">
+                <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt=""
+                        width="25"></button>
+            </form>
+            <table id="userTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>N° Orden</th>
+                        <th>Vehiculo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>Servicio</th>
+                        <th>Cliente</th>
+                        <th>Fecha de Creación</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    <tr th:each="ot : ${listaOT}">
+                        <td class="ORDENData" th:text="${ot.nro_orden}"></td>
+                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.patente}"></td>
+                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.marca.nombre}"></td>
+                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
+                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.ano}"></td>
+                        <td class="ORDENData" th:text="${ot.servicioRealizar.nombre}"></td>
+                        <td class="ORDENData"
+                            th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}">
+                        </td>
+                        <td class="ORDENData" th:text="${ot.fechaCreacionOrden}"></td>
 
-            <div class="row m6 p6" style="margin-top: 20px;">
-                <h3>ORDENES REALIZADAS</h3>
-                <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarOrden}" method="POST">
-                    <input name="orden" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
-                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
-                            alt="" width="25"></button>
-                </form>
-                <table id="userTable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>N° Orden</th>
-                            <th>Vehiculo</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Año</th>
-                            <th>Servicio</th>
-                            <th>Cliente</th>
-                            <th>Fecha Creacion Orden</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpoTabla">
-                        <tr th:each="ot : ${listaOT}">
-                            <td class="ORDENData" th:text="${ot.nro_orden}"></td>
-                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.patente}"></td>
-                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.marca.nombre}"></td>
-                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
-                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.ano}"></td>
-                            <td class="ORDENData" th:text="${ot.servicioRealizar.nombre}"></td>
-                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}"></td>
-                            <td class="ORDENData" th:text="${ot.fechaCreacionOrden}"></td>
-                            
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud" th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>                        
-                            
-                        </tr>
-                    </tbody>
-                    <a id="botonVolverBucar" th:href="@{/ordenTrabajo}" style="clear: both;"><img src="img/return.png" width="35px"></a>
-                </table>
-            </div>
+                        <td id="tdbotones"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}"
+                                class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                        <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud"
+                                th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger"><img id="imgcrud"
+                                    src="img/delete.png" alt=""></a></td>
+
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

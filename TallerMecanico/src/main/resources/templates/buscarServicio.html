@@ -65,8 +65,8 @@
                 <h3>NUEVO SERVICIO</h3>
                 <form id="addUserForm" th:action="@{/registrarServicio}" th:object="${ServiciosTaller}" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
-                        <input class="form-control" type="text" id="modelo" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
+                        <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required disabled>
+                        <input class="form-control" type="text" id="modelo" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required disabled>
                     </div>
                     <!--<select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
                         <option value="Activo" selected>Activo</option>
@@ -76,7 +76,7 @@
                         <option selected hidden>Marca</option>
                         <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
                     </select>-->
-                    <input type="submit" value="Registrar Servicio" class="btn btn-primary form-control"> 
+                    <input type="submit" value="Registrar Servicio" class="btn btn-primary form-control" disabled> 
                     <!--<input onclick="agregarModelo(event)" class="btn btn-primary form-control" type="submit" id="submitBtn" value="Agregar modelo"></input>-->
                 </form>      
                 <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
