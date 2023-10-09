@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,29 +57,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR MARCA</h3>
-                <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <input type="hidden" name="id_marca" th:field="*{id_marca}">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}" oninput="this.value = this.value.toUpperCase()">
+                <h3>EDITAR SERVICIO</h3>
+                <form id="addUserForm" th:action="@{/registrarServicio}" th:object="${ServiciosTaller}" method="POST">
+                    <input type="hidden" name="id_servicio" th:value="${servicio_taller.id_servicio}">
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="modelo" name="nombre" th:value ="${servicio_taller.nombre}" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
+                        <input class="form-control" type="text" id="modelo" name="descripcion" th:value ="${servicio_taller.descripcion}" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
-                    <div style="margin-bottom: 6px;">
-                        <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                            <option selected hidden>Estado</option>
-                            <option value="Activo" th:selected="${marca.estado == 'Activo'}">Activo</option>
-                            <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
-                        </select>
-                    </div>
-                    <div id="botones">
-                        <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
-                        <a th:href="@{/marca}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
-                    </div>
-
-                    
-                </form>  
+                    <input type="submit" value="Actualizar" class="btn btn-success"> 
+                    <a th:href="@{/serviciosTaller}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                </form>
             </div>
         </div>
     </div> 
-    <script src="../js/marca.js"></script>
+    <script src="../js/tecnico.js"></script>
 </body>
-</html>

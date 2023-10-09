@@ -57,25 +57,27 @@
         </div>
     </nav>
 
-    <h1>MODELO</h1>
+    <h1>SERVICIOS TALLER</h1>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3>NUEVO MODELO</h3>
-                <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
+                <h3>NUEVO SERVICIO</h3>
+                <form id="addUserForm" th:action="@{/registrarServicio}" th:object="${ServiciosTaller}" method="POST">
                     <div class="form-group">
                         <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
+                        <input class="form-control" type="text" id="modelo" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
-                    <select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
+                    <!--<select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
                         <option value="Activo" selected>Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
                     <select name="marca" id="marcaModelo" class="form-select" form="addUserForm">
                         <option selected hidden>Marca</option>
                         <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
-                    </select>
-                    <input onclick="agregarModelo(event)" class="btn btn-primary form-control" type="submit" id="submitBtn" value="Agregar modelo"></input>
+                    </select>-->
+                    <input type="submit" value="Registrar Servicio" class="btn btn-primary form-control"> 
+                    <!--<input onclick="agregarModelo(event)" class="btn btn-primary form-control" type="submit" id="submitBtn" value="Agregar modelo"></input>-->
                 </form>      
                 <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
                     <div style="margin-bottom: 6px;">
@@ -92,35 +94,38 @@
                 </form>           -->
             </div>
             <div class="col-md-8">
-                <h3>MODELOS REGISTRADOS</h3>
-                <form class="d-flex" th:action="@{/buscarModelo}" method="post">
-                   <!--<input id="inputBuscar" class="form-control me-2" type="text" name="marca" placeholder="Buscar Marca" aria-label="Search">-->
-                    <input id="inputBuscar" class="form-control me-2" type="text" name="nombreModelo" placeholder="Buscar nombre modelo" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
-                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
-                </form>                
+                <h3>SERVICIOS REGISTRADOS</h3>
+                <form class="d-flex" th:action="@{/buscarServicio}" method="post">
+                    <!--<input id="inputBuscar" class="form-control me-2" type="text" name="marca" placeholder="Buscar Marca" aria-label="Search">-->
+                     <input id="inputBuscar" class="form-control me-2" type="text" name="nombreServicio" placeholder="Buscar nombre servicio" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
+                 </form>                
                 <table id="userTable" class="table table-striped">
                     <thead id="encabezado">
                         <tr>
                             <th>ID</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Estado</th>
+                            <th>Nombre Servicio</th>
+                            <th>Descripcion</th>
                             <th></th>
                             <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Itera a través de los modelos -->
-                        <tr th:each="modelo : ${modelos}">
-                            <td class="modeloData" th:text="${modelo.id_modelo}"></td>
-                            <td class="modeloData" th:text="${modelo.marca.nombre}"></td>
-                            <td class="modeloData" th:text="${modelo.nombre}"></td>
-                            <td class="modeloData" th:text="${modelo.estado}"></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarModelo/}+${modelo.id_modelo}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                        <tr th:each="s : ${lista_servicios}">
+                            <td class="servicioTallerData" th:text="${s.id_servicio}"></td>
+                            <td class="servicioTallerData" th:text="${s.nombre}"></td>
+                            <td class="servicioTallerData" th:text="${s.descripcion}"></td>
+                            <!--<td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarServicio/}+${s.id_servicio}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>-->
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarServicio/}+${s.id_servicio}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarServicio/}+${s.id_servicio}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                            
                         </tr>
                     </tbody>
                 </table>
+                <a id="botonVolverBucar" th:href="@{/serviciosTaller}"><img src="img/return.png" width="35px"></a>
             </div>
         </div>
     </div>

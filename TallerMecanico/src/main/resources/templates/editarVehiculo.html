@@ -44,6 +44,12 @@
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
+                </li>
                 </ul>
             </div>
         </div>
@@ -59,6 +65,7 @@
                         <input type="text" class="form-control" disabled th:value="${vehiculo.patente}">
 
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" th:value="${vehiculo.kilometros}" required>
+                        <input name="ano" class="form-control" type="text" id="km" placeholder="Año Fabricacion" th:value="${vehiculo.ano}" required>
                     </div>
                     <select name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()">
                         <option selected hidden th:text="${vehiculo.marca.nombre}" th:value="${vehiculo.marca.id_marca}"></option>

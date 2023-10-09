@@ -22,6 +22,9 @@ public class Vehiculo {
     @Column(name="kilometros")
     private Float kilometros;
 
+    @Column(name="Año")
+    private int ano;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "id_marca")
     private Marca marca; 

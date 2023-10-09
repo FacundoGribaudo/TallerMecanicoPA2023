@@ -62,69 +62,76 @@
         </div>
     </nav>
 
-    <h1>VEHÍCULOS</h1>
+    <h1>ORDEN DE TRABAJO</h1>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3>NUEVO VEHÍCULO</h3>
-                <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
-                    <div class="form-group">
+                <h3>NUEVA ORDEN</h3>
+                <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
+                    <!--<div class="form-group">
                         <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required oninput="this.value = this.value.toUpperCase()">
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required>
-                        <input name="ano" class="form-control" type="text" id="km" placeholder="Año Fabricacion" required>
-                    </div>
-                    <select required name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()">
-                        <option selected hidden>Marca</option>
-                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
-                            th:text="${marca.nombre}"></option>
+                    </div>-->
+                    
+                    
+                    
+                    <select required name="vehiculoPertenece" id="marcaAuto" class="form-select" form="addUserForm">
+                        <option selected hidden>Vehiculo</option>
+                        <option th:each = "vehiculo : ${lista_vehiculos}" th:text = "${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}"> 
                     </select>
-                    <select required name="modelo" id="modeloAuto" class="form-select" form="addUserForm">
-                        <option selected hidden>Modelo</option>
-                        <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
-                            th:text="${modelo.nombre}"></option>
+
+                    <select required name="servicioRealizar" id="modeloAuto" class="form-select" form="addUserForm">
+                        <option selected hidden>Servicios</option>
+                        <option th:each = "servicio : ${lista_servicios}" th:text = "${servicio.nombre}" th:value = "${servicio.id_servicio}"> 
                     </select>
-                    <select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
+                    <input type="submit" value="Crear Orden" class="btn btn-primary form-control"> 
+                    <!--<select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
                         <option selected hidden>Cliente</option>
                         <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
                             th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
                     </select>
-                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">
+                    
+                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">--> 
                 </form>
             </div>
 
-            <div class="col-md-8">
-                <h3>VEHÍCULOS REGISTRADOS</h3>
-                <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
-                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+            <div class="row m6 p6" style="margin-top: 20px;">
+                <h3>ORDENES REALIZADAS</h3>
+                <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarOrden}" method="POST">
+                    <input name="orden" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Fecha Orden" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Patente</th>
-                            <th>Kilometros</th>
+                            <th>N° Orden</th>
+                            <th>Vehiculo</th>
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Año</th>
+                            <th>Servicio</th>
                             <th>Cliente</th>
+                            <th>Fecha Creacion Orden</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
-                        <tr th:each="vehiculo : ${vehiculo}">
-                            <td class="VEHICULOData" th:text="${vehiculo.id_vehiculo}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.modelo.nombre}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.ano}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}"></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud" th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>                        
+                        <tr th:each="ot : ${listaOT}">
+                            <td class="ORDENData" th:text="${ot.nro_orden}"></td>
+                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.patente}"></td>
+                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.marca.nombre}"></td>
+                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
+                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.ano}"></td>
+                            <td class="ORDENData" th:text="${ot.servicioRealizar.nombre}"></td>
+                            <td class="ORDENData" th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}"></td>
+                            <td class="ORDENData" th:text="${ot.fechaCreacionOrden}"></td>
+                            
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud" th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>                        
+                            
                         </tr>
                     </tbody>
                 </table>

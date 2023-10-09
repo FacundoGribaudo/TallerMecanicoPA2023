@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Proyecto.TallerMecanico.domain.Cliente;
+import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
 import com.Proyecto.TallerMecanico.interfaceServices.IclienteServices;
+import com.Proyecto.TallerMecanico.interfaceServices.IordenTrabajoService;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 
 @Controller
@@ -25,7 +27,9 @@ public class ClienteController {
     @Autowired
     private IvehiculoServices servicesVehiculo;
     @Autowired
-    private IclienteServices servicesCliente;
+    private IclienteServices servicesCliente; 
+    @Autowired
+    private IordenTrabajoService otService; 
 
 
     @GetMapping("/clientes")
@@ -109,4 +113,48 @@ public class ClienteController {
         return "buscarCliente";
 
     }
+
+    @GetMapping("/historialServicios/{id_cliente}")
+    public String consultarHistorial(Model model, @PathVariable int id_cliente){
+
+        //Datos
+       List<Cliente> clientesRegistrados = servicesCliente.listarClientes();
+       List<Vehiculo> vehiculosRegistrados = servicesVehiculo.listarVehiculos();
+       List<OrdenTrabajo> otRegistrados = otService.listarOrdenTrabajo();
+
+        //Datos filtrados
+       List<Cliente> clienteHistorial = new ArrayList<>();
+       List<OrdenTrabajo> otHistorial = new ArrayList<>();
+       
+
+        for(OrdenTrabajo ot:otRegistrados){
+            for(Vehiculo v2:vehiculosRegistrados){
+                if(ot.getVehiculoPertenece().getId_vehiculo() == v2.getId_vehiculo() && v2.getCliente().getId_cliente() == id_cliente){
+                    otHistorial.add(ot);
+                }else{
+
+                }
+            }
+        }
+
+        for(Cliente i : clientesRegistrados){
+            if(i.getId_cliente() == id_cliente){
+                clienteHistorial.add(i);
+            }
+        }
+
+        String nombreCl ="";
+        for(Cliente cl : clienteHistorial){
+            nombreCl = ""+cl.getNombre()+" "+cl.getApellido();
+            System.out.println(""+"DATOS CLIENTE = "+ nombreCl);
+        }
+        model.addAttribute("cliente", nombreCl);
+        model.addAttribute("datos_orden", otHistorial);
+        return "historialServiciosCliente";
+
+
+    }
+
+
+
 }

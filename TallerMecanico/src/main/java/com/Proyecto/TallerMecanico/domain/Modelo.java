@@ -16,6 +16,8 @@ public class Modelo {
     @Column(name = "nombre")
     private String nombre;
 
+    
+
     @Column(name = "estado")
     private String estado;
 

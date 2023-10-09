@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,29 +57,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR MARCA</h3>
-                <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <input type="hidden" name="id_marca" th:field="*{id_marca}">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}" oninput="this.value = this.value.toUpperCase()">
-                    </div>
-                    <div style="margin-bottom: 6px;">
-                        <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                            <option selected hidden>Estado</option>
-                            <option value="Activo" th:selected="${marca.estado == 'Activo'}">Activo</option>
-                            <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
-                        </select>
-                    </div>
-                    <div id="botones">
-                        <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
-                        <a th:href="@{/marca}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
-                    </div>
+                <h3>EDITAR ORDEN</h3>
+                <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
+                    <input type="hidden" name="nro_orden" th:value="${orden_trabajo.nro_orden}">
+                    <select required name="vehiculoPertenece" id="marcaAuto" class="form-select" form="addUserForm">
+                        <option selected hidden th:text="${orden_trabajo.vehiculoPertenece.patente}" th:value="${orden_trabajo.vehiculoPertenece.id_vehiculo}"></option>
+                        <option th:each = "vehiculo : ${lista_vehiculos}" th:text = "${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}"> 
+                    </select>
 
-                    
-                </form>  
+                    <select required name="servicioRealizar" id="modeloAuto" class="form-select" form="addUserForm">
+                        <option selected hidden th:text="${orden_trabajo.servicioRealizar.nombre}" th:value="${orden_trabajo.servicioRealizar.id_servicio}"></option>
+                        <option th:each = "servicio : ${lista_servicios}" th:text = "${servicio.nombre}" th:value = "${servicio.id_servicio}"> 
+                    </select>
+                    <input type="submit" value="Actualizar" class="btn btn-success">
+                    <a th:href="@{/ordenTrabajo}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                </form>
             </div>
         </div>
     </div> 
-    <script src="../js/marca.js"></script>
+    <script src="../js/tecnico.js"></script>
 </body>
-</html>

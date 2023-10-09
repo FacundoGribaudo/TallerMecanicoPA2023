@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,13 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/editar.css">
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
@@ -54,32 +55,42 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR MARCA</h3>
-                <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <input type="hidden" name="id_marca" th:field="*{id_marca}">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search" th:value="${marca.nombre}" oninput="this.value = this.value.toUpperCase()">
-                    </div>
-                    <div style="margin-bottom: 6px;">
-                        <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                            <option selected hidden>Estado</option>
-                            <option value="Activo" th:selected="${marca.estado == 'Activo'}">Activo</option>
-                            <option value="Inactivo" th:selected="${marca.estado == 'Inactivo'}">Inactivo</option>
-                        </select>
-                    </div>
-                    <div id="botones">
-                        <input onclick="validarFormulario(event)" type="submit" value="Actualizar" class="btn btn-success" >
-                        <a th:href="@{/marca}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
-                    </div>
 
-                    
-                </form>  
+    
+    <div class="container">
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-8">
+                <h3 th:text="Historial + ' ' + de + ' ' + ${cliente}" style="text-align: center;"></h3>
+                <!--<form th:action="@{/buscarCliente}" method="POST" class="d-flex" id="formBuscar">
+                    <input name="datoCliente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar DNI Cliente" aria-label="Search" maxlength="8">
+                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25" onclick="validarBuscar(event)"></button>
+                </form>--> 
+                <table id="userTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Patente</th>
+                            <th>Ingreso Taller</th>
+                            <th>Servico Realizado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ot : ${datos_orden}">
+                            <td class="HISTORIALData" th:text="${ot.vehiculoPertenece.marca.nombre}"></td>
+                            <td class="HISTORIALData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
+                            <td class="HISTORIALData" th:text="${ot.vehiculoPertenece.patente}"></td>
+                            <td class="HISTORIALData" th:text="${ot.fechaCreacionOrden}"></td>
+                            <td class="HISTORIALData" th:text="${ot.servicioRealizar.nombre}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/clientes}"><input type="button" value="Volver" class="btn btn-warning"></a>
             </div>
         </div>
-    </div> 
-    <script src="../js/marca.js"></script>
+    </div>
+
+    <script src="js/clientes.js"></script>
+    <script src="js/eliminar.js"></script>
 </body>
 </html>
