@@ -76,7 +76,7 @@
                     
                     <select required name="vehiculoPertenece" id="vehiculoServicio" class="form-select" form="addUserForm">
                         <option selected hidden>Vehiculo</option>
-                        <option th:each = "vehiculo : ${lista_vehiculos}" th:text = "${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}"> 
+                        <option th:each = "vehiculo : ${lista_vehiculos}" th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}">
                     </select>
 
                     <select required name="servicioRealizar" id="servicioRealizar" class="form-select" form="addUserForm">

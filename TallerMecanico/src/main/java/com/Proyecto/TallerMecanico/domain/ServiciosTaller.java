@@ -1,5 +1,8 @@
 package com.Proyecto.TallerMecanico.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,14 +23,18 @@ public class ServiciosTaller {
     @Column (name = "descripcion")
     private String descripcion;
 
+    @OneToMany (mappedBy = "servicioRealizar")
+    private List<OrdenTrabajo> ordenesTrabajo;
+
     public ServiciosTaller(){
 
     }
 
-    public ServiciosTaller(String nombre, String descripcion){
+    public ServiciosTaller(String nombre, String descripcion, List<OrdenTrabajo> ordenesTrabajo){
         super();
         this.nombre = nombre;
-        this.descripcion = descripcion; 
+        this.descripcion = descripcion;
+        this.ordenesTrabajo = new ArrayList<>();
     }
 
 }
