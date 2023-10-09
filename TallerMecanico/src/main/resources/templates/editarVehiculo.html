@@ -65,9 +65,9 @@
                         <input type="text" class="form-control" disabled th:value="${vehiculo.patente}">
 
                         <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" th:value="${vehiculo.kilometros}" required>
-                        <input name="ano" class="form-control" type="text" id="km" placeholder="Año Fabricacion" th:value="${vehiculo.ano}" required>
+                        <input name="ano" class="form-control" type="text" id="anioFabr" placeholder="Año Fabricacion" th:value="${vehiculo.ano}" required>
                     </div>
-                    <select name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()">
+                    <select name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()" th:value="${vehiculo.marca.id_marca}">
                         <option selected hidden th:text="${vehiculo.marca.nombre}" th:value="${vehiculo.marca.id_marca}"></option>
                         <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
                     </select>

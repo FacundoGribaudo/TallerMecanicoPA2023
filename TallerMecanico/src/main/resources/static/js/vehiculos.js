@@ -5,9 +5,9 @@ function agregarVehiculo(event){
 
     const patente = document.getElementById("patente").value;
     const km = document.getElementById("km").value;
-    const marca = document.getElementById("marcaAuto").value;
-    const modelo = document.getElementById("modeloAuto").value;
-    const cte = document.getElementById("clienteAuto").value;
+    const marca = document.getElementById("marcaAuto").textContent;
+    const modelo = document.getElementById("modeloAuto").textContent;
+    const cte = document.getElementById("clienteAuto").textContent;
     const anioFabricacion = document.getElementById("anioFabr").value;
 
 

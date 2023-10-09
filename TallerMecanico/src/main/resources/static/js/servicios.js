@@ -1,5 +1,19 @@
 console.log("vinculado servicios.js");
 
+// Obtener el valor del parámetro 'mensaje'
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
+// Verificar si el valor del parámetro 'mensaje' es igual a 'servicioRepetido' y mostrar una alerta
+if (mensaje === 'servicioRepetido') {
+    Swal.fire(
+        'Error!',
+        'Este Servicio ya se encuentra registrado',
+        'error'
+    );
+}
+
+
 function agregarServicio(e) {
     e.preventDefault();
 

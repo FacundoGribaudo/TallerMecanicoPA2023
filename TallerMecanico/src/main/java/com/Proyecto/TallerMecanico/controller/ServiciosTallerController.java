@@ -17,65 +17,74 @@ import com.Proyecto.TallerMecanico.interfaceServices.IserviciosTallerService;
 
 import org.springframework.ui.Model;
 
-
 @Controller
 @RequestMapping
 public class ServiciosTallerController {
-    
+
     @Autowired
-    private IserviciosTallerService SerTallerService; 
+    private IserviciosTallerService SerTallerService;
 
     @GetMapping("/serviciosTaller")
-    public String listarServicios(Model model){
+    public String listarServicios(Model model) {
         List<ServiciosTaller> listaServicios = SerTallerService.listarServicios();
         model.addAttribute("lista_servicios", listaServicios);
-        return "serviciosTaller"; 
+        return "serviciosTaller";
 
     }
 
     @PostMapping("/registrarServicio")
-    public String registrarServicio(ServiciosTaller s){
+    public String registrarServicio(ServiciosTaller s) {
+        List<ServiciosTaller> servicios = SerTallerService.listarServicios();
+
+        for (ServiciosTaller servicioExistente : servicios) {
+            if (!servicioExistente.getId_servicio().equals(s.getId_servicio())
+                    && servicioExistente.getNombre().equals(s.getNombre())) {
+                // Si ya existe un servicio con el mismo nombre y un ID diferente, redirige con
+                // un mensaje de servicio repetido
+                return "redirect:/serviciosTaller?mensaje=servicioRepetido";
+            }
+        }
+
         SerTallerService.save(s);
-        return "redirect:/serviciosTaller"; 
+        return "redirect:/serviciosTaller";
     }
 
     @GetMapping("/eliminarServicio/{id_servicio}")
-    public String eliminarServicioTaller(Model model, @PathVariable int id_servicio){
+    public String eliminarServicioTaller(Model model, @PathVariable int id_servicio) {
         SerTallerService.delete(id_servicio);
         return "redirect:/serviciosTaller";
     }
 
     @GetMapping("/editarServicio/{id_servicio}")
-    public String editarServicioTaller(@PathVariable int id_servicio, Model model){
+    public String editarServicioTaller(@PathVariable int id_servicio, Model model) {
         Optional<ServiciosTaller> optionalServicio = SerTallerService.listarIdServicios(id_servicio);
 
-        
         if (optionalServicio.isPresent()) {
             ServiciosTaller servicioTaller = optionalServicio.get();
             model.addAttribute("servicio_taller", servicioTaller);
         } else {
-           
+
         }
-        return "editarServicios"; 
+        return "editarServicios";
     }
 
     @PostMapping("/buscarServicio")
-    public String buscarServicio(Model model, @RequestParam("nombreServicio") String nombre_servicio){
+    public String buscarServicio(Model model, @RequestParam("nombreServicio") String nombre_servicio) {
         List<ServiciosTaller> listaServicios = SerTallerService.listarServicios();
         List<ServiciosTaller> listaServiciosBuscados = new ArrayList<ServiciosTaller>();
 
-        for(ServiciosTaller s : listaServicios){
-            if(s.getNombre().toUpperCase().equals(nombre_servicio)){
+        for (ServiciosTaller s : listaServicios) {
+            if (s.getNombre().toUpperCase().equals(nombre_servicio)) {
                 listaServiciosBuscados.add(s);
             }
         }
 
-        if (listaServiciosBuscados.size() == 0){
+        if (listaServiciosBuscados.size() == 0) {
             listaServiciosBuscados = listaServicios;
         }
 
         model.addAttribute("lista_servicios", listaServiciosBuscados);
-        return "buscarServicio"; 
+        return "buscarServicio";
 
     }
 

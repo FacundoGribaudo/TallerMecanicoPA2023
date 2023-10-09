@@ -84,7 +84,7 @@
                         <option selected hidden>Vehiculo</option>
                         <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}" th:text="${v.marca.nombre}+' '+${v.modelo.nombre}+' - '+${v.patente}"></option>
                     </select>
-                    <input onclick="agregarTecnico(event)" class="btn btn-primary form-control" type="submit" value="Agregar Cliente">
+                    <input onclick="agregarTecnico(event)" class="btn btn-primary form-control" type="submit" value="Agregar Técnico">
                 </form>
             </div>
             <div class="col-md-8">
