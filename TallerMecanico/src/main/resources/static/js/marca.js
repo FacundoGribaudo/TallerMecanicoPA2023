@@ -29,13 +29,20 @@ const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');
 
 // Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
-if (mensaje == 'false') {
+if (mensaje == 'noEliminar') {
     Swal.fire(
         'Error!',
         'Esta marca está asociada a un vehículo registrado, no es posible borrar',
         'error'
     );
-}
+} else if (mensaje == 'eliminar') {
+    Swal.fire(
+        'Atención!',
+        'La marca ha sido eliminada, junto con sus modelos registrados.',
+        'warning'
+    );
+};
+
 
 // Verificar si el valor del parámetro 'mensaje' es igual a 'marcaRepetida' y mostrar una alerta
 if (mensaje === 'marcaRepetida') {

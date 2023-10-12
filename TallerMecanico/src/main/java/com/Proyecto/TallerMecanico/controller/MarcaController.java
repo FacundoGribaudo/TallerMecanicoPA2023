@@ -67,33 +67,51 @@ public class MarcaController {
     }
     
     @GetMapping("/eliminarMarca/{id_marca}")
-    public String eliminarMarca(Model model, @PathVariable int id_marca){
+    public String eliminarMarca(Model model, @PathVariable int id_marca) {
         List<Modelo> modelos = servicesModelo.listarModelos();
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
-
+    
         Boolean eliminarMarca = true;
-
-        for(Modelo m:modelos){
-            for(Vehiculo v:vehiculos){
-                if(m.getMarca().getId_marca().equals(id_marca) || v.getMarca().getId_marca().equals(id_marca)){
+    
+        // Verificar si la marca tiene modelos asociados
+        for (Modelo m : modelos) {
+            if (m.getMarca().getId_marca().equals(id_marca)) {
+                eliminarMarca = true;
+                break;  // La marca está asociada a modelos
+            }
+        }
+    
+        // Verificar si la marca está asociada solo a modelos y no a vehículos
+        if (eliminarMarca) {
+            for (Vehiculo v : vehiculos) {
+                if (v.getMarca().getId_marca().equals(id_marca)) {
                     eliminarMarca = false;
+                    break;  // La marca está asociada a vehículos. NO SE PUEDE ELIMINAR
                 }
             }
         }
-        
-        if (eliminarMarca == true){
-            System.out.println("si PODES ELIMINAR, NO ESTA RELACIONADO");
+    
+        // Si la marca está asociada solo a modelos, eliminarla y sus modelos
+        if (eliminarMarca) {
+            System.out.println("Se puede eliminar, no está asociada a vehículos");
             servicesMarca.delete(id_marca);
-        }else{System.out.println("HAY REGISTROS RELACIONADOS");}        
-        
+    
+            // Eliminar modelos asociados a la marca
+            for (Modelo m : modelos) {
+                if (m.getMarca().getId_marca().equals(id_marca)) {
+                    servicesModelo.delete(m.getId_modelo());
+                }
+            }
+        } else {
+            System.out.println("No se puede eliminar la marca o está asociada a vehículos");
+        }
+    
         // Antes de la redirección
-        String mensaje = eliminarMarca ? "true" : "false";
+        String mensaje = eliminarMarca ? "eliminar" : "noEliminar";
         String urlRedireccion = "redirect:/marca?mensaje=" + mensaje;
         return urlRedireccion;
-
-
     }
-    
+     
     @PostMapping("/buscar")
     public String buscarMarca(Model model, String nombre){
         
