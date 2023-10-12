@@ -39,6 +39,12 @@ public class OrdenTrabajoController {
         
         //Listas
         List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo(); 
+        
+        // Formatear la fecha y hora en el formato deseado (dd/MM/yyyy HH:mm:ss)
+        for (OrdenTrabajo ordenTrabajo : ordenTrabajoList) {
+            ordenTrabajo.setFechaHoraCreacionFormateada();
+        }
+
         List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
         // List<Cliente> lista_clientesExistentes = clienteService.listarClientes();
@@ -92,12 +98,13 @@ public class OrdenTrabajoController {
     }
 
     @PostMapping("/buscarOrden")
-    public String buscarOrden(Model model, @RequestParam("orden") String orden){
+    public String buscarOrden(Model model, @RequestParam("fechaOrden") String orden){
         List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo(); 
         List<OrdenTrabajo> ordenTrabajoFiltradas = new ArrayList<>();
 
         for(OrdenTrabajo ort:ordenTrabajoList){
-            if(ort.getFechaCreacionOrden().toString().equals(orden)){
+            ort.setFechaHoraCreacionFormateada();
+            if(ort.getFechaHoraCreacionOrden().toString().equals(orden)){
                 ordenTrabajoFiltradas.add(ort);
             }
         }

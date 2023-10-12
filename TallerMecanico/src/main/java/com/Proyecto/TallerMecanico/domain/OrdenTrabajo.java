@@ -2,6 +2,7 @@ package com.Proyecto.TallerMecanico.domain;
 
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.*; 
 import lombok.Data;
@@ -16,8 +17,11 @@ public class OrdenTrabajo {
     @Column(name="nro_orden")
     private int nro_orden; //Hace de id
 
-    @Column(name="Fecha creacion Orden")
-    private LocalDate fechaCreacionOrden = LocalDate.now();
+    @Column(name="fecha_hora_creacion_orden")
+    private LocalDateTime fechaHoraCreacionOrden = LocalDateTime.now();
+
+    // Campo adicional para almacenar la fecha y hora formateada
+    private String fechaHoraCreacionFormateada;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "id_vehiculo")
@@ -29,7 +33,10 @@ public class OrdenTrabajo {
 
     public OrdenTrabajo(){}
 
-    
+    public void setFechaHoraCreacionFormateada() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+        this.fechaHoraCreacionFormateada = fechaHoraCreacionOrden.format(formatter);
+    }
 
 
 }

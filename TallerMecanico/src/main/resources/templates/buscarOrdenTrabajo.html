@@ -106,11 +106,8 @@
         <div class="row" style="margin-top: 20px;">
             <h3>ORDENES REALIZADAS</h3>
             <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarOrden}" method="POST">
-                <input name="orden" id="inputBuscar" class="form-control me-2" type="search"
-                    placeholder="Buscar Fecha Orden" aria-label="Search"
-                    oninput="this.value = this.value.toUpperCase()">
-                <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt=""
-                        width="25"></button>
+                <input name="fechaOrden" id="inputBuscar" class="form-control me-2" type="text" placeholder="Buscar Fecha Orden" aria-label="Search">
+                <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
             </form>
             <table id="userTable" class="table table-striped">
                 <thead>
@@ -122,7 +119,7 @@
                         <th>Año</th>
                         <th>Servicio</th>
                         <th>Cliente</th>
-                        <th>Fecha de Creación</th>
+                        <th>Fecha y Hora de Creación</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -135,10 +132,8 @@
                         <td class="ORDENData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
                         <td class="ORDENData" th:text="${ot.vehiculoPertenece.ano}"></td>
                         <td class="ORDENData" th:text="${ot.servicioRealizar.nombre}"></td>
-                        <td class="ORDENData"
-                            th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}">
-                        </td>
-                        <td class="ORDENData" th:text="${ot.fechaCreacionOrden}"></td>
+                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}"></td>
+                        <td class="ORDENData" th:text="${ot.fechaHoraCreacionFormateada}"></td>
 
                         <td id="tdbotones"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}"
                                 class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
