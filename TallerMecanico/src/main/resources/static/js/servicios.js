@@ -13,6 +13,14 @@ if (mensaje === 'servicioRepetido') {
     );
 }
 
+// Verificar si el valor del parámetro 'mensaje' es igual a 'false' y mostrar una alerta
+if (mensaje == 'false') {
+    Swal.fire(
+        'Error!',
+        'Este servicio está asociado a una orden de trabajo, no es posible borrar',
+        'error'
+    );
+}
 
 function agregarServicio(e) {
     e.preventDefault();

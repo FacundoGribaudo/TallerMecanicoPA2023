@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
 import com.Proyecto.TallerMecanico.domain.ServiciosTaller;
+import com.Proyecto.TallerMecanico.interfaceServices.IordenTrabajoService;
 import com.Proyecto.TallerMecanico.interfaceServices.IserviciosTallerService;
 
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class ServiciosTallerController {
 
     @Autowired
     private IserviciosTallerService SerTallerService;
+    @Autowired
+    private IordenTrabajoService otService;
 
     @GetMapping("/serviciosTaller")
     public String listarServicios(Model model) {
@@ -51,8 +55,23 @@ public class ServiciosTallerController {
 
     @GetMapping("/eliminarServicio/{id_servicio}")
     public String eliminarServicioTaller(Model model, @PathVariable int id_servicio) {
-        SerTallerService.delete(id_servicio);
-        return "redirect:/serviciosTaller";
+        List<OrdenTrabajo> ordenes = otService.listarOrdenTrabajo();
+        Boolean eliminarServicio = true;
+
+        for (OrdenTrabajo ot:ordenes) {
+            if(ot.getServicioRealizar().getId_servicio().equals(id_servicio)) {
+                eliminarServicio = false;
+            }
+        }
+
+        if(eliminarServicio){
+            System.out.println("Se puede eliminar servicio, no esta relacionado");
+            SerTallerService.delete(id_servicio);
+        } else{System.out.println("No se puede eliminar servicio");}
+        
+        //Antes de la redireccion
+        String mensaje = eliminarServicio ? "true" : "false";
+        return "redirect:/serviciosTaller?mensaje="+mensaje;
     }
 
     @GetMapping("/editarServicio/{id_servicio}")
