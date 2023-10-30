@@ -9,8 +9,11 @@ FALTA:
     - Revisar estetica 
     - VER CHECK-LIST para poder agregar varios servicios a la orden correspondiente. (AL FINAL ES UNA RELACION 1--1, QUEDA PARA LA PROXIMA ENTREGA LA RELACION 1--*)
 
-
-
+---------------- ENTREGA 3 ----------------
+TAREAS:
+    -Recuperar datos eliminados en alguna entidad
+    -Recuperar orden y detalle de orden
+    -Generar factura, sin cuenta corriente, sin NC y ND
 
 CONSIDERACIONES:
     - Restringimos a una orden de trabajo por servicio --> Si un vehiculo tiene 2 servicios, son 2 ordenes de trabajo distintas
