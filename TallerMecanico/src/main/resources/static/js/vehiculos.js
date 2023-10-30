@@ -36,6 +36,17 @@ function eliminarVehiculo() {
     return confirm("Esta seguro de eliminar el vehículo?");
 }
 
+function mostrarFormMarcaSelect(e) {
+    e.preventDefault();
+    var fondo = document.getElementById("fondoFormCrearSelect");
+    fondo.style.display= "block";
+    
+    var elemento = document.getElementById("formCrearSelect");
+    elemento.style.display = "block";
+
+    console.log("crear marca desde select");
+}
+
 const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');
 

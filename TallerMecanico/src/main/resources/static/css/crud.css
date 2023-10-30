@@ -68,3 +68,26 @@ select{
 .aHistorial:hover{
   color: #0b5ed7;
 }
+
+.divSelectYCrear{
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+.botonCrearIntuitivo{
+  background: none; 
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.botonCrearIntuitivo:hover{
+  background-color: #1abc86;
+}

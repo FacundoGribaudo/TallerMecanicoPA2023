@@ -65,3 +65,27 @@ div.row{
 #botonVolverBucar:hover{
     background-color: #1abc86;
 }
+
+.fondoFormCrearSelect{
+    position: fixed;
+    display: none;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.formCrearSelect{
+    position: fixed;
+    z-index: 2;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    height: 200px;
+    width: 150px;
+    background-color: rgba(231, 113, 113, 0.693);
+}
