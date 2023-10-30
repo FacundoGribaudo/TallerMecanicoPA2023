@@ -57,10 +57,13 @@ public class ServiciosTallerController {
     public String eliminarServicioTaller(Model model, @PathVariable int id_servicio) {
         List<OrdenTrabajo> ordenes = otService.listarOrdenTrabajo();
         Boolean eliminarServicio = true;
-
-        for (OrdenTrabajo ot:ordenes) {
-            if(ot.getServicioRealizar().getId_servicio().equals(id_servicio)) {
-                eliminarServicio = false;
+        
+        for (OrdenTrabajo ot : ordenes) {
+            for (ServiciosTaller servicio : ot.getServiciosRealizar()) {
+                if (servicio.getId_servicio().equals(id_servicio)) {
+                    eliminarServicio = false;
+                    break;  // Ya encontramos el servicio en una orden, no es necesario seguir buscando
+                }
             }
         }
 

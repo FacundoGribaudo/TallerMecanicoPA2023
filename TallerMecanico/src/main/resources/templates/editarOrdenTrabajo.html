@@ -65,8 +65,8 @@
                         <option th:each = "vehiculo : ${lista_vehiculos}" th:text = "${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}"> 
                     </select>
 
-                    <select required name="servicioRealizar" id="modeloAuto" class="form-select" form="addUserForm">
-                        <option selected hidden th:text="${orden_trabajo.servicioRealizar.nombre}" th:value="${orden_trabajo.servicioRealizar.id_servicio}"></option>
+                    <select required name="serviciosRealizar" id="modeloAuto" class="form-select" form="addUserForm" multiple>
+                        <option selected hidden th:text="${orden_trabajo.serviciosRealizar.nombre}" th:value="${orden_trabajo.serviciosRealizar.id_servicio}"></option>
                         <option th:each = "servicio : ${lista_servicios}" th:text = "${servicio.nombre}" th:value = "${servicio.id_servicio}"> 
                     </select>
                     <input type="submit" value="Actualizar" class="btn btn-success">

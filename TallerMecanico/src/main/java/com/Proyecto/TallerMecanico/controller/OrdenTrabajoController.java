@@ -60,12 +60,15 @@ public class OrdenTrabajoController {
     }
 
     @PostMapping("/registrarOrdenTrabajo")
-    public String registrarOrden(OrdenTrabajo ot){
-        /** 
-         * No pudimos realizar la relacion 1--* que seria lo correcto, con lo cual
-         * una ot tiene 1 solo servicio y un unico servicio puede estar en una sola OT.
-        **/
-
+    public String registrarOrden(@RequestParam("serviciosRealizar") List<Integer> serviciosIds, OrdenTrabajo ot) {
+        List<ServiciosTaller> serviciosSeleccionados = new ArrayList<>();
+        for (Integer servicioId : serviciosIds) {
+            Optional<ServiciosTaller> servicioOptional = serTaller.listarIdServicios(servicioId);
+            servicioOptional.ifPresent(serviciosSeleccionados::add);
+        }
+        ot.setServiciosRealizar(serviciosSeleccionados);
+    
+        // Resto del código para guardar la orden y redirigir
         serviceOT.save(ot);
         return "redirect:/ordenTrabajo";
     }

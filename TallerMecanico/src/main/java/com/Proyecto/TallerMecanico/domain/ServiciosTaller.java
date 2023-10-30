@@ -23,7 +23,7 @@ public class ServiciosTaller {
     @Column (name = "descripcion")
     private String descripcion;
 
-    @OneToMany (mappedBy = "servicioRealizar")
+    @OneToMany (mappedBy = "serviciosRealizar")
     private List<OrdenTrabajo> ordenesTrabajo;
 
     public ServiciosTaller(){

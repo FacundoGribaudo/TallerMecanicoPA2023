@@ -3,6 +3,7 @@ package com.Proyecto.TallerMecanico.domain;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import jakarta.persistence.*; 
 import lombok.Data;
@@ -27,9 +28,11 @@ public class OrdenTrabajo {
     @JoinColumn(name = "id_vehiculo")
     private Vehiculo vehiculoPertenece;
     
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "id_servicio")
-    private ServiciosTaller servicioRealizar;  
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "orden_trabajo_servicio",
+    joinColumns = @JoinColumn(name = "nro_orden"),
+    inverseJoinColumns = @JoinColumn(name = "id_servicio"))
+    private List<ServiciosTaller> serviciosRealizar;  
 
     public OrdenTrabajo(){}
 
