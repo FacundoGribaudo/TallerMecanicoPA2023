@@ -14,6 +14,7 @@ TAREAS:
     -Recuperar datos eliminados en alguna entidad
     -Recuperar orden y detalle de orden
     -Generar factura, sin cuenta corriente, sin NC y ND
+    -Generar alguna estadística, si se puede con gráfico mejor
 
 CONSIDERACIONES:
     - Restringimos a una orden de trabajo por servicio --> Si un vehiculo tiene 2 servicios, son 2 ordenes de trabajo distintas
