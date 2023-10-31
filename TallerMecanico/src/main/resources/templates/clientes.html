@@ -61,7 +61,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3>NUEVO CLIENTES</h3>
+                <h3>NUEVO CLIENTE</h3>
                 <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
                     <div class="form-group">
                         <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>

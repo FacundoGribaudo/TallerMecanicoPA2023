@@ -96,7 +96,7 @@
                             <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
                                 th:text="${modelo.nombre}"></option>
                         </select>
-                        <button class="botonCrearIntuitivo">
+                        <button class="botonCrearIntuitivo" onclick="mostrarFormModeloSelect(event)">
                             <img src="img/mas.png" height="40px" alt="">
                         </button>
                     </div>
@@ -106,7 +106,7 @@
                             <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
                                 th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
                         </select>
-                        <button class="botonCrearIntuitivo">
+                        <button class="botonCrearIntuitivo" onclick="mostrarFormClienteSelect(event)">
                             <img src="img/mas.png" height="40px" alt="">
                         </button>
                     </div>
@@ -163,22 +163,91 @@
 
     <div class="fondoFormCrearSelect" id="fondoFormCrearSelect"></div>
 
-    <div class="formCrearSelect" id="formCrearSelect">
-        <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-            <div style="margin-bottom: 6px;">
-                <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca"
-                    aria-label="Search" oninput="this.value = this.value.toUpperCase()">
-            </div>
-            <div style="margin-bottom: 6px;">
-                <select name="estado" id="inputState" class="form-select" form="addUserForm">
+    <div class="formCrearSelect" id="formCrearMarcaSelect">
+        <div style="text-align: center;">
+            <button onclick="cerrarFormSelect(event)" id="botonCerrarFormSelect">
+                <img src="img/cancelar.png" width="30px" alt="">
+            </button>
+            <h3>NUEVA MARCA</h3>
+
+            <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
+                <div style="margin-bottom: 6px;">
+                    <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca"
+                        aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                </div>
+                <div style="margin-bottom: 6px;">
+                    <select name="estado" id="inputState" class="form-select" form="addUserForm">
+                        <option value="Activo" selected>Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+                <input onclick="validarFormulario(event)" type="submit" value="Agregar marca"
+                    class="btn btn-primary form-control">
+            </form>
+        </div>
+    </div>
+
+    <div class="formCrearSelect" id="formCrearModeloSelect">
+        <div>
+            <button onclick="cerrarFormSelect(event)" id="botonCerrarFormSelect">
+                <img src="img/cancelar.png" width="30px" alt="">
+            </button>
+            <h3>NUEVO MODELO</h3>
+            <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre"
+                        oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
                     <option value="Activo" selected>Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select>
-            </div>
-            <input onclick="validarFormulario(event)" type="submit" value="Agregar marca"
-                class="btn btn-primary form-control">
-        </form>
+                <select name="marca" id="marcaModelo" class="form-select" form="addUserForm">
+                    <option selected hidden>Marca</option>
+                    <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
+                </select>
+                <input onclick="agregarModelo(event)" class="btn btn-primary form-control" type="submit" id="submitBtn"
+                    value="Agregar modelo"></input>
+            </form>
+        </div>
     </div>
+
+    <div class="formCrearSelect" id="formCrearClienteSelect">
+        <div>
+            <button onclick="cerrarFormSelect(event)" id="botonCerrarFormSelect">
+                <img src="img/cancelar.png" width="30px" alt="">
+            </button>
+            <h3>NUEVO CLIENTE</h3>
+            <form id="addUserForm" th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
+                <div class="form-group">
+                    <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="Nombre"
+                        oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <div class="form-group">
+                    <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="Apellido"
+                        oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <div class="form-group">
+                    <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" maxlength="8"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input name="localidad" class="form-control" type="text" id="localidadCliente"
+                        placeholder="Localidad" oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <div class="botonesFormSelect form-group">
+                    <input id="botonAgregar" onclick="agregarCliente(event)" type="submit" value="Agregar Cliente"
+                        class="btn btn-primary form-control">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 
     <script src="js/vehiculos.js"></script>
     <script src="js/eliminar.js"></script>

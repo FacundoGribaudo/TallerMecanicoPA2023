@@ -41,10 +41,50 @@ function mostrarFormMarcaSelect(e) {
     var fondo = document.getElementById("fondoFormCrearSelect");
     fondo.style.display= "block";
     
-    var elemento = document.getElementById("formCrearSelect");
+    var elemento = document.getElementById("formCrearMarcaSelect");
     elemento.style.display = "block";
 
     console.log("crear marca desde select");
+}
+
+function mostrarFormModeloSelect(e) {
+    e.preventDefault();
+    var fondo = document.getElementById("fondoFormCrearSelect");
+    fondo.style.display= "block";
+    
+    var elemento = document.getElementById("formCrearModeloSelect");
+    elemento.style.display = "block";
+
+    console.log("crear modelo desde select");
+}
+
+function mostrarFormClienteSelect(e) {
+    e.preventDefault();
+    var fondo = document.getElementById("fondoFormCrearSelect");
+    fondo.style.display= "block";
+    
+    var elemento = document.getElementById("formCrearClienteSelect");
+    elemento.style.display = "block";
+
+    console.log("crear cliente desde select");
+}
+
+
+function cerrarFormSelect(e){
+    e.preventDefault();
+    
+    var fondo = document.getElementById("fondoFormCrearSelect");
+    fondo.style.display= "none";
+    
+    var elemento = document.getElementById("formCrearMarcaSelect");
+    elemento.style.display = "none";
+
+    var elemento = document.getElementById("formCrearModeloSelect");
+    elemento.style.display = "none";
+
+    var elemento = document.getElementById("formCrearClienteSelect");
+    elemento.style.display = "none";
+
 }
 
 const params = new URLSearchParams(window.location.search);

@@ -75,7 +75,7 @@ div.row{
     z-index: 1;
     height: 100vh;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.731);
 }
 
 .formCrearSelect{
@@ -85,7 +85,27 @@ div.row{
     left: 50%;
     transform: translateX(-50%);
     display: none;
-    height: 200px;
-    width: 150px;
-    background-color: rgba(231, 113, 113, 0.693);
+    height: auto;
+    width: 430px;
+    background-color: #000000;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    padding: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 15px;
+}
+
+#botonCerrarFormSelect{
+    background: none; 
+    padding: 0; 
+    position: fixed ;
+    right: 25px; 
+    top:10px; 
+    border: none;
+    border-radius: 50px;
+    padding: 2px;
+}
+
+#botonCerrarFormSelect:hover{
+    background-color: #ffffff;
 }
