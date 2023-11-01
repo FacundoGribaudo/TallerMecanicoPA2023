@@ -89,9 +89,14 @@ div.row {
     left: 50%;
     transform: translateX(-50%);
     display: none;
-    height: 200px;
-    width: 150px;
-    background-color: rgba(231, 113, 113, 0.693);
+    height: auto;
+    width: 430px;
+    background-color: #000000;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    padding: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 15px;
 }
 
 .select-container {
@@ -106,22 +111,50 @@ div.row {
 }
 
 .form-check input[type="checkbox"] {
-    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
     float: left;
 }
-.form-check label {
+/* .form-check label {
     display: block;
     margin-left: 30px;
     text-align: left;
     height: auto;
     width: 430px;
-    background-color: #000000;
+    background-color: #ffffff;
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
     padding: 30px;
     padding-top: 50px;
     padding-bottom: 50px;
     border-radius: 15px;
+} */
+.form-check label {
+    display: block;
+    margin: 5px 0; /* Espaciado entre las etiquetas */
+    background-color: #f5f5f5; /* Color de fondo */
+    border: 1px solid #ccc; /* Borde alrededor de las etiquetas */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre las etiquetas */
+    transition: background-color 0.2s, border-color 0.2s; /* Transición suave al pasar el cursor */
 }
+
+.form-check label:hover {
+    background-color: #e5e5e5; /* Cambia el color de fondo al pasar el cursor */
+}
+
+/* Opcional: Estilo para las etiquetas seleccionadas */
+.form-check input:checked + label {
+    background-color: #007bff; /* Cambia el color de fondo cuando la casilla está marcada */
+    color: #fff; /* Cambia el color del texto cuando la casilla está marcada */
+    border-color: #007bff; /* Cambia el borde cuando la casilla está marcada */
+}
+
+/* Opcional: Estilo para el texto dentro de las etiquetas */
+.form-check label span {
+    font-weight: bold; /* Hace que el texto sea negrita */
+}
+
 
 #botonCerrarFormSelect {
     background: none;
