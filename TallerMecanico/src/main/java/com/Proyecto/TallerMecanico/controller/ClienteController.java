@@ -128,7 +128,7 @@ public class ClienteController {
        
 
         for(OrdenTrabajo ot:otRegistrados){
-            ot.setFechaHoraCreacionFormateada();
+            ot.setFechaHoraFormateada();
             for(Vehiculo v2:vehiculosRegistrados){
                 if(ot.getVehiculoPertenece().getId_vehiculo() == v2.getId_vehiculo() && v2.getCliente().getId_cliente() == id_cliente){
                     otHistorial.add(ot);

@@ -18,6 +18,13 @@ h3 {
   letter-spacing: .1em;
 }
 
+h4 {
+  font-size: 18px;
+  font-weight: bolder;
+  color: #555;
+  margin: 10px 0 0;
+}
+
 form{
   text-align: center;
 }

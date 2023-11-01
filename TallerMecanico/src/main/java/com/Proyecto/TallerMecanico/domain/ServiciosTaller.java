@@ -23,6 +23,10 @@ public class ServiciosTaller {
     @Column (name = "descripcion")
     private String descripcion;
 
+    
+    @Column (name = "precio_hora")
+    private float precioHora;
+
     @OneToMany (mappedBy = "serviciosRealizar")
     private List<OrdenTrabajo> ordenesTrabajo;
 
@@ -30,16 +34,17 @@ public class ServiciosTaller {
 
     }
 
-    public ServiciosTaller(String nombre, String descripcion, List<OrdenTrabajo> ordenesTrabajo){
+    public ServiciosTaller(String nombre, String descripcion, float precioHora, List<OrdenTrabajo> ordenesTrabajo){
         super();
         this.nombre = nombre;
         this.descripcion = descripcion; 
+        this.precioHora = precioHora;
         this.ordenesTrabajo = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        return "ServiciosTaller [id_servicio=" + id_servicio + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
+        return "ServiciosTaller [id_servicio=" + id_servicio + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio="+ precioHora +"]";
     }
 
 }

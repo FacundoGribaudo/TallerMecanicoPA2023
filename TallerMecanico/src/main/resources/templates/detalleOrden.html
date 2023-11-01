@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Mecánico</title>
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/gen.css">
+    <link rel="stylesheet" href="../css/crud.css">
+
+    <!-- ICONO -->
+    <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" id="barraNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <!-- Primera columna (izquierda) -->
+            <h3>DETALLE ORDEN ID: <span th:text="${nro_orden}"></span></h3>
+            <div class="col-md-6">
+
+                <h4>VEHICULOS</h4>
+                <select th:value="${vehiculo.id_vehiculo}" required name="vehiculoPertenece" id="vehiculoServicio" class="form-select" form="addUserForm">
+                    <option selected hidden th:value="${vehiculo.id_vehiculo}" th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"></option>
+                    <option th:each="vehiculo : ${lista_vehiculos}"
+                        th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"
+                        th:value="${vehiculo.id_vehiculo}">
+                </select>
+
+                <h4>PROPIETARIO</h4>
+                <p class="form-control" th:text="${ordenTrabajo.vehiculoPertenece.cliente.nombre}+' '+${ordenTrabajo.vehiculoPertenece.cliente.apellido}"></p>
+        
+                <h4>FECHA DE ORDEN</h4>
+                <input type="datetime-local" name="fechaHoraOrden" required class="form-control" th:value="${ordenTrabajo.fechaHoraOrden}">
+            </div>
+
+            <!-- Segunda columna (derecha) -->
+
+            <div class="col-md-6">
+
+
+                <h4>TECNICOS</h4>
+                <div class="form-check select-container">
+                    <div th:each="tecnico : ${lista_tecnicos}">
+                        <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}" id="tecnico_${tecnico.id_tecnico}"th:checked="${tecnicosSeleccionados.contains(tecnico)}" />
+                        <label for="tecnico_${tecnico.id_tecnico}" th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <!-- <h4>SERVICIOS</h4>
+                <div class="form-check select-container">
+                    <div th:each="servicio : ${lista_servicios}">
+                        <input type="checkbox" name="serviciosRealizar" th:value="${servicio.id_servicio}" id="servicio_${servicio.id_servicio}"  th:checked="${serviciosSeleccionados.contains(servicio)}" />
+                        <label for="servicio_${servicio.id_servicio}" th:text="${servicio.nombre}"></label>
+                    </div>
+                </div> -->
+                <h4>SERVICIOS</h4>
+                <table class="table table-bordered" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: auto;">Nombre Servicio</th>
+                            <th style="width: auto;">Precio/hora</th>
+                            <th style="width: auto;">Horas</th>
+                            <th style="width: auto;">Minutos</th>
+                            <th style="width: auto;">Precio</th>
+                            <th style="width: auto;">Descuento</th>
+                            <th style="width: auto;">Monto Impuestos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="servicio : ${lista_servicios}">
+                            <td th:text="${servicio.nombre}"></td>
+                            <td>
+                                <!-- <input type="number" step="0.01" name="precioHora" required th:value="${servicio.precioHora}" class="form-control"> -->
+                            </td>
+                            <td>
+                                <input type="number" step="1" name="horas" required class="form-control">
+                            </td>
+                            <td>
+                                <input type="number" step="1" name="minutos" required class="form-control">
+                            </td>
+                            <td>
+                                <input type="number" step="0.01" name="precio" required class="form-control">
+                            </td>
+                            <td>
+                                <input type="number" step="0.01" name="descuento" required class="form-control">
+                            </td>
+                            <td>
+                                <input type="number" step="0.01" name="montoImpuestos" required class="form-control">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                
+            </div>
+
+
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-secondary" th:href="@{/ordenTrabajo}">Volver a Orden Trabajo</a>
+        </div>e
+    </div>
+    <script src="js/clientes.js"></script>
+    <script src="js/eliminar.js"></script>
+</body>
+</html>

@@ -1,27 +1,78 @@
 console.log("vinculado.js");
 
-function agregarOrdenTrabajo(e){
+function agregarOrdenTrabajo(e) {
     e.preventDefault();
 
     const vehiculoSelect = document.getElementById("vehiculoServicio");
-    const servicioSelect = document.getElementById("serviciosRealizar");
+    const servicioCheckboxes = document.querySelectorAll('input[name="serviciosRealizar"]:checked');
+    const tecnicoCheckboxes = document.querySelectorAll('input[name="tecnicosOrden"]:checked');
+    const fechaHoraOrdenInput = document.getElementById("fechaHoraOrden");
 
-    // Verifica que los elementos existan antes de acceder a sus propiedades
-    if (vehiculoSelect && servicioSelect) {
-        const vehiculo = vehiculoSelect.options[vehiculoSelect.selectedIndex].value;
-        const servicios = [...servicioSelect.options].filter(option => option.selected).map(option => option.value);
-    
-        if (vehiculo == "Vehiculo" || servicios.length === 0){
-            Swal.fire(
-                'Error!',
-                'Por favor complete todos los campos',
-                'error'
-            );
-            return
-        }else{
-            document.getElementById("addUserForm").submit();
-        }
+    console.log(vehiculoSelect.value);
+    console.log(servicioCheckboxes.length);
+    console.log(tecnicoCheckboxes.length);
+    console.log(fechaHoraOrdenInput.value);
+    // Verifica si algún campo está vacío
+    if (vehiculoSelect.value == "Vehiculo" || servicioCheckboxes.length === 0 || tecnicoCheckboxes.length === 0 || fechaHoraOrdenInput.value == "") {
+        Swal.fire(
+            'Error!',
+            'Por favor complete todos los campos',
+            'error'
+        );
     } else {
-        console.error('No se encontraron los elementos vehiculoServicio o serviciosRealizar.');
+        document.getElementById("addUserForm").submit();
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const clickableLabels = document.querySelectorAll(".clickable-label");
+
+    clickableLabels.forEach(function (label) {
+        label.addEventListener("click", function () {
+            event.preventDefault();
+            const checkbox = label.previousElementSibling;
+            checkbox.checked = !checkbox.checked;
+
+            // Dispara el evento change en el checkbox manualmente
+            const changeEvent = new Event("change", { bubbles: true });
+            checkbox.dispatchEvent(changeEvent);
+        });
+    });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const tecnicosCheckboxes = document.querySelectorAll('input[name="tecnicosOrden"]');
+    const serviciosCheckboxes = document.querySelectorAll('input[name="serviciosRealizar"]');
+    const eliminarSeleccionTecnicos = document.getElementById("eliminarSeleccionTecnicos");
+    const eliminarSeleccionServicios = document.getElementById("eliminarSeleccionServicios");
+
+    tecnicosCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            const selectedTecnicos = document.querySelectorAll('input[name="tecnicosOrden"]:checked');
+            eliminarSeleccionTecnicos.style.display = selectedTecnicos.length > 0 ? "block" : "none";
+        });
+    });
+
+    serviciosCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            const selectedServicios = document.querySelectorAll('input[name="serviciosRealizar"]:checked');
+            eliminarSeleccionServicios.style.display = selectedServicios.length > 0 ? "block" : "none";
+        });
+    });
+
+    eliminarSeleccionTecnicos.addEventListener("click", function () {
+        tecnicosCheckboxes.forEach(function (checkbox) {
+            checkbox.checked = false;
+        });
+        eliminarSeleccionTecnicos.style.display = "none";
+    });
+
+    eliminarSeleccionServicios.addEventListener("click", function () {
+        serviciosCheckboxes.forEach(function (checkbox) {
+            checkbox.checked = false;
+        });
+        eliminarSeleccionServicios.style.display = "none";
+    });
+});

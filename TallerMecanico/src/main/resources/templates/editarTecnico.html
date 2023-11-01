@@ -78,10 +78,6 @@
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
-                    <select name="vehiculo" id="vehiculoTecnico" class="form-select" form="addUserForm">
-                        <option selected hidden th:value="${tecnico.vehiculo.id_vehiculo}" th:text="${tecnico.vehiculo.marca.nombre}+' '+${tecnico.vehiculo.modelo.nombre}+' - '+${tecnico.vehiculo.patente}"></option>
-                        <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}" th:text="${v.marca.nombre}+' '+${v.modelo.nombre}+' - '+${v.patente}"></option>
-                    </select>
                     <div id="botones">
                         <input onclick="agregarTecnico(event)" type="submit" value="Actualizar" class="btn btn-success">
                         <a th:href="@{/tecnicos}"><input type="button" value="Cancelar" class="btn btn-warning"></a>

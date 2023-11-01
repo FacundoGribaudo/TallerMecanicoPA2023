@@ -13,36 +13,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
 import com.Proyecto.TallerMecanico.domain.Tecnico;
-import com.Proyecto.TallerMecanico.domain.Vehiculo;
+import com.Proyecto.TallerMecanico.interfaceServices.IordenTrabajoService;
 import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
-import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 
 @Controller
 @RequestMapping
 public class TecnicoController {
      
     @Autowired
-    private IvehiculoServices servicesVehiculo;
-    @Autowired
     private ItecnicoServices servicesTecnico; 
-
+    @Autowired
+    private IordenTrabajoService otService;
+    
 
     @GetMapping("/tecnicos")
     public String listarTecnicos(Model model){
-        
-        /*
-         * DEFINIMOS QUE MUCHOS TECNICOS PUEDAN ESTAR EN UN MISMO VEHICULO
-         * ASI QUE DEBEMOS PODER SELECCIONAR Y MOSTRAR LOS VEHICULOS DONDE ESTAN 
-         * TRABAJANDO LOS TECNICOS
-         */
-        
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
-        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
-
-        model.addAttribute("tecnicos", tecnicos);
-        model.addAttribute("vehiculos", vehiculos);
-        
+        model.addAttribute("lista_tecnicos", tecnicos);    
         return "tecnico";
     }
 
@@ -60,26 +49,42 @@ public class TecnicoController {
         return "redirect:/tecnicos";
     }
 
+    // solo se elimina si un tecnico no esta asociado a una orden de trabajo
+    // Ver si se puede borrar el tecnico y que se elimine de la orden, sin eliminar la orden
     @GetMapping("/eliminarTecnico/{id_tecnico}")
     public String eliminarTecnico(Model model, @PathVariable int id_tecnico){
-        servicesTecnico.delete(id_tecnico);
-        return "redirect:/tecnicos"; 
+        List<OrdenTrabajo> ordenes = otService.listarOrdenTrabajo();
+        Boolean eliminarTecnico = true;
+
+        for (OrdenTrabajo ot : ordenes) {
+            for (Tecnico tecnico : ot.getTecnicosOrden()) {
+                if (tecnico.getId_tecnico().equals(id_tecnico)) {
+                    eliminarTecnico = false;
+                    break;  // Ya encontramos el tecnico en una orden, no es necesario seguir buscando
+                }
+            }
+        }
+        if(eliminarTecnico){
+            System.out.println("Se puede eliminar tecnico, no esta relacionado");
+            servicesTecnico.delete(id_tecnico);
+        } else{System.out.println("No se puede eliminar tecnico");}
+        
+        //Antes de la redireccion
+        String mensaje = eliminarTecnico ? "true" : "false";
+        return "redirect:/tecnicos?mensaje="+mensaje; 
     }
 
     @GetMapping("/editarTecnico/{id_tecnico}")
     public String editarTecnico(@PathVariable int id_tecnico, Model model){
         Optional<Tecnico> optionalTecnico = servicesTecnico.listarIdTecnico(id_tecnico);
-        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
 
-        
         if (optionalTecnico.isPresent()) {
             Tecnico tecnico = optionalTecnico.get();
-            model.addAttribute("tecnico", tecnico);
+            model.addAttribute("lista_tecnicos", tecnico);
         } else {
             
         }
 
-        model.addAttribute("vehiculos", vehiculos);
         return "editarTecnico"; 
     }
 
@@ -99,7 +104,7 @@ public class TecnicoController {
         }
 
        
-        model.addAttribute("tecnicos", tecnicosEncontrados);
+        model.addAttribute("lista_tecnicos", tecnicosEncontrados);
 
         return "buscarTecnico";
     }

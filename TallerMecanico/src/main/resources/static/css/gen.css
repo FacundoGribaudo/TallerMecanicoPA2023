@@ -31,7 +31,8 @@ div.row{
     margin-top: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+
 }
 
 #formBuscar{
@@ -88,4 +89,25 @@ div.row{
     height: 200px;
     width: 150px;
     background-color: rgba(231, 113, 113, 0.693);
+}
+
+.select-container {
+    color: black;
+    margin-top: 5px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 150px; /* Establece la altura fija */
+    overflow-y: auto; /* barra de desplazamiento vertical */
+}
+
+.form-check input[type="checkbox"] {
+    margin-right: 5px;
+    float: left;
+}
+.form-check label {
+    display: block;
+    margin-left: 30px;
+    text-align: left;
 }

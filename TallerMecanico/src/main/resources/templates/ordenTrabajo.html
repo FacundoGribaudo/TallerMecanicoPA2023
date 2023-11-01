@@ -65,41 +65,60 @@
     <h1>ORDEN DE TRABAJO</h1>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
+        <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
+            <div class="row">
+                <!-- Primera columna (izquierda) -->
                 <h3>NUEVA ORDEN</h3>
-                <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
-                    <!--<div class="form-group">
-                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required oninput="this.value = this.value.toUpperCase()">
-                        <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required>
-                    </div>-->
-                    
+                <div class="col-md-6">
+
+                    <h4>VEHICULOS</h4>
                     <select required name="vehiculoPertenece" id="vehiculoServicio" class="form-select" form="addUserForm">
                         <option selected hidden>Vehiculo</option>
-                        <option th:each = "vehiculo : ${lista_vehiculos}" th:text = "${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}" th:value = "${vehiculo.id_vehiculo}"> 
+                        <option th:each="vehiculo : ${lista_vehiculos}"
+                            th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"
+                            th:value="${vehiculo.id_vehiculo}">
                     </select>
+                    
+                    <h4>SERVICIOS</h4>
+                    <div class="form-check select-container">
+                        <div th:each="servicio : ${lista_servicios}">
+                            <input type="checkbox" name="serviciosRealizar" th:value="${servicio.id_servicio}" id="servicio_${servicio.id_servicio}">
+                            <label for="servicio_${servicio.id_servicio}" th:text="${servicio.nombre}" class="clickable-label"></label>
+                        </div>
+ 
+                    </div>
+                    <a id="eliminarSeleccionServicios" href="#" style="display: none">Eliminar Selección Servicios</a>
+                    
+                </div>
 
-                    <select required name="serviciosRealizar" id="serviciosRealizar" class="form-select" form="addUserForm" multiple>
-                        <option selected hidden>Servicios</option>
-                        <option th:each="servicio : ${lista_servicios}" th:text="${servicio.nombre}" th:value="${servicio.id_servicio}">
-                        </option>
-                    </select>
-                    
-                    <input type="submit" value="Crear Orden" class="btn btn-primary form-control" onclick="agregarOrdenTrabajo(event)"> 
-                    <!--<select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
-                        <option selected hidden>Cliente</option>
-                        <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
-                            th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
-                    </select>
-                    
-                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">--> 
-                </form>
+                <!-- Segunda columna (derecha) -->
+                <div class="col-md-6">
+
+                    <h4>FECHA DE ORDEN</h4>
+                    <input type="datetime-local" id="fechaHoraOrden" name="fechaHoraOrden" required class="form-control">
+
+                    <h4>TECNICOS</h4>
+                    <div class="form-check select-container">
+                        <div th:each="tecnico : ${lista_tecnicos}">
+                            <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}" id="tecnico_${tecnico.id_tecnico}">
+                            <label for="tecnico_${tecnico.id_tecnico}" th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}" class="clickable-label"></label>
+                        </div>
+                    </div>
+                    <a id="eliminarSeleccionTecnicos" href="#" style="display: none">Eliminar Selección Técnicos</a>
+                </div>
             </div>
-        </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">   
+                    <input type="submit" value="Crear Orden" class="btn btn-primary form-control" onclick="agregarOrdenTrabajo(event)"> 
+                </div>
+            </div>
+        </form>
+
         <div class="row" style="margin-top: 20px;">
             <h3>ORDENES REALIZADAS</h3>
             <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarOrden}" method="POST">
-                <input name="fechaOrden" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Fecha Orden" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                <input name="fechaOrdenBuscar" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Fecha Orden" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
                 <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
             </form>
             <table id="userTable" class="table table-striped">
@@ -110,9 +129,10 @@
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Año</th>
-                        <th>Servicios</th>
                         <th>Cliente</th>
-                        <th>Fecha y Hora de Creación</th>
+                        <th>Fecha de Orden</th> 
+                        <th>Fecha de Creación</th>
+                        <th>Detalle Orden</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -124,14 +144,17 @@
                         <td class="ORDENData" th:text="${ot.vehiculoPertenece.marca.nombre}"></td>
                         <td class="ORDENData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
                         <td class="ORDENData" th:text="${ot.vehiculoPertenece.ano}"></td>
-                        <td>
+                        <!-- <td>
                             <ul>
                                 <li th:each="servicio : ${ot.serviciosRealizar}" th:text="${servicio.nombre}"></li>
                             </ul>
-                        </td>
+                        </td> -->
                         <td class="ORDENData" th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}"></td>
+                        <td class="ORDENData" th:text="${ot.fechaHoraOrdenFormateada}"></td>
                         <td class="ORDENData" th:text="${ot.fechaHoraCreacionFormateada}"></td>
-                        
+                        <td id="tdbotones" class="CLIENTEData historialTD">
+                            <a class="aHistorial" th:href="@{/detalleOrden/}+${ot.nro_orden}">Detalle Orden</a>
+                        </td>
                         <td id="tdbotones"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                         <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud" th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>                        
                         

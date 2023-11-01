@@ -1,6 +1,8 @@
 package com.Proyecto.TallerMecanico.domain;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,23 +32,19 @@ public class Tecnico {
     @Column(name = "estado")
     private String estado; 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "id_vehiculo")
-    private Vehiculo vehiculo; 
-    
-    // @ManyToMany(mappedBy = "tecnicos")
-    // private List<Vehiculo> vehiculo; 
-
+    @OneToMany (mappedBy = "tecnicosOrden")
+    private List<OrdenTrabajo> ordenesTrabajo;
 
     public Tecnico(){}
 
-    public Tecnico(String nombre, String apellido, BigInteger tel, String leg, String estado){
+    public Tecnico(String nombre, String apellido, BigInteger tel, String leg, String estado, List<OrdenTrabajo> ordenesTrabajo){
         super();
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = tel;
         this.legajo = leg;
         this.estado = estado; 
+        this.ordenesTrabajo = new ArrayList<>();
     }
 
 }

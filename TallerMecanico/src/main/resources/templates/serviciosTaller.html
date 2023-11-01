@@ -66,6 +66,7 @@
                 <form id="addUserForm" th:action="@{/registrarServicio}" th:object="${ServiciosTaller}" method="POST">
                     <div class="form-group">
                         <input class="form-control" type="text" id="nombreServicio" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
+                        <input class="form-control" type="number" id="precioHora" name="precioHora" placeholder="Precio/hora" required>
                         <input class="form-control" type="text" id="descripcionServicio" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <!--<select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
@@ -105,6 +106,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre Servicio</th>
+                            <th>Precio/hora</th>
                             <th>Descripcion</th>
                             <th></th>
                             <th></th>
@@ -115,6 +117,7 @@
                         <tr th:each="s : ${lista_servicios}">
                             <td class="servicioTallerData" th:text="${s.id_servicio}"></td>
                             <td class="servicioTallerData" th:text="${s.nombre}"></td>
+                            <td class="servicioTallerData" th:text="'$' + ${s.precioHora}"></td>
                             <td class="servicioTallerData" th:text="${s.descripcion}"></td>
                             <!--<td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarServicio/}+${s.id_servicio}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>-->

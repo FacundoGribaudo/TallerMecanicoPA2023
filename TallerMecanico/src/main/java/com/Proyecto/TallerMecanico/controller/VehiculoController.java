@@ -18,13 +18,11 @@ import com.Proyecto.TallerMecanico.domain.Cliente;
 import com.Proyecto.TallerMecanico.domain.Marca;
 import com.Proyecto.TallerMecanico.domain.Modelo;
 import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
-import com.Proyecto.TallerMecanico.domain.Tecnico;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
 import com.Proyecto.TallerMecanico.interfaceServices.IModeloServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IclienteServices;
 import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IordenTrabajoService;
-import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 
 @Controller
@@ -39,8 +37,6 @@ public class VehiculoController {
     private IModeloServices servicesModelo;
     @Autowired
     private IclienteServices servicesCliente;
-    @Autowired
-    private ItecnicoServices servicesTecnico;
     @Autowired
     private IordenTrabajoService servicesOT;
 
@@ -123,19 +119,10 @@ public class VehiculoController {
 
     @GetMapping("/eliminarVehiculo/{id_vehiculo}")
     public String eliminarVehiculo(Model model, @PathVariable int id_vehiculo) {
-        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
         List<OrdenTrabajo> ordenesTrabajo = servicesOT.listarOrdenTrabajo();
 
         Boolean tecnicoAsociado = false;
         Boolean oTAsociada = false;
-
-        // Verificar si el vehículo está asociado a un técnico
-        for (Tecnico t : tecnicos) {
-            if (t.getVehiculo().getId_vehiculo().equals(id_vehiculo)) {
-                tecnicoAsociado = true;
-                break; // Puedes salir del bucle tan pronto como encuentres una asociación
-            }
-        }
 
         // verificar si tiene orden de trabajo asociada
         for (OrdenTrabajo ot : ordenesTrabajo) {
