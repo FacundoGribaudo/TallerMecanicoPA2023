@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap');
-html,body{
+
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -7,12 +9,12 @@ html,body{
     font-family: 'Poppins', sans-serif;
 }
 
-.navbar{
+.navbar {
     background-color: #000000bb;
 }
 
 
-h1{
+h1 {
     text-align: center;
     margin: 0;
     margin-top: 20px;
@@ -22,27 +24,27 @@ h1{
     color: #333333;
 }
 
-.container{
+.container {
     padding: 0;
     margin-top: 1%;
 }
 
-div.row{
+div.row {
     margin-top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#formBuscar{
+#formBuscar {
     margin-bottom: 5px;
 }
 
-#inputBuscar{
+#inputBuscar {
     border-radius: 25px;
 }
 
-#botonBuscar{
+#botonBuscar {
     height: 50px;
     width: 55px;
     border-radius: 55%;
@@ -51,22 +53,23 @@ div.row{
     padding: 0;
 }
 
-#botonBuscar:hover{
-    background-color:#1abc86 ;   /* fallback for old browsers */
+#botonBuscar:hover {
+    background-color: #1abc86;
+    /* fallback for old browsers */
 }
 
-#botonVolverBucar{
+#botonVolverBucar {
     position: fixed;
-    padding: 5px; 
-    background-color: white; 
+    padding: 5px;
+    background-color: white;
     border-radius: 50%;
 }
 
-#botonVolverBucar:hover{
+#botonVolverBucar:hover {
     background-color: #1abc86;
 }
 
-.fondoFormCrearSelect{
+.fondoFormCrearSelect {
     position: fixed;
     display: none;
     top: 0;
@@ -78,7 +81,7 @@ div.row{
     background-color: rgba(0, 0, 0, 0.731);
 }
 
-.formCrearSelect{
+.formCrearSelect {
     position: fixed;
     z-index: 2;
     top: 50px;
@@ -95,17 +98,35 @@ div.row{
     border-radius: 15px;
 }
 
-#botonCerrarFormSelect{
-    background: none; 
-    padding: 0; 
-    position: fixed ;
-    right: 25px; 
-    top:10px; 
+#botonCerrarFormSelect {
+    background: none;
+    padding: 0;
+    position: fixed;
+    right: 25px;
+    top: 10px;
     border: none;
     border-radius: 50px;
     padding: 2px;
 }
 
-#botonCerrarFormSelect:hover{
+#botonCerrarFormSelect:hover {
     background-color: #ffffff;
+}
+
+/* barra de navegacion */
+.nav-item {
+    position: relative;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 10px;
 }

@@ -24,34 +24,49 @@
     <nav class="navbar navbar-expand-lg" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

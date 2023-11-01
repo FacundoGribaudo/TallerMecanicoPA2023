@@ -36,6 +36,7 @@ function eliminarVehiculo() {
     return confirm("Esta seguro de eliminar el vehículo?");
 }
 
+//Las 3 funciones son llamadas cuando se apreta el boton de + para crear una marca, modelo o cliente desde la ventana de vehiculos, para mostrar el form
 function mostrarFormMarcaSelect(e) {
     e.preventDefault();
     var fondo = document.getElementById("fondoFormCrearSelect");
@@ -69,7 +70,7 @@ function mostrarFormClienteSelect(e) {
     console.log("crear cliente desde select");
 }
 
-
+//Se llama cuando se cancela y se quiere cerrar el formulario
 function cerrarFormSelect(e){
     e.preventDefault();
     
