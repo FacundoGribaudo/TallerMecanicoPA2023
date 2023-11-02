@@ -27,6 +27,8 @@ function agregarVehiculo(event) {
         return
     }
     else {
+        //cuando envio el formulario borro el cache
+        borrarCache();
         document.getElementById("addUserForm").submit();
     }
 
@@ -40,8 +42,8 @@ function eliminarVehiculo() {
 function mostrarFormMarcaSelect(e) {
     e.preventDefault();
     var fondo = document.getElementById("fondoFormCrearSelect");
-    fondo.style.display= "block";
-    
+    fondo.style.display = "block";
+
     var elemento = document.getElementById("formCrearMarcaSelect");
     elemento.style.display = "block";
 
@@ -51,8 +53,8 @@ function mostrarFormMarcaSelect(e) {
 function mostrarFormModeloSelect(e) {
     e.preventDefault();
     var fondo = document.getElementById("fondoFormCrearSelect");
-    fondo.style.display= "block";
-    
+    fondo.style.display = "block";
+
     var elemento = document.getElementById("formCrearModeloSelect");
     elemento.style.display = "block";
 
@@ -62,8 +64,8 @@ function mostrarFormModeloSelect(e) {
 function mostrarFormClienteSelect(e) {
     e.preventDefault();
     var fondo = document.getElementById("fondoFormCrearSelect");
-    fondo.style.display= "block";
-    
+    fondo.style.display = "block";
+
     var elemento = document.getElementById("formCrearClienteSelect");
     elemento.style.display = "block";
 
@@ -71,12 +73,12 @@ function mostrarFormClienteSelect(e) {
 }
 
 //Se llama cuando se cancela y se quiere cerrar el formulario
-function cerrarFormSelect(e){
+function cerrarFormSelect(e) {
     e.preventDefault();
-    
+
     var fondo = document.getElementById("fondoFormCrearSelect");
-    fondo.style.display= "none";
-    
+    fondo.style.display = "none";
+
     var elemento = document.getElementById("formCrearMarcaSelect");
     elemento.style.display = "none";
 
@@ -101,6 +103,7 @@ function validarSelectMarca(event) {
         })
         return;
     } else {
+        mantenerDatos();
         document.getElementById("formSelectMarca").submit();
     }
 }
@@ -120,7 +123,8 @@ function validarSelectModelo(event) {
         );
         return
     } else {
-        document.getElementById("addUserForm").submit();
+        mantenerDatos();
+        document.getElementById("formSelectModelo").submit();
     }
 }
 
@@ -148,9 +152,51 @@ function validarSelectCliente(event) {
         );
         return
     } else {
-        document.getElementById("addUserForm").submit();
+        mantenerDatos();
+        document.getElementById("formSelectCliente").submit();
     }
 }
+
+function mantenerDatos() {
+
+    //datos Patente
+    const patente = document.getElementById("patente").value;
+    localStorage.setItem("inputPatente", patente);
+
+    //datos km
+    const km = document.getElementById("km").value;
+    localStorage.setItem("inputKM", km);
+
+    //datos año farbicacion
+    const anioFabricacion = document.getElementById("anioFabr").value;
+    localStorage.setItem("inputanioFabricacion", anioFabricacion);
+}
+
+function borrarCache() {
+    //borro todo el caché de una
+    localStorage.clear();
+}
+
+function limpiarForm(){
+    localStorage.clear();
+    document.getElementById("addUserForm").reset();
+}
+
+//traigo los datos del cache y los tomo como input inicial, si es que existe
+const patenteGuardada = localStorage.getItem("inputPatente");
+const kmGuardado = localStorage.getItem("inputKM");
+const anioFabGuardado = localStorage.getItem("inputanioFabricacion");
+const marca = localStorage.getItem("marca");
+const idMarca = localStorage.getItem("idMarca");
+const modelo = localStorage.getItem("modelo");
+const idModelo = localStorage.getItem("idModelo");
+const cte = localStorage.getItem("cte");
+const idcte = localStorage.getItem("idcte");
+
+document.getElementById("patente").value = patenteGuardada;
+document.getElementById("km").value = kmGuardado;
+document.getElementById("anioFabr").value = anioFabGuardado;
+
 
 const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');

@@ -49,3 +49,9 @@ if (mensaje === 'tecnicoRepetido') {
 params.delete('mensaje');
 const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
 history.replaceState({}, document.title, newUrl);
+
+function limitarPorcentajeInput(input) {
+    if (input.value > 100) {
+        input.value = 100; // Establece el valor máximo permitido
+    }
+}

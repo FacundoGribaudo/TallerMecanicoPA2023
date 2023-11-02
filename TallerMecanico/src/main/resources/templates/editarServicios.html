@@ -60,9 +60,26 @@
                 <h3>EDITAR SERVICIO</h3>
                 <form id="addUserForm" th:action="@{/registrarServicio}" th:object="${ServiciosTaller}" method="POST">
                     <input type="hidden" name="id_servicio" th:value="${servicio_taller.id_servicio}">
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom: 10px;">
                         <input class="form-control" type="text" id="modelo" name="nombre" th:value ="${servicio_taller.nombre}" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
-                        <input class="form-control" type="text" id="modelo" name="descripcion" th:value ="${servicio_taller.descripcion}" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
+                        <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
+                            <label for="precioHora" style="margin-right: 10px; margin-left: 2px; padding-top: 3px; color: black;">Precio/Hora</label>
+                            <input class="form-control" type="number" id="precioHora" name="precioHora" th:value="${servicio_taller.precioHora}" placeholder="Precio/hora" required>
+                        </div>
+                        <input class="form-control" type="text" id="modelo" name="descripcion" th:value="${servicio_taller.descripcion}" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
+
+                        <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
+                            <label for="porcentajeDescuentos" style="margin-right: 10px; margin-left: 2px; padding-top: 3px; color: black;         white-space: nowrap;">% Descuento</label>
+                            <input class="form-control" type="number" id="porcentajeDescuentos" name="porcentajeDescuentos" placeholder="% Descuentos" required min="0" max="100" oninput="limitarPorcentajeInput(this)" th:value="${servicio_taller.porcentajeDescuentos}">
+                        </div>
+
+                        <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
+                            <label for="porcentajeImpuestos" style="margin-right: 10px; margin-left: 2px; padding-top: 3px; color: black;white-space: nowrap;">% Impuesto</label>
+                            <input class="form-control" type="number" id="porcentajeImpuestos" name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100" oninput="limitarPorcentajeInput(this)" th:value="${servicio_taller.porcentajeImpuestos}">
+                        </div>
+
+                        
+                        
                     </div>
                     <input type="submit" value="Actualizar" class="btn btn-success"> 
                     <a th:href="@{/serviciosTaller}"><input type="button" value="Cancelar" class="btn btn-warning"></a>

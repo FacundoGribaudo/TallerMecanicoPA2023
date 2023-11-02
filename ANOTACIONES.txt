@@ -1,21 +1,32 @@
-Consideraciones de la entrega 1 para terminar
-- ver la relacion muchos a mucho entre tecnico y vehiculo (implementarla correctamente) 
-- Al editar vehiculo, si abrimos los modelos aparecen todos los posibles, pero si primero elegimos la marca van a aparecer solo los modelos de esa marca.
+--------------- CORRECCIONES ENTREGA 2 ----------------
 
----------------- ENTREGA 2 ----------------
+HICE:
+-modificar el formato de fecha de las órdenes 
+-Para la orden de trabajo, poner fecha de orden y fecha de creación .
+-ASIGNAR TECNICOS A ORDEN DE TRABAJO (QUE PUEDA SER MAS DE UNO)
+
 FALTA:
-    - Realizar todas la validaciones de servicio 
-    - Ver por que atributo buscar los servicios
-    - Revisar estetica 
-    - VER CHECK-LIST para poder agregar varios servicios a la orden correspondiente. (AL FINAL ES UNA RELACION 1--1, QUEDA PARA LA PROXIMA ENTREGA LA RELACION 1--*)
+-Y que se pueda ver del lado de tecnicos a que ORDEN esta asignado.
+-Solucionar los buscadores (que busque por el contenido que se ingresa, no que tiene que ser totalmente igual)
+-Agregar nro licencia y vencimiento a USUARIOS
+-Crear criterios de busqueda para los usuarios
+-Solucionar ver historial de USUARIO
+- En la pestaña de vehiculo, no aparecen las opciones de modelo cuando lo quiero crear desde el select
+- NO se puede editar un técnico, se rompe
+- NO se puede editar una orden, se rompe (igual hace falta editar?)
+- SE ROMPE cuando se accede al historial de un cliente (si tiene alguna orden ya resgistrada)
+
+ORDEN DE TRABAJO
+-DETALLE DE ORDEN
+Dentro que se muestren los servicios de la orden y que al presionar boton se activen y puedas editar
+Mostrar bien los datos de cada servicio que se selecciono
+-Abajo mostrar casillero con total impuestos, total descuentos, monto total.
+-Total tiempo trabajo, que se sume al agregar horas
+Que exista un mas, que permita agregar un nuevo servicio
+Verificar que no se puedan repetir
+A la derecha de cada servicio, que exista un tacho de basura para eliminar servicios
+Que se calculen los montos totales solos
 
 
-
-
-CONSIDERACIONES:
-    - Restringimos a una orden de trabajo por servicio --> Si un vehiculo tiene 2 servicios, son 2 ordenes de trabajo distintas
-    - No podemos registrar dos veces le mismo servicio. Es decir, un servicio puede estar unicamente en una OT (esto es porque no 
-    podemos utilizar las colecciones para establecer el 1 --> * que seria la relacion correcta)
-    - Agregue el atributo "año" en el vehiculo. 
-    - ARREGLAR BOTON VOLVER DE LA BUSQUEDA EN ORDEN TRABAJO, FUNCIONA TODO BIEN PERO ESTA ROTO ESTETICAMENTE
-    - Agregamos el historial de servicios de cada cliente
+SERVICIOS
+-Agregar atributo %descuento que se pueda modificar, %impuestos que se pueda modificar,
