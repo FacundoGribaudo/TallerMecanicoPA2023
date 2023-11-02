@@ -27,15 +27,7 @@ function agregarServicio(e) {
             'error'
         );
         return
-    }else if(!isNaN(servicio) || !isNaN(descServicio)){
-        Swal.fire(
-            'Error!',
-            'Los campos no pueden ser numéricos',
-            'error'
-        );
-        return
-    }
-    else{
+    }else{
         document.getElementById("addUserForm").submit();
     }
 
