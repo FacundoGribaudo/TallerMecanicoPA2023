@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function agregarCliente(event){
+function agregarCliente(event) {
     event.preventDefault(); // Evita el envío del formulario por defecto
 
     const nombreCliente = document.getElementById("nombreCliente").value;
@@ -19,31 +19,31 @@ function agregarCliente(event){
     const telefonoCliente = document.getElementById("telefonoCliente").value;
     const localidadCliente = document.getElementById("localidadCliente").value;
 
-    if (nombreCliente == "" || apellidoCliente == "" || dniCliente == "" || telefonoCliente == "" || localidadCliente == ""){
+    if (nombreCliente == "" || apellidoCliente == "" || dniCliente == "" || telefonoCliente == "" || localidadCliente == "") {
         Swal.fire(
             'Error!',
             'Por favor complete todos los campos',
             'error'
         );
         return
-    }else if(isNaN(dniCliente) || isNaN(telefonoCliente)){
+    } else if (isNaN(dniCliente) || isNaN(telefonoCliente)) {
         Swal.fire(
             'Error!',
             'El DNI y/o número de teléfono debe ser un número',
             'error'
         );
         return
-    }else{
+    } else {
         document.getElementById("addUserForm").submit();
     }
 }
 
-function validarBuscar(event){
+function validarBuscar(event) {
     event.preventDefault();
 
     const buscar = document.getElementById("inputBuscar").value;
 
-    if (isNaN(buscar)){
+    if (isNaN(buscar)) {
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -55,8 +55,8 @@ function validarBuscar(event){
             location.reload();
             return
         }, 1700);
-        
-    }else{
+
+    } else {
         document.getElementById("formBuscar").submit();
     }
 }
@@ -64,16 +64,20 @@ function validarBuscar(event){
 const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');
 
-// Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
+// Verificar si el valor del parámetro 'mensaje' es igual a 'false' y mostrar una alerta
 if (mensaje == 'false') {
     Swal.fire(
         'Error!',
-        'Este cliente está asociada a un vehículo registrado, no es posible borrar',
+        'Este cliente está asociado a un vehículo registrado, no es posible borrar',
         'error'
     );
 }
-
 // Verificar si el valor del parámetro 'mensaje' es igual a 'clienteRepetido' y mostrar una alerta
 if (mensaje === 'clienteRepetido') {
     Swal.fire('Error!', 'Ya existe un Cliente registrado con este DNI', 'error');
 }
+
+// Eliminar el parámetro 'mensaje' de la URL
+params.delete('mensaje');
+const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+history.replaceState({}, document.title, newUrl);

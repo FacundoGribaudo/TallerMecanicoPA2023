@@ -51,6 +51,21 @@ public class MarcaController {
         servicesMarca.save(m);
         return "redirect:/marca";
     }
+
+    @PostMapping("/saveMarcaSelect")
+    public String saveMarcaSelect(Marca m){
+        List<Marca> marcas = servicesMarca.listarMarcas();
+
+        for (Marca marcaExistente : marcas) {
+            if (!marcaExistente.getId_marca().equals(m.getId_marca()) && marcaExistente.getNombre().equalsIgnoreCase(m.getNombre())) {
+                //Si ya existe la Marca, redirige con mensaje de Marca repetida
+                return "redirect:/vehiculos?mensaje=marcaRepetida";
+            }
+        }
+
+        servicesMarca.save(m);
+        return "redirect:/vehiculos";
+    }
     
     @GetMapping("/editarMarca/{id_marca}")
     public String editarMarca(@PathVariable int id_marca, Model model){

@@ -54,6 +54,21 @@ public class ClienteController {
         return "redirect:/clientes"; 
     }
 
+    @PostMapping("/saveClienteSelect")
+    public String saveClienteSelect(Cliente c){
+        List<Cliente> clientes = servicesCliente.listarClientes();
+
+        for (Cliente clienteExistente : clientes) {
+            if(!clienteExistente.getId_cliente().equals(c.getId_cliente()) && clienteExistente.getDni().equals(c.getDni())) {
+                //Si ya existe el DNI, redirige con mensaje de Cliente repetido
+                return "redirect:/vehiculos?mensaje=clienteRepetido";
+            }
+        }
+
+        servicesCliente.save(c);
+        return "redirect:/vehiculos"; 
+    }
+
     @GetMapping("/eliminarCliente/{id_cliente}")
     public String eliminarCliente(Model model, @PathVariable int id_cliente){
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();

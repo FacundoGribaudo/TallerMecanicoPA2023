@@ -88,6 +88,70 @@ function cerrarFormSelect(e){
 
 }
 
+//validaciones para crear desde select
+function validarSelectMarca(event) {
+    event.preventDefault(); // Evita el envío del formulario por defecto
+
+    const marca = document.getElementById("inputMarca").value;
+    if (marca == "" || !isNaN(marca)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La marca no puede ser un número ni estar vacía',
+        })
+        return;
+    } else {
+        document.getElementById("formSelectMarca").submit();
+    }
+}
+
+function validarSelectModelo(event) {
+    event.preventDefault(); // Evita el envío del formulario por defecto
+
+    const modelo = document.getElementById("modelo").value;
+    const estado = document.getElementById("estadoModelo").value;
+    const marcaModelo = document.getElementById("marcaModelo").value;
+
+    if (modelo == "" || estado == "Estado" || marcaModelo == "Marca") {
+        Swal.fire(
+            'Error!',
+            'Por favor complete todos los campos',
+            'error'
+        );
+        return
+    } else {
+        document.getElementById("addUserForm").submit();
+    }
+}
+
+function validarSelectCliente(event) {
+    event.preventDefault(); // Evita el envío del formulario por defecto
+
+    const nombreCliente = document.getElementById("nombreCliente").value;
+    const apellidoCliente = document.getElementById("apellidoCliente").value;
+    const dniCliente = document.getElementById("dniCliente").value;
+    const telefonoCliente = document.getElementById("telefonoCliente").value;
+    const localidadCliente = document.getElementById("localidadCliente").value;
+
+    if (nombreCliente == "" || apellidoCliente == "" || dniCliente == "" || telefonoCliente == "" || localidadCliente == "") {
+        Swal.fire(
+            'Error!',
+            'Por favor complete todos los campos',
+            'error'
+        );
+        return
+    } else if (isNaN(dniCliente) || isNaN(telefonoCliente)) {
+        Swal.fire(
+            'Error!',
+            'El DNI y/o número de teléfono debe ser un número',
+            'error'
+        );
+        return
+    } else {
+        document.getElementById("addUserForm").submit();
+    }
+}
+
 const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');
 
@@ -115,7 +179,17 @@ if (mensaje == 'tecnicoAsociado') {
         'Ya existe un vehículo registrado con esta patente',
         'error'
     );
+} else if (mensaje === 'marcaRepetida') {
+    // Verificar si el valor del parámetro 'mensaje' es igual a 'marcaRepetida' y mostrar una alerta
+    Swal.fire('Error!', 'Ya existe esta Marca registrada', 'error');
+} else if (mensaje === 'clienteRepetido') {
+    Swal.fire('Error!', 'Ya existe un Cliente registrado con este DNI', 'error');
 }
+
+// Eliminar el parámetro 'mensaje' de la URL después de mostrar la alerta
+params.delete('mensaje');
+const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+history.replaceState({}, document.title, newUrl);
 
 
 //----------------CARGAR MODELOS SEGUN MARCA SELECCIONADA--------------------

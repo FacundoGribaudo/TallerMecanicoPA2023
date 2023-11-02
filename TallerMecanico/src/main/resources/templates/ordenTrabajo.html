@@ -79,7 +79,7 @@
 
     <div class="container">
         <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
-            <div class="row">
+            <div class="row" style="width: 70%; margin: auto;">
                 <!-- Primera columna (izquierda) -->
                 <h3>NUEVA ORDEN</h3>
                 <div class="col-md-6">
@@ -122,8 +122,8 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-md-6">   
-                    <input type="submit" value="Crear Orden" class="btn btn-primary form-control" onclick="agregarOrdenTrabajo(event)"> 
+                <div class="col">   
+                    <input type="submit" value="Crear Orden" class="btn btn-primary form-control" onclick="agregarOrdenTrabajo(event)" style="width: 250px; margin-top: 10px;"> 
                 </div>
             </div>
         </form>

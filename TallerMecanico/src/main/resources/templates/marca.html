@@ -115,16 +115,7 @@
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarMarca/}+${marca.id_marca}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
-                </table>
-                <div th:if="${param.mensaje == 'true'}">
-                    <p>La marca ha sido eliminada con éxito.</p>
-                </div>
-                <div th:if="${param.mensaje == 'false'}">
-                    <p>Hay registros relacionados y no se puede eliminar la marca.</p>
-                </div>
-                 
-                 
-                                
+                </table>                
             </div>
         </div>
     </div>

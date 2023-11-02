@@ -44,3 +44,8 @@ const mensaje = params.get('mensaje');
 if (mensaje === 'tecnicoRepetido') {
     Swal.fire('Error!', 'Ya existe un Técnico registrado con este Legajo', 'error');
 }
+
+// Eliminar el parámetro 'mensaje' de la URL después de mostrar la alerta
+params.delete('mensaje');
+const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+history.replaceState({}, document.title, newUrl);

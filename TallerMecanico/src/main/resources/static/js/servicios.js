@@ -22,6 +22,11 @@ if (mensaje == 'false') {
     );
 }
 
+// Eliminar el parámetro 'mensaje' de la URL después de mostrar la alerta
+params.delete('mensaje');
+const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+history.replaceState({}, document.title, newUrl);
+
 function agregarServicio(e) {
     e.preventDefault();
 
