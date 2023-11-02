@@ -1,5 +1,6 @@
 package com.Proyecto.TallerMecanico.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +49,13 @@ public class ServiciosTallerController {
                 return "redirect:/serviciosTaller?mensaje=servicioRepetido";
             }
         }
+
+        if (s.getPorcentajeDescuentos() == null) {
+            s.setPorcentajeDescuentos(BigDecimal.ZERO);
+        }
+        if (s.getPorcentajeImpuestos() == null) {
+            s.setPorcentajeImpuestos(BigDecimal.ZERO);
+        } 
 
         SerTallerService.save(s);
         return "redirect:/serviciosTaller";

@@ -26,7 +26,7 @@ h1 {
 
 .container {
     padding: 0;
-    margin-top: 1%;
+    margin: 1% auto;
 }
 
 div.row {
@@ -116,19 +116,7 @@ div.row {
     margin-left: 5px;
     float: left;
 }
-/* .form-check label {
-    display: block;
-    margin-left: 30px;
-    text-align: left;
-    height: auto;
-    width: 430px;
-    background-color: #ffffff;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    padding: 30px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    border-radius: 15px;
-} */
+
 .form-check label {
     display: block;
     margin: 5px 0; /* Espaciado entre las etiquetas */
@@ -187,4 +175,61 @@ div.row {
     left: 0;
     background-color: white;
     padding: 10px;
+}
+
+/* Estilo del contenedor general de DataTables */
+.dataTables_wrapper {
+    background-color: #f5f5f5; /* Color de fondo del contenedor */
+    padding: 10px; /* Espaciado interno del contenedor */
+    border: 1px solid #ddd; /* Borde del contenedor */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra del contenedor */
+    margin: 10px 0 10px; /* Espacio entre la tabla y el contenedor */
+  }
+  
+  /* Estilo para la etiqueta de "Mostrar X registros" (opcional) */
+  .dataTables_length label {
+    font-weight: bold; /* Hace que el texto sea negrita */
+  }
+  
+  /* Estilo para el selector de "Mostrar X registros" (opcional) */
+  .dataTables_length select {
+    border: 1px solid #ddd; /* Borde del selector */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  /* Estilo para la etiqueta de "Buscar" (opcional) */
+  .dataTables_filter label {
+    font-weight: bold; /* Hace que el texto sea negrita */
+}
+  
+/* Estilo para el cuadro de búsqueda (opcional) */
+.dataTables_filter input {
+padding: 5px; /* Espaciado del cuadro de búsqueda */
+border: 1px solid #ddd; /* Borde del cuadro de búsqueda */
+border-radius: 5px; /* Bordes redondeados */
+margin: 5px;
+}
+  
+/* Estilo para el input de número en la tabla */
+table input[type="number"] {
+    margin-right: 0;
+    height: 30px; /* Ajusta la altura del input */
+    padding: 6px 0 6px 6px;
+}
+
+/* Estilo para el símbolo de pesos en el input-group-text */
+table .input-group-text {
+    margin-top: 3px;
+    width: 10px; /* Ajusta el ancho del símbolo de pesos */
+    height: 30px; /* Ajusta la altura del símbolo de pesos */
+    font-size: 1rem; /* Ajusta el tamaño de fuente del símbolo de pesos */
+    display: flex; /* Usa flexbox para centrar verticalmente */
+    justify-content: center;
+}
+
+/* Ulima columna fija */
+.fixed-column {
+    position: sticky;
+    right: 0;
 }

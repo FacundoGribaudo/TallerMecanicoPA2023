@@ -10,12 +10,21 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
 
     <!-- ICONO -->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" id="barraNav">
@@ -76,11 +85,9 @@
 
             <!-- Segunda columna (derecha) -->
 
-            <div class="col-md-6">
-
-
+            <div class="col-md-6" style="height: 219.6px; display: flex; flex-direction: column;">
                 <h4>TECNICOS</h4>
-                <div class="form-check select-container">
+                <div class="form-check select-container"  style="flex: 1;">
                     <div th:each="tecnico : ${lista_tecnicos}">
                         <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}" id="tecnico_${tecnico.id_tecnico}"th:checked="${tecnicosSeleccionados.contains(tecnico)}" />
                         <label for="tecnico_${tecnico.id_tecnico}" th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}"></label>
@@ -97,38 +104,72 @@
                     </div>
                 </div> -->
                 <h4>SERVICIOS</h4>
-                <table class="table table-bordered" style="width: 100%;">
+                <table class="table table-bordered" id="miTabla">
                     <thead>
                         <tr>
-                            <th style="width: auto;">Nombre Servicio</th>
-                            <th style="width: auto;">Precio/hora</th>
+                            <th style="width: 130px;">Nombre Servicio</th>
+                            <th  style="width: 110px;">Precio/hora</th>
                             <th style="width: auto;">Horas</th>
                             <th style="width: auto;">Minutos</th>
-                            <th style="width: auto;">Precio</th>
-                            <th style="width: auto;">Descuento</th>
-                            <th style="width: auto;">Monto Impuestos</th>
+                            <th style="width: 120px;">Precio</th>
+                            <th style="width: 105px;">% Descuento</th>
+                            <th style="width: 110px;">Descuento</th>
+                            <th style="width: 105px;">% Impuestos</th>
+                            <th style="width: 140px;">Monto Impuestos</th>
+                            <th class="fixed-column" style="width: 120px;">Total Servicio</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="servicio : ${lista_servicios}">
+                        <tr th:each="servicio : ${serviciosSeleccionados}">
                             <td th:text="${servicio.nombre}"></td>
                             <td>
-                                <!-- <input type="number" step="0.01" name="precioHora" required th:value="${servicio.precioHora}" class="form-control"> -->
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" name="precioHora" required th:value="${servicio.precioHora}" class="form-control" readonly>
+                                </div>
+                            </td>
+                            
+                            <td>
+                                <input type="number" step="1" name="horas" required min="0" value="0" class="form-control">
                             </td>
                             <td>
-                                <input type="number" step="1" name="horas" required class="form-control">
+                                <input type="number" step="1" name="minutos" required min="0" max="59" value="0" class="form-control" oninput="limitarMinutosInput(this)">
                             </td>
                             <td>
-                                <input type="number" step="1" name="minutos" required class="form-control">
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="precio" required class="form-control" readonly>
+                                </div>
                             </td>
                             <td>
-                                <input type="number" step="0.01" name="precio" required class="form-control">
+                                <div class="input-group">
+                                    <input type="number" step="0.1" name="%descuento" required th:value="${servicio.porcentajeDescuentos}" class="form-control" min="0" max="100" oninput="limitarPorcentajeInput(this)" readonly style="text-align: right;">
+                                    <span class="input-group-text">%</span>
+                                </div>
                             </td>
                             <td>
-                                <input type="number" step="0.01" name="descuento" required class="form-control">
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="montodescuento" required class="form-control" readonly>
+                                </div>
                             </td>
                             <td>
-                                <input type="number" step="0.01" name="montoImpuestos" required class="form-control">
+                                <div class="input-group">
+                                    <input type="number" step="0.1" name="%impuesto" required th:value="${servicio.porcentajeImpuestos}" class="form-control" min="0" max="100" oninput="limitarPorcentajeInput(this)" readonly style="text-align: right;">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="montoImpuestos" required class="form-control" readonly>
+                                </div>
+                            </td>
+                            <td  class="fixed-column">
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="totalServicio" required class="form-control" readonly>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -143,7 +184,8 @@
             <a class="btn btn-secondary" th:href="@{/ordenTrabajo}">Volver a Orden Trabajo</a>
         </div>
     </div>
-    <script src="js/clientes.js"></script>
-    <script src="js/eliminar.js"></script>
+    <script src="/js/clientes.js"></script>
+    <script src="/js/eliminar.js"></script>
+    <script src="/js/detalleOrden.js"></script>
 </body>
 </html>

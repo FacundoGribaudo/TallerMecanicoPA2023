@@ -83,36 +83,17 @@
                         <input class="form-control" type="text" id="nombreServicio" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
                         <input class="form-control" type="number" id="precioHora" name="precioHora" placeholder="Precio/hora" required>
                         <input class="form-control" type="text" id="descripcionServicio" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
+                        <input class="form-control" type="number" id="porcentajeDescuentos" name="porcentajeDescuentos" placeholder="% Descuentos" required min="0" max="100" oninput="limitarPorcentajeInput(this)">
+                        <input class="form-control" type="number" id="porcentajeImpuestos" name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100" oninput="limitarPorcentajeInput(this)">
                     </div>
-                    <!--<select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
-                        <option value="Activo" selected>Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
-                    <select name="marca" id="marcaModelo" class="form-select" form="addUserForm">
-                        <option selected hidden>Marca</option>
-                        <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}"></option>
-                    </select>-->
+
                     <input type="submit" value="Registrar Servicio" onclick="agregarServicio(event)" class="btn btn-primary form-control"> 
-                    <!--<input onclick="agregarModelo(event)" class="btn btn-primary form-control" type="submit" id="submitBtn" value="Agregar modelo"></input>-->
                 </form>      
-                <!-- <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
-                    <div style="margin-bottom: 6px;">
-                        <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search">
-                    </div>  
-                   <div style="margin-bottom: 6px;"> 
-                       <select name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                      </select>
-                   </div>
-                    <input onclick="validarFormulario(event)" type="submit" value="Agregar marca" class="btn btn-success">
-                </form>           -->
+
             </div>
             <div class="col-md-8">
                 <h3>SERVICIOS REGISTRADOS</h3>
                 <form class="d-flex" th:action="@{/buscarServicio}" method="post">
-                   <!--<input id="inputBuscar" class="form-control me-2" type="text" name="marca" placeholder="Buscar Marca" aria-label="Search">-->
                     <input id="inputBuscar" class="form-control me-2" type="text" name="nombreServicio" placeholder="Buscar nombre servicio" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>                
@@ -123,6 +104,8 @@
                             <th>Nombre Servicio</th>
                             <th>Precio/hora</th>
                             <th>Descripcion</th>
+                            <th>% Descuentos</th>
+                            <th>% Impuestos</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -134,8 +117,8 @@
                             <td class="servicioTallerData" th:text="${s.nombre}"></td>
                             <td class="servicioTallerData" th:text="'$' + ${s.precioHora}"></td>
                             <td class="servicioTallerData" th:text="${s.descripcion}"></td>
-                            <!--<td id="tdbotones"><a id="botoncrud" th:href="@{/editarModelo/}+${modelo.id_modelo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarServicio/}+${s.id_servicio}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>-->
+                            <td class="servicioTallerData" th:text="${s.porcentajeDescuentos}+'%'"></td>
+                            <td class="servicioTallerData" th:text="${s.porcentajeImpuestos}+'%'"></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarServicio/}+${s.id_servicio}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarServicio/}+${s.id_servicio}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                             

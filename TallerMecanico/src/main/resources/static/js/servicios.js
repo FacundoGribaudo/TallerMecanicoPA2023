@@ -49,3 +49,9 @@ function agregarServicio(e) {
     }
 
 }
+
+function limitarPorcentajeInput(input) {
+    if (input.value > 100) {
+        input.value = 100; // Establece el valor máximo permitido
+    }
+}
