@@ -213,14 +213,14 @@
                     <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre"
                         oninput="this.value = this.value.toUpperCase()" required>
                 </div>
-                <select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
+                <select name="estado" id="estadoModelo" class="form-select" form="formSelectModelo">
                     <option value="Activo" selected>Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select>
-                <select name="marca" id="marcaModelo" class="form-select" form="addUserForm">
+                <select name="marca" id="marcaModelo" class="form-select" form="formSelectModelo">
                     <option selected hidden>Marca</option>
-                    <option th:each="marca : ${marcas}" th:value="${marca.id_marca}" th:text="${marca.nombre}">
-                    </option>
+                    <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
+                                th:text="${marca.nombre}"></option>
                 </select>
                 <input onclick="validarSelectModelo(event)" class="btn btn-primary form-control" type="submit"
                     id="submitBtn" value="Agregar modelo"></input>

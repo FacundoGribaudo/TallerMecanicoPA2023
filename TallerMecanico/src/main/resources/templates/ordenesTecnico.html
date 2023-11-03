@@ -18,9 +18,8 @@
         </thead>
         <tbody>
             <!-- Itera a través de las órdenes de trabajo y muestra cada una en una fila de la tabla -->
-            <tr th:each="orden : ${ordenesTecnico}">
-                <td th:text="${orden.nro_orden}"></td>
-                <td th:text="${orden.id_vehiculo}"></td>
+            <tr th:each="orden : ${ordenesDelTecnico}">
+                <td th:text="${orden}"></td>
                 <!-- Agrega más columnas según tus necesidades -->
             </tr>
         </tbody>

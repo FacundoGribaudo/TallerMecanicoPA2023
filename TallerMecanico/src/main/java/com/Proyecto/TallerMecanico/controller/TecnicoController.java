@@ -100,23 +100,42 @@ public class TecnicoController {
         for (Tecnico t : tecnicos) {
             if (t.getLegajo().toUpperCase().equals(legajo.toUpperCase())) {
                 tecnicosEncontrados.add(t);
+            } else {
+                if (t.getApellido().equalsIgnoreCase(legajo)) {
+                    tecnicosEncontrados.add(t);
+                }
             }
         }
 
-        if (tecnicosEncontrados.size() == 0) {
-            tecnicosEncontrados = tecnicos;
+        if (tecnicosEncontrados.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
-
+        
         model.addAttribute("lista_tecnicos", tecnicosEncontrados);
 
         return "buscarTecnico";
     }
 
     @GetMapping("/ordenesTecnico/{id_tecnico}")
-    public String mostrarOrdenesTecnico(@PathVariable Long id_tecnico, Model model) {
+    public String mostrarOrdenesTecnico(@PathVariable int id_tecnico, Model model) {
+        List<OrdenTrabajo> tecnicosEnOrdenes = otService.listarOrdenTrabajo(); 
         
+        //Lista para el template
+        List<OrdenTrabajo> ordenesDelTecnico = new ArrayList<>();
 
-        // Retornar el nombre de la vista donde se mostrarán las órdenes de trabajo
+        //Filtramos las ordenes correspondientes al trabajador que se consulta.
+        for(OrdenTrabajo ot : tecnicosEnOrdenes){
+            for(int i=0; i<ot.getTecnicosOrden().size(); i++){
+                if(ot.getTecnicosOrden().get(i).getId_tecnico().equals(id_tecnico)){
+                    System.out.println(""+ " ID TECNICO: " + ot.getTecnicosOrden().get(i).getId_tecnico());
+                    System.out.println(""+" LA ORDEN QUE CORRESPONDE ES: " + ot.getNro_orden());
+                    ordenesDelTecnico.add(ot);
+                }
+            }
+        }
+        model.addAttribute("ordenesDelTecnico",ordenesDelTecnico);
         return "ordenesTecnico";
     }
 
