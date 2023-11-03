@@ -1,17 +1,8 @@
 --------------- CORRECCIONES ENTREGA 2 ----------------
 
-HICE:
--modificar el formato de fecha de las órdenes 
--Para la orden de trabajo, poner fecha de orden y fecha de creación .
--ASIGNAR TECNICOS A ORDEN DE TRABAJO (QUE PUEDA SER MAS DE UNO)
-
 FALTA:
--Y que se pueda ver del lado de tecnicos a que ORDEN esta asignado.
--Solucionar los buscadores (que busque por el contenido que se ingresa, no que tiene que ser totalmente igual)
 -Agregar nro licencia y vencimiento a USUARIOS
--Crear criterios de busqueda para los usuarios
 -Solucionar ver historial de USUARIO
-- En la pestaña de vehiculo, no aparecen las opciones de modelo cuando lo quiero crear desde el select
 - NO se puede editar un técnico, se rompe
 - NO se puede editar una orden, se rompe (igual hace falta editar?)
 
