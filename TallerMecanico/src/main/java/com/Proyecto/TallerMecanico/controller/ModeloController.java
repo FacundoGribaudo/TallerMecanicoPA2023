@@ -128,9 +128,12 @@ public class ModeloController {
                 modelosBuscados.add(m); 
             }
         }
+       
 
-        if (modelosBuscados.size() == 0){
-            modelosBuscados = modelos; 
+        if (modelosBuscados.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
         model.addAttribute("modelos", modelosBuscados);

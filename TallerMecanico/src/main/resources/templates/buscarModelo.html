@@ -125,7 +125,8 @@
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>
-                <table id="userTable" class="table table-striped">
+                <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+                <table id="userTable" class="table table-striped" th:if="${mensaje} == null">
                     <thead id="encabezado">
                         <tr>
                             <th>ID</th>

@@ -109,8 +109,10 @@ public class ServiciosTallerController {
             }
         }
 
-        if (listaServiciosBuscados.size() == 0) {
-            listaServiciosBuscados = listaServicios;
+        if (listaServiciosBuscados.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
         model.addAttribute("lista_servicios", listaServiciosBuscados);

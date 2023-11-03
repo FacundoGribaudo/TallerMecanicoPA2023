@@ -99,8 +99,8 @@
             <div class="col-md-8">
                 <h3>CLIENTES REGISTRADOS</h3>
                 <form th:action="@{/buscarCliente}" method="POST" class="d-flex" id="formBuscar">
-                    <input name="datoCliente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar DNI Cliente" aria-label="Search" maxlength="8">
-                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25" onclick="validarBuscar(event)"></button>
+                    <input name="datoCliente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar por DNI o Apellido" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">
                     <thead>

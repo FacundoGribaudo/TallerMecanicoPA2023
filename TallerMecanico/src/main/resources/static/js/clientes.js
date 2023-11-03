@@ -1,15 +1,5 @@
 console.log("vinculado clientes.js");
 
-document.addEventListener("DOMContentLoaded", function () {
-    var form = document.getElementById("formBuscar");
-
-    form.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-        }
-    });
-});
-
 function agregarCliente(event) {
     event.preventDefault(); // Evita el envío del formulario por defecto
 
@@ -35,29 +25,6 @@ function agregarCliente(event) {
         return
     } else {
         document.getElementById("addUserForm").submit();
-    }
-}
-
-function validarBuscar(event) {
-    event.preventDefault();
-
-    const buscar = document.getElementById("inputBuscar").value;
-
-    if (isNaN(buscar)) {
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Debe buscar por DNI (número)',
-            showConfirmButton: false,
-            timer: 1700
-        });
-        setTimeout(() => {
-            location.reload();
-            return
-        }, 1700);
-
-    } else {
-        document.getElementById("formBuscar").submit();
     }
 }
 

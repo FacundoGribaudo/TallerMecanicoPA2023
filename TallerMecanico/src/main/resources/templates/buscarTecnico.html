@@ -110,11 +110,12 @@
                 <h3>TECNICOS REGISTRADOS</h3>
                 <form th:action="@{/buscarTecnico}" method="POST" class="d-flex" role="search" id="formBuscar">
                     <input name="datosBuscados" id="inputBuscar" class="form-control me-2" type="search"
-                        placeholder="Buscar Legajo" aria-label="Search">
+                        placeholder="Buscar por Legajo o Apellido" aria-label="Search">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>
-                <table id="userTable" class="table table-striped">
+                <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+                <table id="userTable" class="table table-striped" th:if="${mensaje} == null">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -123,6 +124,7 @@
                             <th>Apellido</th>
                             <th>Telefono</th>
                             <th>Estado</th>
+                            <th>Ordenes</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -135,6 +137,7 @@
                             <td class="TECNICOData" th:text="${tecnico.apellido}"></td>
                             <td class="TECNICOData" th:text="${tecnico.telefono}"></td>
                             <td class="TECNICOData" th:text="${tecnico.estado}"></td>
+                            <td id="tdbotones" class="CLIENTEData historialTD"><a class="aHistorial" th:href="@{/ordenesTecnico/}+${tecnico.id_tecnico}">Consultar</a></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}"
                                     class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud"

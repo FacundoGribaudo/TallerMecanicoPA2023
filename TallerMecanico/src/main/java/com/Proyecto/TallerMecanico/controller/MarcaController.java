@@ -31,19 +31,20 @@ public class MarcaController {
     private IModeloServices servicesModelo;
 
     @GetMapping("/marca")
-    public String listar(Model model){
+    public String listar(Model model) {
         List<Marca> marcas = servicesMarca.listarMarcas();
-        model.addAttribute("marcas", marcas); 
+        model.addAttribute("marcas", marcas);
         return "marca";
     }
-    
+
     @PostMapping("/save")
-    public String saveMarca(Marca m){
+    public String saveMarca(Marca m) {
         List<Marca> marcas = servicesMarca.listarMarcas();
 
         for (Marca marcaExistente : marcas) {
-            if (!marcaExistente.getId_marca().equals(m.getId_marca()) && marcaExistente.getNombre().equalsIgnoreCase(m.getNombre())) {
-                //Si ya existe la Marca, redirige con mensaje de Marca repetida
+            if (!marcaExistente.getId_marca().equals(m.getId_marca())
+                    && marcaExistente.getNombre().equalsIgnoreCase(m.getNombre())) {
+                // Si ya existe la Marca, redirige con mensaje de Marca repetida
                 return "redirect:/marca?mensaje=marcaRepetida";
             }
         }
@@ -53,12 +54,13 @@ public class MarcaController {
     }
 
     @PostMapping("/saveMarcaSelect")
-    public String saveMarcaSelect(Marca m){
+    public String saveMarcaSelect(Marca m) {
         List<Marca> marcas = servicesMarca.listarMarcas();
 
         for (Marca marcaExistente : marcas) {
-            if (!marcaExistente.getId_marca().equals(m.getId_marca()) && marcaExistente.getNombre().equalsIgnoreCase(m.getNombre())) {
-                //Si ya existe la Marca, redirige con mensaje de Marca repetida
+            if (!marcaExistente.getId_marca().equals(m.getId_marca())
+                    && marcaExistente.getNombre().equalsIgnoreCase(m.getNombre())) {
+                // Si ya existe la Marca, redirige con mensaje de Marca repetida
                 return "redirect:/vehiculos?mensaje=marcaRepetida";
             }
         }
@@ -66,9 +68,9 @@ public class MarcaController {
         servicesMarca.save(m);
         return "redirect:/vehiculos";
     }
-    
+
     @GetMapping("/editarMarca/{id_marca}")
-    public String editarMarca(@PathVariable int id_marca, Model model){
+    public String editarMarca(@PathVariable int id_marca, Model model) {
         Optional<Marca> optionalMarca = servicesMarca.listarIdMarca(id_marca);
 
         // Verifica si la marca existe antes de agregarla al modelo
@@ -78,39 +80,39 @@ public class MarcaController {
         } else {
         }
 
-        return "editarMarca"; 
+        return "editarMarca";
     }
-    
+
     @GetMapping("/eliminarMarca/{id_marca}")
     public String eliminarMarca(Model model, @PathVariable int id_marca) {
         List<Modelo> modelos = servicesModelo.listarModelos();
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
-    
+
         Boolean eliminarMarca = true;
-    
+
         // Verificar si la marca tiene modelos asociados
         for (Modelo m : modelos) {
             if (m.getMarca().getId_marca().equals(id_marca)) {
                 eliminarMarca = true;
-                break;  // La marca está asociada a modelos
+                break; // La marca está asociada a modelos
             }
         }
-    
+
         // Verificar si la marca está asociada solo a modelos y no a vehículos
         if (eliminarMarca) {
             for (Vehiculo v : vehiculos) {
                 if (v.getMarca().getId_marca().equals(id_marca)) {
                     eliminarMarca = false;
-                    break;  // La marca está asociada a vehículos. NO SE PUEDE ELIMINAR
+                    break; // La marca está asociada a vehículos. NO SE PUEDE ELIMINAR
                 }
             }
         }
-    
+
         // Si la marca está asociada solo a modelos, eliminarla y sus modelos
         if (eliminarMarca) {
             System.out.println("Se puede eliminar, no está asociada a vehículos");
             servicesMarca.delete(id_marca);
-    
+
             // Eliminar modelos asociados a la marca
             for (Modelo m : modelos) {
                 if (m.getMarca().getId_marca().equals(id_marca)) {
@@ -120,33 +122,33 @@ public class MarcaController {
         } else {
             System.out.println("No se puede eliminar la marca o está asociada a vehículos");
         }
-    
+
         // Antes de la redirección
         String mensaje = eliminarMarca ? "eliminar" : "noEliminar";
         String urlRedireccion = "redirect:/marca?mensaje=" + mensaje;
         return urlRedireccion;
     }
-     
+
     @PostMapping("/buscar")
-    public String buscarMarca(Model model, String nombre){
-        
-        List<Marca> marcas = servicesMarca.listarMarcas(); //Traigo todos los objetos de la db
-        List<Marca> marcasBuscadas = new ArrayList<Marca>(); //Segundo array que me almacena los objetos que coinciden
-        
-        
-        for (int i = 0; i<marcas.size(); i++){
-            if(marcas.get(i).getNombre().toUpperCase().equals(nombre.toUpperCase())){
-                System.out.println("ENTRO PORQUE EL NOMBRE COINCIDE");
-                marcasBuscadas.add(marcas.get(i));
+    public String buscarMarca(Model model, String nombre) {
+
+        List<Marca> marcas = servicesMarca.listarMarcas();
+        List<Marca> marcasBuscadas = new ArrayList<Marca>();
+
+        for (Marca marca : marcas) {
+            if (marca.getNombre().equalsIgnoreCase(nombre)) {
+                marcasBuscadas.add(marca);
             }
         }
 
-        if(marcasBuscadas.size() == 0){
-            marcasBuscadas = marcas; 
+        if (marcasBuscadas.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
-        model.addAttribute("marcas", marcasBuscadas); 
-        return "buscarMarca"; 
+        model.addAttribute("marcas", marcasBuscadas);
+        return "buscarMarca";
     }
 
 }

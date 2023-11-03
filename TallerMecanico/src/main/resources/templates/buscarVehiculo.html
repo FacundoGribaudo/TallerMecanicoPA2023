@@ -113,41 +113,48 @@
                 <h3>VEHÍCULOS REGISTRADOS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
                     <input name="patente" id="inputBuscar" class="form-control me-2" type="search"
-                        placeholder="Buscar Patente" aria-label="Search"
+                        placeholder="Buscar por Patente o Apellido" aria-label="Search"
                         oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>
-                <table id="userTable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Patente</th>
-                            <th>Kilometros</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Cliente</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpoTabla">
-                        <tr th:each="vehiculo : ${vehiculo}">
-                            <td class="VEHICULOData" th:text="${vehiculo.id_vehiculo}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.modelo.nombre}"></td>
-                            <td class="VEHICULOData"
-                                th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}"></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarVehiculo/}+${vehiculo.id_vehiculo}"
-                                    class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud"
-                                    th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-danger"><img
-                                        id="imgcrud" src="img/delete.png" alt=""></a></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+                <div th:if="${mensaje == null}">
+                    <table id="userTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Patente</th>
+                                <th>Kilometros</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Año</th>
+                                <th>Cliente</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+                            <tr th:each="vehiculo : ${vehiculos}">
+                                <td class="VEHICULOData" th:text="${vehiculo.id_vehiculo}"></td>
+                                <td class="VEHICULOData" th:text="${vehiculo.patente}"></td>
+                                <td class="VEHICULOData" th:text="${vehiculo.kilometros}"></td>
+                                <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>
+                                <td class="VEHICULOData" th:text="${vehiculo.modelo.nombre}"></td>
+                                <td class="VEHICULOData" th:text="${vehiculo.ano}"></td>
+                                <td class="VEHICULOData"
+                                    th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}"></td>
+                                <td id="tdbotones"><a id="botoncrud"
+                                        th:href="@{/editarVehiculo/}+${vehiculo.id_vehiculo}"
+                                        class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                                <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud"
+                                        th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}"
+                                        class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <a id="botonVolverBucar" th:href="@{/vehiculos}"><img src="img/return.png" width="35px"></a>
             </div>
         </div>

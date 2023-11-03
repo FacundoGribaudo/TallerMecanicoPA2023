@@ -197,24 +197,36 @@ public class VehiculoController {
 
     @PostMapping("/buscarVehiculo")
     public String buscarVehiculo(Model model, String patente) {
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+        List<Vehiculo> vehiculosBuscados = new ArrayList<Vehiculo>();
 
-        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos(); // Traigo todos los objetos de la db
-        List<Vehiculo> vehiculosBuscados = new ArrayList<Vehiculo>(); // Un segundo array que me almacena los objetos
-                                                                      // vehiculos que coinciden con la patente buscada
+        List<Cliente> clientes = servicesCliente.listarClientes();
 
-        for (int i = 0; i < vehiculos.size(); i++) {
-            if (vehiculos.get(i).getPatente().toUpperCase().equals(patente.toUpperCase())) {
-                vehiculosBuscados.add(vehiculos.get(i));
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getPatente().equalsIgnoreCase(patente)) {
+                vehiculosBuscados.add(vehiculo);
+            } else {
+                // Si no coincide la patente, verificamos si el cliente coincide en apellido
+                for (Cliente cliente : clientes) {
+                    if (cliente.getId_cliente() == vehiculo.getCliente().getId_cliente() &&
+                            cliente.getApellido().equalsIgnoreCase(patente)) {
+                        vehiculosBuscados.add(vehiculo);
+                        break; // Salimos del bucle interno
+                    }
+                }
             }
         }
+        
 
-        if (vehiculosBuscados.size() == 0) {
-            vehiculosBuscados = vehiculos;
+        model.addAttribute("vehiculos", vehiculosBuscados);
+
+        if (vehiculosBuscados.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
-        model.addAttribute("vehiculo", vehiculosBuscados);
         return "buscarVehiculo";
-
     }
 
 }
