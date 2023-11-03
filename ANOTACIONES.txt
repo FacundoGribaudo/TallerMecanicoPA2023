@@ -14,7 +14,6 @@ FALTA:
 - En la pestaña de vehiculo, no aparecen las opciones de modelo cuando lo quiero crear desde el select
 - NO se puede editar un técnico, se rompe
 - NO se puede editar una orden, se rompe (igual hace falta editar?)
-- SE ROMPE cuando se accede al historial de un cliente (si tiene alguna orden ya resgistrada)
 
 ORDEN DE TRABAJO
 -DETALLE DE ORDEN
@@ -26,7 +25,3 @@ Que exista un mas, que permita agregar un nuevo servicio
 Verificar que no se puedan repetir
 A la derecha de cada servicio, que exista un tacho de basura para eliminar servicios
 Que se calculen los montos totales solos
-
-
-SERVICIOS
--Agregar atributo %descuento que se pueda modificar, %impuestos que se pueda modificar,

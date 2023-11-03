@@ -113,6 +113,7 @@
                             <th>Apellido</th>
                             <th>Telefono</th>
                             <th>Estado</th>
+                            <th>Ordenes</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -125,6 +126,7 @@
                             <td class="TECNICOData" th:text="${tecnico.apellido}"></td>
                             <td class="TECNICOData" th:text="${tecnico.telefono}"></td>
                             <td class="TECNICOData" th:text="${tecnico.estado}"></td>
+                            <td id="tdbotones" class="CLIENTEData historialTD"><a class="aHistorial" th:href="@{/ordenesTecnico/}+${tecnico.id_tecnico}">Consultar</a></td>
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarTecnico/}+${tecnico.id_tecnico}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>

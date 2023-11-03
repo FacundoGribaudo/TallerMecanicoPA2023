@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller Mecánico</title>
     <!-- BOOTSTRAP -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- DataTables CSS -->
@@ -15,7 +18,8 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- DataTables JS -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../css/gen.css">
@@ -26,37 +30,53 @@
 
 
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -69,28 +89,37 @@
             <div class="col-md-6">
 
                 <h4>VEHICULOS</h4>
-                <select th:value="${vehiculo.id_vehiculo}" required name="vehiculoPertenece" id="vehiculoServicio" class="form-select" form="addUserForm">
-                    <option selected hidden th:value="${vehiculo.id_vehiculo}" th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"></option>
+                <select th:value="${vehiculo.id_vehiculo}" required name="vehiculoPertenece" id="vehiculoServicio"
+                    class="form-select" form="addUserForm">
+                    <option selected hidden th:value="${vehiculo.id_vehiculo}"
+                        th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}">
+                    </option>
                     <option th:each="vehiculo : ${lista_vehiculos}"
                         th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"
                         th:value="${vehiculo.id_vehiculo}">
                 </select>
 
                 <h4>PROPIETARIO</h4>
-                <p class="form-control" th:text="${ordenTrabajo.vehiculoPertenece.cliente.nombre}+' '+${ordenTrabajo.vehiculoPertenece.cliente.apellido}"></p>
-        
+                <p class="form-control"
+                    th:text="${ordenTrabajo.vehiculoPertenece.cliente.nombre}+' '+${ordenTrabajo.vehiculoPertenece.cliente.apellido}">
+                </p>
+
                 <h4>FECHA DE ORDEN</h4>
-                <input type="datetime-local" name="fechaHoraOrden" required class="form-control" th:value="${ordenTrabajo.fechaHoraOrden}">
+                <input type="datetime-local" name="fechaHoraOrden" required class="form-control"
+                    th:value="${ordenTrabajo.fechaHoraOrden}">
             </div>
 
             <!-- Segunda columna (derecha) -->
 
             <div class="col-md-6" style="height: 219.6px; display: flex; flex-direction: column;">
                 <h4>TECNICOS</h4>
-                <div class="form-check select-container"  style="flex: 1;">
+                <div class="form-check select-container" style="flex: 1;">
                     <div th:each="tecnico : ${lista_tecnicos}">
-                        <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}" id="tecnico_${tecnico.id_tecnico}"th:checked="${tecnicosSeleccionados.contains(tecnico)}" />
-                        <label for="tecnico_${tecnico.id_tecnico}" th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}"></label>
+                        <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}"
+                            id="tecnico_${tecnico.id_tecnico}"
+                            th:checked="${tecnicosSeleccionados.contains(tecnico)}" />
+                        <label for="tecnico_${tecnico.id_tecnico}"
+                            th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}"></label>
                     </div>
                 </div>
             </div>
@@ -108,7 +137,7 @@
                     <thead>
                         <tr>
                             <th style="width: 130px;">Nombre Servicio</th>
-                            <th  style="width: 110px;">Precio/hora</th>
+                            <th style="width: 110px;">Precio/hora</th>
                             <th style="width: auto;">Horas</th>
                             <th style="width: auto;">Minutos</th>
                             <th style="width: 120px;">Precio</th>
@@ -125,15 +154,18 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="0.01" name="precioHora" required th:value="${servicio.precioHora}" class="form-control" readonly>
+                                    <input type="number" step="0.01" name="precioHora" required
+                                        th:value="${servicio.precioHora}" class="form-control" readonly>
                                 </div>
                             </td>
-                            
+
                             <td>
-                                <input type="number" step="1" name="horas" required min="0" value="0" class="form-control">
+                                <input type="number" step="1" name="horas" required min="0" value="0"
+                                    class="form-control">
                             </td>
                             <td>
-                                <input type="number" step="1" name="minutos" required min="0" max="59" value="0" class="form-control" oninput="limitarMinutosInput(this)">
+                                <input type="number" step="1" name="minutos" required min="0" max="59" value="0"
+                                    class="form-control" oninput="limitarMinutosInput(this)">
                             </td>
                             <td>
                                 <div class="input-group">
@@ -143,32 +175,41 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="number" step="0.1" name="%descuento" required th:value="${servicio.porcentajeDescuentos}" class="form-control" min="0" max="100" oninput="limitarPorcentajeInput(this)" readonly style="text-align: right;">
+                                    <input type="number" step="0.1" name="%descuento" required
+                                        th:value="${servicio.porcentajeDescuentos}" class="form-control" min="0"
+                                        max="100" oninput="limitarPorcentajeInput(this)" readonly
+                                        style="text-align: right;">
                                     <span class="input-group-text">%</span>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="1" name="montodescuento" required class="form-control" readonly>
+                                    <input type="number" step="1" name="montodescuento" required class="form-control"
+                                        readonly>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="number" step="0.1" name="%impuesto" required th:value="${servicio.porcentajeImpuestos}" class="form-control" min="0" max="100" oninput="limitarPorcentajeInput(this)" readonly style="text-align: right;">
+                                    <input type="number" step="0.1" name="%impuesto" required
+                                        th:value="${servicio.porcentajeImpuestos}" class="form-control" min="0"
+                                        max="100" oninput="limitarPorcentajeInput(this)" readonly
+                                        style="text-align: right;">
                                     <span class="input-group-text">%</span>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="1" name="montoImpuestos" required class="form-control" readonly>
+                                    <input type="number" step="1" name="montoImpuestos" required class="form-control"
+                                        readonly>
                                 </div>
                             </td>
-                            <td  class="fixed-column">
+                            <td class="fixed-column">
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="1" name="totalServicio" required class="form-control" readonly>
+                                    <input type="number" step="1" name="totalServicio" required class="form-control"
+                                        readonly>
                                 </div>
                             </td>
                         </tr>
@@ -177,7 +218,7 @@
             </div>
 
         </div>
-            <!-- Total Descuentos fuera de la tabla -->
+        <!-- Total Descuentos fuera de la tabla -->
         <div class="row  text-center">
             <div class="col-md-2 offset-md-6">
                 <h4>Total Descuentos</h4>
@@ -207,9 +248,11 @@
             <div class="col-md-4">
                 <h4>Tiempo Trabajado</h4>
                 <div class="input-group">
-                    <input type="number" step="1" name="horasTrabajadas" class="form-control" placeholder="Horas" readonly>
+                    <input type="number" step="1" name="horasTrabajadas" class="form-control" placeholder="Horas"
+                        readonly>
                     <span class="input-group-text" style="margin-right: 40px;">h</span>
-                    <input type="number" step="1" name="minutosTrabajados" class="form-control" placeholder="Minutos" readonly>
+                    <input type="number" step="1" name="minutosTrabajados" class="form-control" placeholder="Minutos"
+                        readonly>
                     <span class="input-group-text">m</span>
                 </div>
             </div>
@@ -217,10 +260,12 @@
             <div class="col-md-4">
                 <h4>Agregar Impuesto</h4>
                 <div class="input-group">
-                    <input type="number" step="0.1" name="porcentajeImpuesto" class="form-control" placeholder="Porcentaje">
-                    <span class="input-group-text"  style="margin-right: 40px;">%</span>
+                    <input type="number" step="0.1" name="porcentajeImpuesto" class="form-control"
+                        placeholder="Porcentaje">
+                    <span class="input-group-text" style="margin-right: 40px;">%</span>
                     <span class="input-group-text">$</span>
-                    <input type="number" step="1" name="montoImpuesto" class="form-control" placeholder="Monto en Pesos">
+                    <input type="number" step="1" name="montoImpuesto" class="form-control"
+                        placeholder="Monto en Pesos">
                 </div>
             </div>
         </div>
@@ -228,10 +273,12 @@
             <div class="col-md-4 offset-md-8">
                 <h4>Agregar Descuento</h4>
                 <div class="input-group">
-                    <input type="number" step="0.1" name="porcentajeDescuento" class="form-control" placeholder="Porcentaje">
+                    <input type="number" step="0.1" name="porcentajeDescuento" class="form-control"
+                        placeholder="Porcentaje">
                     <span class="input-group-text" style="margin-right: 40px;">%</span>
                     <span class="input-group-text">$</span>
-                    <input type="number" step="1" name="montoDescuento" class="form-control" placeholder="Monto en Pesos">
+                    <input type="number" step="1" name="montoDescuento" class="form-control"
+                        placeholder="Monto en Pesos">
                 </div>
             </div>
         </div>
@@ -261,4 +308,5 @@
     <script src="/js/eliminar.js"></script>
     <script src="/js/detalleOrden.js"></script>
 </body>
+
 </html>

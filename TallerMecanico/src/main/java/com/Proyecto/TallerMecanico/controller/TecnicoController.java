@@ -21,27 +21,27 @@ import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
 @Controller
 @RequestMapping
 public class TecnicoController {
-     
+
     @Autowired
-    private ItecnicoServices servicesTecnico; 
+    private ItecnicoServices servicesTecnico;
     @Autowired
     private IordenTrabajoService otService;
-    
 
     @GetMapping("/tecnicos")
-    public String listarTecnicos(Model model){
+    public String listarTecnicos(Model model) {
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
-        model.addAttribute("lista_tecnicos", tecnicos);    
+        model.addAttribute("lista_tecnicos", tecnicos);
         return "tecnico";
     }
 
     @PostMapping("/saveTecnico")
-    public String guardarTecnico(Tecnico t){
+    public String guardarTecnico(Tecnico t) {
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
 
         for (Tecnico tecnicoExistente : tecnicos) {
-            if(!tecnicoExistente.getId_tecnico().equals(t.getId_tecnico()) && tecnicoExistente.getLegajo().equals(t.getLegajo())) {
-                //Si ya existe el DNI, redirige con mensaje de Cliente repetido
+            if (!tecnicoExistente.getId_tecnico().equals(t.getId_tecnico())
+                    && tecnicoExistente.getLegajo().equals(t.getLegajo())) {
+                // Si ya existe el DNI, redirige con mensaje de Cliente repetido
                 return "redirect:/tecnicos?mensaje=tecnicoRepetido";
             }
         }
@@ -50,9 +50,10 @@ public class TecnicoController {
     }
 
     // solo se elimina si un tecnico no esta asociado a una orden de trabajo
-    // Ver si se puede borrar el tecnico y que se elimine de la orden, sin eliminar la orden
+    // Ver si se puede borrar el tecnico y que se elimine de la orden, sin eliminar
+    // la orden
     @GetMapping("/eliminarTecnico/{id_tecnico}")
-    public String eliminarTecnico(Model model, @PathVariable int id_tecnico){
+    public String eliminarTecnico(Model model, @PathVariable int id_tecnico) {
         List<OrdenTrabajo> ordenes = otService.listarOrdenTrabajo();
         Boolean eliminarTecnico = true;
 
@@ -60,52 +61,63 @@ public class TecnicoController {
             for (Tecnico tecnico : ot.getTecnicosOrden()) {
                 if (tecnico.getId_tecnico().equals(id_tecnico)) {
                     eliminarTecnico = false;
-                    break;  // Ya encontramos el tecnico en una orden, no es necesario seguir buscando
+                    break; // Ya encontramos el tecnico en una orden, no es necesario seguir buscando
                 }
             }
         }
-        if(eliminarTecnico){
+
+        if (eliminarTecnico) {
             System.out.println("Se puede eliminar tecnico, no esta relacionado");
             servicesTecnico.delete(id_tecnico);
-        } else{System.out.println("No se puede eliminar tecnico");}
-        
-        //Antes de la redireccion
+        } else {
+            System.out.println("No se puede eliminar tecnico");
+        }
+
+        // Antes de la redireccion
         String mensaje = eliminarTecnico ? "true" : "false";
-        return "redirect:/tecnicos?mensaje="+mensaje; 
+        return "redirect:/tecnicos?mensaje=" + mensaje;
     }
 
     @GetMapping("/editarTecnico/{id_tecnico}")
-    public String editarTecnico(@PathVariable int id_tecnico, Model model){
+    public String editarTecnico(@PathVariable int id_tecnico, Model model) {
         Optional<Tecnico> optionalTecnico = servicesTecnico.listarIdTecnico(id_tecnico);
 
         if (optionalTecnico.isPresent()) {
             Tecnico tecnico = optionalTecnico.get();
             model.addAttribute("lista_tecnicos", tecnico);
         } else {
-            
+
         }
 
-        return "editarTecnico"; 
+        return "editarTecnico";
     }
 
     @PostMapping("/buscarTecnico")
-    public String buscarTecnico(Model model, @RequestParam("datosBuscados") String legajo){
+    public String buscarTecnico(Model model, @RequestParam("datosBuscados") String legajo) {
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
         List<Tecnico> tecnicosEncontrados = new ArrayList<Tecnico>();
-        
-        for (Tecnico t:tecnicos){
-            if(t.getLegajo().toUpperCase().equals(legajo.toUpperCase())){
+
+        for (Tecnico t : tecnicos) {
+            if (t.getLegajo().toUpperCase().equals(legajo.toUpperCase())) {
                 tecnicosEncontrados.add(t);
             }
         }
 
-        if (tecnicosEncontrados.size() == 0){
+        if (tecnicosEncontrados.size() == 0) {
             tecnicosEncontrados = tecnicos;
         }
 
-       
         model.addAttribute("lista_tecnicos", tecnicosEncontrados);
 
         return "buscarTecnico";
     }
+
+    @GetMapping("/ordenesTecnico/{id_tecnico}")
+    public String mostrarOrdenesTecnico(@PathVariable Long id_tecnico, Model model) {
+        
+
+        // Retornar el nombre de la vista donde se mostrarán las órdenes de trabajo
+        return "ordenesTecnico";
+    }
+
 }
