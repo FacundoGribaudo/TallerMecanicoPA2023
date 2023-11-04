@@ -4,26 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odenes de Técnico</title>
+    <title>Taller Mecánico</title>
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!--CSS-->
+    <link rel="stylesheet" href="../css/gen.css">
+    <link rel="stylesheet" href="../css/crud.css">
+
+    <!--ICONO-->
+    <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+
 </head>
 
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>Número de Orden</th>
-                <th>vehiculo</th>
-                <!-- Agrega más encabezados según tus necesidades -->
-            </tr>
-        </thead>
+
+    <nav class="navbar navbar-expand-lg" id="barraNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DATOS QUE SE TRAEN -->
+    <!-- <table>
         <tbody>
-            <!-- Itera a través de las órdenes de trabajo y muestra cada una en una fila de la tabla -->
             <tr th:each="orden : ${ordenesDelTecnico}">
-                <td th:text="${orden}"></td>
-                <!-- Agrega más columnas según tus necesidades -->
+                <td th:text="${orden}" style="color: black;"></td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+
+    <div class="container">
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-8">
+                <h3 id="tecnicoDeConsulta" style="text-align: center;"></h3>
+                <table id="userTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nro. Orden</th>
+                            <th>Fecha Orden</th>
+                            <th>Vehículo</th>
+                            <th>Servico</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="orden : ${ordenesDelTecnico}">
+                            <td class="HISTORIALData" th:text="${orden.nro_orden}"></td>
+                            <td class="HISTORIALData"
+                                th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy')}"></td>
+                            <td class="HISTORIALData" th:text="${orden.vehiculoPertenece.patente}"></td>
+                            <td class="HISTORIALData" th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.nombre}"></td>
+                            <td class="HISTORIALData" th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.descripcion}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/tecnicos}"><input type="button" value="Volver" class="btn btn-warning"></a>
+            </div>
+        </div>
+    </div>
+    <script src="../js/ordenTecnico.js"></script>
+
 </body>
 
 </html>

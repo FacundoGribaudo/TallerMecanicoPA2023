@@ -1,6 +1,6 @@
 console.log("vinculado tecnico.js");
 
-function agregarTecnico(event){
+function agregarTecnico(event) {
     event.preventDefault();
 
     const nombreTecnico = document.getElementById("nombreTecnico").value;
@@ -9,21 +9,21 @@ function agregarTecnico(event){
     const legajoTecnico = document.getElementById("legajoTecnico").value;
     const estadoTecnico = document.getElementById("estadoTecnico").value;
 
-    if(nombreTecnico == "" || apellidoTecnico == "" || telefonoTecnico == "" || legajoTecnico == "" ||estadoTecnico == "Estado"){
+    if (nombreTecnico == "" || apellidoTecnico == "" || telefonoTecnico == "" || legajoTecnico == "" || estadoTecnico == "Estado") {
         Swal.fire(
             'Error!',
             'Por favor complete todos los campos',
             'error'
         );
         return
-    }else if(isNaN(telefonoTecnico)){
+    } else if (isNaN(telefonoTecnico)) {
         Swal.fire(
             'Error!',
             'El telefono debe ser un número',
             'error'
         );
         return
-    }else if(isNaN(legajoTecnico)){
+    } else if (isNaN(legajoTecnico)) {
         Swal.fire(
             'Error!',
             'El legajo debe ser un número',
@@ -31,7 +31,7 @@ function agregarTecnico(event){
         );
         return
     }
-    else{
+    else {
         document.getElementById("addUserForm").submit();
     }
 
@@ -54,4 +54,17 @@ function limitarPorcentajeInput(input) {
     if (input.value > 100) {
         input.value = 100; // Establece el valor máximo permitido
     }
+}
+
+//tomo los valores del tecnico pasados por parametro
+function datosTecnico(link) {
+
+    var nombre = link.getAttribute("nombre");
+    var apellido = link.getAttribute("apellido");
+
+    localStorage.removeItem("nombreTecnico");
+    localStorage.removeItem("apellidoTecnico");
+
+    localStorage.setItem("nombreTecnico",nombre);
+    localStorage.setItem("apellidoTecnico",apellido);
 }
