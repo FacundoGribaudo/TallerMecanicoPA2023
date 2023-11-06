@@ -1,8 +1,7 @@
 --------------- CORRECCIONES ENTREGA 2 ----------------
 
 FALTA:
--Agregar nro licencia y vencimiento a USUARIOS
--Solucionar ver historial de USUARIO
+- Solucionar ver historial de USUARIO xq se rompe (cuando tiene historial de servicios registrados en su auto)
 - NO se puede editar un técnico, se rompe
 - NO se puede editar una orden, se rompe (igual hace falta editar?)
 
