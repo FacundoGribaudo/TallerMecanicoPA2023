@@ -16,3 +16,12 @@ Que exista un mas, que permita agregar un nuevo servicio
 Verificar que no se puedan repetir
 A la derecha de cada servicio, que exista un tacho de basura para eliminar servicios
 Que se calculen los montos xtotales solos
+
+
+
+----------------------- PRIMERAS CONSIDERACIONES ENTREGA 3 -----------------------
+- Implementar algo de POSTMAN
+- Implementar algo de Codazzi ?¿ (control de calidad y buenas practicas --> investigar) 
+- Jconsole (para ver rendimiento) https://www.ibm.com/docs/es/sdk-java-technology/8?topic=reference-using-jconsole
+- Generar Informes/Documentos/Estadisticas graficas
+- Implementar Junit para testing. Hacegurarnos que se cumplan los criterios de aceptacion. 
