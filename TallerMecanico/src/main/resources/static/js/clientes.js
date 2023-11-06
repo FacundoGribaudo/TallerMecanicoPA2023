@@ -8,8 +8,10 @@ function agregarCliente(event) {
     const dniCliente = document.getElementById("dniCliente").value;
     const telefonoCliente = document.getElementById("telefonoCliente").value;
     const localidadCliente = document.getElementById("localidadCliente").value;
+    const nroLicencia = document.getElementById("nroLicencia").value;
+    const vtoLicencia = document.getElementById("vtoLicencia").value;
 
-    if (nombreCliente == "" || apellidoCliente == "" || dniCliente == "" || telefonoCliente == "" || localidadCliente == "") {
+    if (nombreCliente == "" || apellidoCliente == "" || dniCliente == "" || telefonoCliente == "" || localidadCliente == "" || nroLicencia == "" || vtoLicencia == "") {
         Swal.fire(
             'Error!',
             'Por favor complete todos los campos',
@@ -27,6 +29,7 @@ function agregarCliente(event) {
         document.getElementById("addUserForm").submit();
     }
 }
+
 
 const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');

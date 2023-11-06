@@ -74,7 +74,7 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="margin-top: 30px;">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
                 <h3>EDITAR CLIENTE</h3>
@@ -102,6 +102,28 @@
                         <input name="localidad" class="form-control" type="text" id="localidadCliente"
                             placeholder="Localidad" required th:value="${cliente.localidad}"
                             oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                    <div class="form-group"
+                        style="background-color: rgba(255, 255, 255, 0.39); padding: 10px; padding-top: 5px; border-radius: 15px;">
+                        <label
+                            style="text-align: left; color: rgb(40, 40, 40); width: 100%; margin-bottom: 0; padding-left: 5px; padding-top: 3px; margin-bottom: 3px; font-weight: bold;"
+                            class="form-label">Licencia de Conducir
+                        </label>
+
+                        <div class="form-group">
+                            <input name="nroLicencia" class="form-control" type="number" id="nroLicencia"
+                                placeholder="Nro. Licencia" th:value="${cliente.nroLicencia}" required>
+
+                            <div class="form-group"
+                                style="display: flex; justify-content: center; align-items: center;">
+                                <label
+                                    style="margin-right: 10px; margin-left: 2px; padding-top: 3px; color: black; white-space: nowrap;">Fecha
+                                    Vto.</label>
+                                <input name="vtoLicencia" class="form-control" type="date" id="vtoLicencia"
+                                    placeholder="Fecha Vencimiento" th:value="${cliente.vtoLicencia}" required>
+                            </div>
+                        </div>
+
                     </div>
                     <div id="botones">
                         <input onclick="agregarCliente(event)" type="submit" value="Actualizar" class="btn btn-success">

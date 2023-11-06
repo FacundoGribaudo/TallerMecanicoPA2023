@@ -1,12 +1,12 @@
-body{
+body {
   background: #c4d8ec;
 }
 
-.row{
+.row {
   margin-top: 5%;
 }
 
-#datoAuto{
+#datoAuto {
   color: white;
 }
 
@@ -25,25 +25,25 @@ h4 {
   margin: 10px 0 0;
 }
 
-form{
+form {
   text-align: center;
 }
 
-input{
+input {
   margin-top: 3px;
   margin-right: 10px;
 }
 
-select{
+select {
   margin-top: 3px;
 }
 
-#tdbotones{
+#tdbotones {
   padding: 0;
   width: 50px;
 }
 
-#botoncrud{
+#botoncrud {
   border: none;
   background: none;
   padding: 0;
@@ -51,39 +51,39 @@ select{
   width: 40px;
 }
 
-#imgcrud{
+#imgcrud {
   height: 90%;
   width: 90%;
 }
 
-#inputMarca{
+#inputMarca {
   border-radius: 12px;
 }
 
-#botonAgregar{
+#botonAgregar {
   margin-top: 5px;
 }
 
-.historialTD{
+.historialTD {
   padding-top: 8px !important;
 }
 
-.aHistorial{
+.aHistorial {
   color: rgb(78, 78, 78);
 }
 
-.aHistorial:hover{
+.aHistorial:hover {
   color: #0b5ed7;
 }
 
-.divSelectYCrear{
-  display: flex; 
-  justify-content: center; 
+.divSelectYCrear {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.botonCrearIntuitivo{
-  background: none; 
+.botonCrearIntuitivo {
+  background: none;
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -95,6 +95,17 @@ select{
   margin-left: 5px;
 }
 
-.botonCrearIntuitivo:hover{
+.botonCrearIntuitivo:hover {
   background-color: #1abc86;
+}
+
+.ocupa-todo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 3px;
+}
+
+.form-control {
+  margin: 0;
+  margin-bottom: 3px;
 }
