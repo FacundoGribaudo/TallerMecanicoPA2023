@@ -126,16 +126,14 @@ public class OrdenTrabajoController {
         List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
         List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
-
-        // IMPRIMES SIEMPRE LA MISMA PATENTE - VER
-        // FUNCIONA MAL EL SETEAR FECHA
+        
+        System.out.println("FECHA INGRESADA: "+orden);
         for (OrdenTrabajo ort : ordenTrabajoList) {
-            System.out.println("ordenes:" + ort);
-            if (ort.getFechaHoraCreacionOrden().toString().contains(orden)) {
+            if (ort.getFechaHoraOrden().toString().contains(orden)) {
                 ordenTrabajoFiltradas.add(ort);
                 System.out.println("fecha igual");
             } else {
-                System.out.println("fecha ingresada distinta:" + orden);
+                System.out.println("fecha ingresada distinta:");
             }
         }
 
