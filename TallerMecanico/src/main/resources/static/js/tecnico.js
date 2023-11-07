@@ -7,9 +7,8 @@ function agregarTecnico(event) {
     const apellidoTecnico = document.getElementById("apellidoTecnico").value;
     const telefonoTecnico = document.getElementById("telefonoTecnico").value;
     const legajoTecnico = document.getElementById("legajoTecnico").value;
-    const estadoTecnico = document.getElementById("estadoTecnico").value;
 
-    if (nombreTecnico == "" || apellidoTecnico == "" || telefonoTecnico == "" || legajoTecnico == "" || estadoTecnico == "Estado") {
+    if (nombreTecnico == "" || apellidoTecnico == "" || telefonoTecnico == "" || legajoTecnico == "") {
         Swal.fire(
             'Error!',
             'Por favor complete todos los campos',

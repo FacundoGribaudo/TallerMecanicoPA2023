@@ -84,9 +84,9 @@ public class TecnicoController {
 
         if (optionalTecnico.isPresent()) {
             Tecnico tecnico = optionalTecnico.get();
-            model.addAttribute("lista_tecnicos", tecnico);
+            model.addAttribute("tecnico", tecnico);
         } else {
-
+            System.out.println("Fallo algo");
         }
 
         return "editarTecnico";

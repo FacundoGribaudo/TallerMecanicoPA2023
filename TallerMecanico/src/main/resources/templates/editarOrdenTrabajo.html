@@ -17,7 +17,6 @@
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
-    <link rel="stylesheet" href="../css/editar.css">
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
@@ -74,31 +73,99 @@
             </div>
         </div>
     </nav>
+
+    <!-- <table>
+        <tbody>
+            <h1>objeto ordenes</h1>
+            <tr th:each="orden : ${orden_trabajo}">
+                <td th:text="${orden}" style="color: black;"></td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <!-- <table>
+        <tbody>
+            <h1>objeto servicios</h1>
+            <tr th:each="servicio : ${lista_servicios}">
+                <td th:text="${servicio}" style="color: black;"></td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <!-- <table>
+        <tbody>
+            <h1>objeto servicios</h1>
+            <tr th:each="tecnico : ${lista_tecnicos}">
+                <td th:text="${tecnico}" style="color: black;"></td>
+            </tr>
+        </tbody>
+    </table> -->
+
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                <h3>EDITAR ORDEN</h3>
                 <form id="addUserForm" th:action="@{/registrarOrdenTrabajo}" th:object="${OrdenTrabajo}" method="POST">
-                    <input type="hidden" name="nro_orden" th:value="${orden_trabajo.nro_orden}">
-                    <select required name="vehiculoPertenece" id="marcaAuto" class="form-select" form="addUserForm">
-                        <option selected hidden th:text="${orden_trabajo.vehiculoPertenece.patente}"
-                            th:value="${orden_trabajo.vehiculoPertenece.id_vehiculo}"></option>
-                        <option th:each="vehiculo : ${lista_vehiculos}" th:text="${vehiculo.patente}"
-                            th:value="${vehiculo.id_vehiculo}">
-                    </select>
+                    <div class="row" style="width: 70%; margin: auto;">
+                        <!-- Primera columna (izquierda) -->
+                        <input type="hidden" name="nro_orden" th:value="${orden_trabajo.nro_orden}">
+                        <h3 th:text="'EDITAR ORDEN ' + ${orden_trabajo.nro_orden}"></h3>
+                        <div class="col-md-6">
 
-                    <select required name="serviciosRealizar" id="modeloAuto" class="form-select" form="addUserForm"
-                        multiple>
-                        <option selected hidden th:text="${orden_trabajo.serviciosRealizar.nombre}"
-                            th:value="${orden_trabajo.serviciosRealizar.id_servicio}"></option>
-                        <option th:each="servicio : ${lista_servicios}" th:text="${servicio.nombre}"
-                            th:value="${servicio.id_servicio}">
-                    </select>
-                    <input type="submit" value="Actualizar" class="btn btn-success">
-                    <a th:href="@{/ordenTrabajo}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
+                            <h4>VEHICULOS</h4>
+                          
+                            <select required name="vehiculoPertenece" id="vehiculoServicio" class="form-select" form="addUserForm">
+                                <option th:each="vehiculo : ${lista_vehiculos}" th:text="${vehiculo.marca.nombre} + ' ' + ${vehiculo.modelo.nombre} + ' - ' + ${vehiculo.patente}" th:value="${vehiculo.id_vehiculo}" th:selected="${vehiculo.id_vehiculo == orden_trabajo.vehiculoPertenece.id_vehiculo}">Seleccionar un vehículo</option>
+                            </select>
+                            
+
+                            <h4>SERVICIOS</h4>
+                            <div class="form-check select-container">
+                                <div th:each="servicio : ${lista_servicios}">
+                                    <input type="checkbox" name="serviciosRealizar" th:value="${servicio.id_servicio}" id="servicio_${servicio.id_servicio}" th:checked="${orden_trabajo.serviciosRealizar.contains(servicio)}">
+                                    <label for="servicio_${servicio.id_servicio}" th:text="${servicio.nombre}" class="clickable-label"></label>
+                                </div>
+                            </div>
+                            
+                            <a id="eliminarSeleccionServicios" href="#" style="display: none">Eliminar Selección Servicios</a>
+
+                        </div>
+
+                        <!-- Segunda columna (derecha) -->
+                        <div class="col-md-6">
+
+                            <h4>FECHA DE ORDEN</h4>
+                            <input type="datetime-local" id="fechaHoraOrden" name="fechaHoraOrden" required class="form-control" th:value="${orden_trabajo.fechaHoraOrden}">
+
+                            <h4>TECNICOS</h4>
+                            <div class="form-check select-container">
+                                <div th:each="tecnico : ${lista_tecnicos}">
+                                    <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}" id="tecnico_${tecnico.id_tecnico}" th:checked="${orden_trabajo.tecnicosOrden.contains(tecnico)}">
+                                    <label for="tecnico_${tecnico.id_tecnico}" th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}" class="clickable-label"></label>
+                                </div>
+                            </div>
+                            
+                            <a id="eliminarSeleccionTecnicos" href="#" style="display: none">Eliminar Selección
+                                Técnicos</a>
+                        </div>
+
+                        <div id="botones" style="display: flex; justify-content: left; align-items: center; margin-top: 15px;">
+                            <input style="width: 160px; margin: 0;" type="submit" value="Actualizar Orden" class="btn btn-primary form-control" onclick="agregarOrdenTrabajo(event)">
+                            <a th:href="@{/ordenTrabajo}"><input style="width: 150px; margin: 0; margin-left: 20px;" type="button" value="Cancelar" class="btn btn-warning"></a>
+                        </div>
+
+                    </div>
+                    
+                   
                 </form>
+
             </div>
         </div>
+
+
     </div>
-    <script src="../js/tecnico.js"></script>
+
+    </div>
+    <script src="../js/agregarOrdenTrabajo.js"></script>
+
+
 </body>

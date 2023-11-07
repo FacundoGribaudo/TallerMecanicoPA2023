@@ -85,8 +85,7 @@
                 <h3>NUEVO MODELO</h3>
                 <form id="addUserForm" th:action="@{/saveModelo}" th:object="${modelo}" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre"
-                            oninput="this.value = this.value.toUpperCase()" required>
+                        <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <select name="estado" id="estadoModelo" class="form-select" form="addUserForm">
                         <option value="Activo" selected>Activo</option>

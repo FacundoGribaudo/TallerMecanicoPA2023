@@ -1,6 +1,5 @@
 package com.Proyecto.TallerMecanico.controller;
 
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ import com.Proyecto.TallerMecanico.domain.Tecnico;
 @Controller
 @RequestMapping
 public class OrdenTrabajoController {
-    
+
     @Autowired
     private IordenTrabajoService serviceOT;
     @Autowired
@@ -38,13 +37,12 @@ public class OrdenTrabajoController {
     @Autowired
     private ItecnicoServices tecnicoService;
 
-
     @GetMapping("/ordenTrabajo")
-    public String listarOrdenTrabajo(Model model){
-        
-        //Listas
-        List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo(); 
-        
+    public String listarOrdenTrabajo(Model model) {
+
+        // Listas
+        List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo();
+
         // Formatear la fecha y hora en el formato deseado (dd/MM/yyyy HH:mm:ss)
         for (OrdenTrabajo ordenTrabajo : ordenTrabajoList) {
             ordenTrabajo.setFechaHoraFormateada();
@@ -53,20 +51,21 @@ public class OrdenTrabajoController {
         List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
         List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
-        
-        //Render HTML
+
+        // Render HTML
         model.addAttribute("listaOT", ordenTrabajoList);
         model.addAttribute("lista_vehiculos", lista_vehiculos);
         model.addAttribute("lista_servicios", lista_servicios);
         model.addAttribute("lista_tecnicos", lista_tecnicos);
-        
-        
-        return "ordenTrabajo";      
+
+        return "ordenTrabajo";
     }
 
     @PostMapping("/registrarOrdenTrabajo")
-    public String registrarOrden(@RequestParam("serviciosRealizar") List<Integer> serviciosIds, @RequestParam("tecnicosOrden") List<Integer> tecnicosIds, @RequestParam("fechaHoraOrden") LocalDateTime fechaHoraOrden, OrdenTrabajo ot) {
-    List<ServiciosTaller> serviciosSeleccionados = new ArrayList<>();
+    public String registrarOrden(@RequestParam("serviciosRealizar") List<Integer> serviciosIds,
+            @RequestParam("tecnicosOrden") List<Integer> tecnicosIds,
+            @RequestParam("fechaHoraOrden") LocalDateTime fechaHoraOrden, OrdenTrabajo ot) {
+        List<ServiciosTaller> serviciosSeleccionados = new ArrayList<>();
         List<Tecnico> tecnicosSeleccionados = new ArrayList<>();
 
         for (Integer servicioId : serviciosIds) {
@@ -80,7 +79,7 @@ public class OrdenTrabajoController {
             tecnicoOptional.ifPresent(tecnicosSeleccionados::add);
         }
         ot.setTecnicosOrden(tecnicosSeleccionados);
-        
+
         // Configurar la fecha de orden en el objeto OrdenTrabajo
         ot.setFechaHoraOrden(fechaHoraOrden);
 
@@ -90,50 +89,66 @@ public class OrdenTrabajoController {
     }
 
     @GetMapping("/eliminarOrden/{id_orden}")
-    public String eliminarOrden(Model model, @PathVariable int id_orden){
+    public String eliminarOrden(Model model, @PathVariable int id_orden) {
         serviceOT.delete(id_orden);
-        return "redirect:/ordenTrabajo"; 
+        return "redirect:/ordenTrabajo";
     }
 
     // VER - QUE SEA VER DETALLE ORDEN Y DENTRO SE PUEDAN EDITAR LOS DATOS
     @GetMapping("/editarOrden/{id_orden}")
-    public String editarOrden(@PathVariable int id_orden, Model model){
+    public String editarOrden(@PathVariable int id_orden, Model model) {
         Optional<OrdenTrabajo> optionalOrdenT = serviceOT.listarIdOrdenTrabajo(id_orden);
-        System.out.println("entro al editar "); 
-        
+        System.out.println("entro al editar ");
+
         if (optionalOrdenT.isPresent()) {
             OrdenTrabajo ordenTrabajo = optionalOrdenT.get();
             model.addAttribute("orden_trabajo", ordenTrabajo);
             System.out.println(ordenTrabajo);
         } else {
-           
+
         }
 
         List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
+        List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
         model.addAttribute("lista_vehiculos", lista_vehiculos);
         model.addAttribute("lista_servicios", lista_servicios);
+        model.addAttribute("lista_tecnicos", lista_tecnicos);
 
-        return "editarOrdenTrabajo"; 
+        return "editarOrdenTrabajo";
     }
 
     @PostMapping("/buscarOrden")
-    public String buscarOrden(Model model, @RequestParam("fechaOrdenBuscar") String orden){
-        List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo(); 
+    public String buscarOrden(Model model, @RequestParam("fechaOrdenBuscar") String orden) {
+        List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo();
         List<OrdenTrabajo> ordenTrabajoFiltradas = new ArrayList<>();
 
-        for(OrdenTrabajo ort:ordenTrabajoList){
-            ort.setFechaHoraFormateada();
-            if(ort.getFechaHoraCreacionOrden().toString().equals(orden)){
+        List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
+        List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
+        List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
+
+        // IMPRIMES SIEMPRE LA MISMA PATENTE - VER
+        // FUNCIONA MAL EL SETEAR FECHA
+        for (OrdenTrabajo ort : ordenTrabajoList) {
+            System.out.println("ordenes:" + ort);
+            if (ort.getFechaHoraCreacionOrden().toString().contains(orden)) {
                 ordenTrabajoFiltradas.add(ort);
+                System.out.println("fecha igual");
+            } else {
+                System.out.println("fecha ingresada distinta:" + orden);
             }
         }
 
-        if(ordenTrabajoFiltradas.size() == 0){
-            ordenTrabajoFiltradas = ordenTrabajoList;
+        if (ordenTrabajoFiltradas.isEmpty() || orden=="") {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
         model.addAttribute("listaOT", ordenTrabajoFiltradas);
+        model.addAttribute("lista_vehiculos", lista_vehiculos);
+        model.addAttribute("lista_servicios", lista_servicios);
+        model.addAttribute("lista_tecnicos", lista_tecnicos);
         return "buscarOrdenTrabajo";
     }
 
@@ -147,7 +162,7 @@ public class OrdenTrabajoController {
 
             // Formatea la fecha y hora de creación de la orden
             LocalDateTime fechaHoraOrden = ordenTrabajo.getFechaHoraOrden(); // Obtén la fecha formateada
-            
+
             // Obtén los datos relacionados (vehículo, cliente, servicios y técnicos)
             Vehiculo vehiculo = ordenTrabajo.getVehiculoPertenece();
             Cliente cliente = vehiculo.getCliente();

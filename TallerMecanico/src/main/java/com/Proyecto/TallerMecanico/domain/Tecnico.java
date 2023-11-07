@@ -29,9 +29,6 @@ public class Tecnico {
     @Column(name = "legajo")
     private String legajo; 
 
-    @Column(name = "estado")
-    private String estado; 
-
     @OneToMany (mappedBy = "tecnicosOrden")
     private List<OrdenTrabajo> ordenesTrabajo;
 
@@ -43,7 +40,6 @@ public class Tecnico {
         this.apellido = apellido;
         this.telefono = tel;
         this.legajo = leg;
-        this.estado = estado; 
         this.ordenesTrabajo = new ArrayList<>();
     }
 

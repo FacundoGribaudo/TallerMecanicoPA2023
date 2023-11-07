@@ -220,7 +220,7 @@ margin: 5px;
 
 /* Estilo para el símbolo de pesos en el input-group-text */
 .row .input-group-text {
-    margin-top: 3px;
+    margin:0;
     width: 10px; /* Ajusta el ancho del símbolo de pesos */
     height: 30px; /* Ajusta la altura del símbolo de pesos */
     font-size: 1rem; /* Ajusta el tamaño de fuente del símbolo de pesos */

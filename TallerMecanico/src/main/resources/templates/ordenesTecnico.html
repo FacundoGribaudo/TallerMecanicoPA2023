@@ -105,8 +105,16 @@
                             <td class="HISTORIALData"
                                 th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy')}"></td>
                             <td class="HISTORIALData" th:text="${orden.vehiculoPertenece.patente}"></td>
-                            <td class="HISTORIALData" th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.nombre}"></td>
-                            <td class="HISTORIALData" th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.descripcion}"></td>
+                            <td class="HISTORIALData">
+                                <ol style="padding-left: 10px;">
+                                    <li th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.nombre}"></li>
+                                </ol>
+                            </td>                             
+                            <td class="HISTORIALData">
+                                <ol style="padding-left: 10px;">
+                                    <li th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.descripcion}"></li>
+                                </ol>
+                            </td> 
                         </tr>
                     </tbody>
                 </table>

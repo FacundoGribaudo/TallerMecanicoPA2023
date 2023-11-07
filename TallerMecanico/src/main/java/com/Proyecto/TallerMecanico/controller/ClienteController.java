@@ -149,6 +149,8 @@ public class ClienteController {
         List<Vehiculo> vehiculosRegistrados = servicesVehiculo.listarVehiculos();
         List<OrdenTrabajo> otRegistrados = otService.listarOrdenTrabajo();
 
+
+
         // Datos filtrados
         List<Cliente> clienteHistorial = new ArrayList<>();
         List<OrdenTrabajo> otHistorial = new ArrayList<>();
@@ -163,6 +165,7 @@ public class ClienteController {
 
                 }
             }
+            
         }
 
         for (Cliente i : clientesRegistrados) {
@@ -176,6 +179,7 @@ public class ClienteController {
             nombreCl = "" + cl.getNombre() + " " + cl.getApellido();
             System.out.println("" + "DATOS CLIENTE = " + nombreCl);
         }
+        
         model.addAttribute("cliente", nombreCl);
         model.addAttribute("datos_orden", otHistorial);
         return "historialServiciosCliente";

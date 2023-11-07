@@ -1,20 +1,18 @@
 --------------- CORRECCIONES ENTREGA 2 ----------------
 
-FALTA:
-- Solucionar ver historial de USUARIO xq se rompe (cuando tiene historial de servicios registrados en su auto)
-- NO se puede editar un técnico, se rompe
-- NO se puede editar una orden, se rompe (igual hace falta editar?)
+
 
 ORDEN DE TRABAJO
+- Solucionar el buscador de ordenes. anda mal la funciona para setear fechas, lo probé con la fecha no formateada y si anda el buscar. ver de agregar otro parámetro de busqueda.
+
 -DETALLE DE ORDEN
-Dentro que se muestren los servicios de la orden y que al presionar boton se activen y puedas editar
-Mostrar bien los datos de cada servicio que se selecciono
+- Dentro que se muestren los servicios de la orden y que al presionar boton se activen y puedas editar
+- Mostrar bien los datos de cada servicio que se selecciono
 -Abajo mostrar casillero con total impuestos, total descuentos, monto total.
 -Total tiempo trabajo, que se sume al agregar horas
-Que exista un mas, que permita agregar un nuevo servicio
-Verificar que no se puedan repetir
-A la derecha de cada servicio, que exista un tacho de basura para eliminar servicios
-Que se calculen los montos xtotales solos
+- Que exista un mas, que permita agregar un nuevo servicio
+- Verificar que no se puedan repetir
+- Que se calculen los montos xtotales solos
 
 
 

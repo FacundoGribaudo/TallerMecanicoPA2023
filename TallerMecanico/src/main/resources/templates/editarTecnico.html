@@ -74,6 +74,16 @@
             </div>
         </div>
     </nav>
+
+
+    <!-- <table>
+        <tbody>
+            <tr th:each="tec : ${tecnico}">
+                <td th:text="${tec}" style="color: black;"></td>
+            </tr>
+        </tbody>
+    </table> -->
+
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
@@ -98,11 +108,6 @@
                         <input name="telefono" class="form-control" type="text" id="telefonoTecnico"
                             placeholder="Telefono" required th:value="${tecnico.telefono}">
                     </div>
-                    <select name="estado" id="estadoTecnico" class="form-select" form="addUserForm">
-                        <option selected hidden th:value="${tecnico.estado}" th:text="${tecnico.estado}"></option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
                     <div id="botones">
                         <input onclick="agregarTecnico(event)" type="submit" value="Actualizar" class="btn btn-success">
                         <a th:href="@{/tecnicos}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
@@ -112,5 +117,6 @@
             </div>
         </div>
     </div>
+    
     <script src="../js/tecnico.js"></script>
 </body>

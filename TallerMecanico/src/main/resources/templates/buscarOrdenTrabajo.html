@@ -114,51 +114,65 @@
                 </form>
             </div>
         </div>
+
         <div class="row" style="margin-top: 20px;">
             <h3>ORDENES REALIZADAS</h3>
             <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarOrden}" method="POST">
-                <input name="fechaOrdenBuscar" id="inputBuscar" class="form-control me-2" type="text"
-                    placeholder="Buscar Fecha Orden" aria-label="Search">
-                <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt=""
-                        width="25"></button>
+                <input name="fechaOrdenBuscar" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Fecha Orden" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
             </form>
-            <table id="userTable" class="table table-striped">
+            <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+            <table id="userTable" class="table table-striped" th:if="${mensaje} == null">
                 <thead>
                     <tr>
                         <th>N° Orden</th>
                         <th>Vehiculo</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Año</th>
-                        <th>Servicio</th>
                         <th>Cliente</th>
-                        <th>Fecha y Hora de Creación</th>
+                        <th>Servicios</th>
+                        <th>Técnicos</th>
+                        <th>Fecha de Orden</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody id="cuerpoTabla">
+                    <div th:if="${listaOT} == null">No se encontraron coincidencias</div>
                     <tr th:each="ot : ${listaOT}">
                         <td class="ORDENData" th:text="${ot.nro_orden}"></td>
-                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.patente}"></td>
-                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.marca.nombre}"></td>
-                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.modelo.nombre}"></td>
-                        <td class="ORDENData" th:text="${ot.vehiculoPertenece.ano}"></td>
-                        <td class="ORDENData" th:text="${ot.serviciosRealizar.nombre}"></td>
+                        <td class="ORDENData"
+                            th:text="${ot.vehiculoPertenece.marca.nombre} +' '+ ${ot.vehiculoPertenece.modelo.nombre} + ' - ' + ${ot.vehiculoPertenece.patente}">
+                        </td>
                         <td class="ORDENData"
                             th:text="${ot.vehiculoPertenece.cliente.nombre}+' '+${ot.vehiculoPertenece.cliente.apellido}">
                         </td>
-                        <td class="ORDENData" th:text="${ot.fechaHoraCreacionFormateada}"></td>
-
-                        <td id="tdbotones"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}"
-                                class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                        <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud"
-                                th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger"><img id="imgcrud"
-                                    src="img/delete.png" alt=""></a></td>
+                        <td class="HISTORIALData">
+                            <ul style="padding: 0;">
+                                <li th:each="servicio : ${ot.serviciosRealizar}" th:text="${servicio.nombre}"></li>
+                            </ul>
+                        </td>          
+                        <td class="HISTORIALData">
+                            <ul style="padding: 0;">
+                                <li th:each="tecnico : ${ot.tecnicosOrden}" th:text="${tecnico.nombre} + ' ' +${tecnico.apellido} "></li>
+                            </ul>
+                        </td>              
+                        <td class="ORDENData" th:text="${ot.fechaHoraOrdenFormateada}"></td>
+                        <td id="tdbotones" style="padding-top:5px;"><a id="botoncrud" th:href="@{/detalleOrden/}+${ot.nro_orden}" class="btn btn-warning" title="Detalle de Orden"><img id="imgcrud" src="img/detalle.png" alt=""></a></td>
+                        <td id="tdbotones" style="padding-top:5px;"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}" class="btn btn-warning" title="Editar Orden"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                        <td id="tdbotones" style="padding-top:5px;"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud" th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger" title="Eliminar Orden"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
 
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Datos que se traen del controlador -->
+            <!-- <table>
+                <tbody>
+                    <tr th:each="ot : ${listaOT}">
+                        <td th:text="${ot}" style="color: black;"></td>
+                    </tr>
+                </tbody>
+            </table> -->
         </div>
     </div>
 

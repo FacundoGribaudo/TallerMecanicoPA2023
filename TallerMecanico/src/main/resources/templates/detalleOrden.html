@@ -35,7 +35,7 @@
     <nav class="navbar navbar-expand-lg" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -82,22 +82,26 @@
             </div>
         </div>
     </nav>
+
     <div class="container">
+
+        <!-- <table>
+            <tbody>
+                <h1>objeto tecnicos seleccionados</h1>
+                <tr th:each="ts : ${tecnicosSeleccionados}">
+                    <td th:text="${ts}" style="color: black;"></td>
+                </tr>
+            </tbody>
+        </table> -->
+
         <div class="row">
             <!-- Primera columna (izquierda) -->
-            <h3>DETALLE ORDEN ID: <span th:text="${nro_orden}"></span></h3>
+            <h3>DETALLE ORDEN <span th:text="${nro_orden}"></span></h3>
             <div class="col-md-6">
 
-                <h4>VEHICULOS</h4>
-                <select th:value="${vehiculo.id_vehiculo}" required name="vehiculoPertenece" id="vehiculoServicio"
-                    class="form-select" form="addUserForm">
-                    <option selected hidden th:value="${vehiculo.id_vehiculo}"
-                        th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}">
-                    </option>
-                    <option th:each="vehiculo : ${lista_vehiculos}"
-                        th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"
-                        th:value="${vehiculo.id_vehiculo}">
-                </select>
+                <h4>VEHICULO</h4>
+                <p class="form-control"
+                    th:text="${vehiculo.marca.nombre}+' '+${vehiculo.modelo.nombre}+' - '+${vehiculo.patente}"> </p>
 
                 <h4>PROPIETARIO</h4>
                 <p class="form-control"
@@ -105,22 +109,19 @@
                 </p>
 
                 <h4>FECHA DE ORDEN</h4>
-                <input type="datetime-local" name="fechaHoraOrden" required class="form-control"
-                    th:value="${ordenTrabajo.fechaHoraOrden}">
+                <p class="form-control"
+                    th:text="${#strings.substring(ordenTrabajo.fechaHoraOrden, 8, 10) + '/' + #strings.substring(ordenTrabajo.fechaHoraOrden, 5, 7) + '/' + #strings.substring(ordenTrabajo.fechaHoraOrden, 0, 4) + ' - ' + #strings.substring(ordenTrabajo.fechaHoraOrden, 11)} + 'hs'">
+                </p>
             </div>
 
             <!-- Segunda columna (derecha) -->
 
             <div class="col-md-6" style="height: 219.6px; display: flex; flex-direction: column;">
-                <h4>TECNICOS</h4>
+                <h4>TÉCNICOS</h4>
                 <div class="form-check select-container" style="flex: 1;">
-                    <div th:each="tecnico : ${lista_tecnicos}">
-                        <input type="checkbox" name="tecnicosOrden" th:value="${tecnico.id_tecnico}"
-                            id="tecnico_${tecnico.id_tecnico}"
-                            th:checked="${tecnicosSeleccionados.contains(tecnico)}" />
-                        <label for="tecnico_${tecnico.id_tecnico}"
-                            th:text="${tecnico.legajo + ' - ' + tecnico.apellido + ' ' + tecnico.nombre}"></label>
-                    </div>
+                    <ul style="padding-left: 20px;">
+                        <li th:each="ts : ${tecnicosSeleccionados}" th:text="${ts.nombre} + ' ' +${ts.apellido} "></li>
+                    </ul>
                 </div>
             </div>
 
@@ -177,7 +178,7 @@
                                 <div class="input-group">
                                     <input type="number" step="0.1" name="%descuento" required
                                         th:value="${servicio.porcentajeDescuentos}" class="form-control" min="0"
-                                        max="100" oninput="limitarPorcentajeInput(this)" readonly
+                                        max="100" oninput="limitarPorcentajeInput(this)"
                                         style="text-align: right;">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -193,7 +194,7 @@
                                 <div class="input-group">
                                     <input type="number" step="0.1" name="%impuesto" required
                                         th:value="${servicio.porcentajeImpuestos}" class="form-control" min="0"
-                                        max="100" oninput="limitarPorcentajeInput(this)" readonly
+                                        max="100" oninput="limitarPorcentajeInput(this)" 
                                         style="text-align: right;">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -296,7 +297,7 @@
     <!-- Botón para volver a Ordenes de Trabajo -->
     <div class="row text-center mt-3">
         <div class="col-md-3">
-            <a class="btn btn-secondary" th:href="@{/ordenTrabajo}">Volver a Ordenes de Trabajo</a>
+            <a class="btn btn-warning" th:href="@{/ordenTrabajo}">Volver</a>
         </div>
         <div class="col-md-3">
             <button class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
