@@ -245,15 +245,16 @@ function descargarOrden() {
     console.log("se descarga la orden");
 
     const id = document.getElementById("botonDescargar").value;
+    document.getElementById("botonDescargar").textContent = "Descargando...";
     
 
     const { jsPDF } = window.jspdf;
 	const doc = new jsPDF();
     const element = document.getElementById("containerOrden");
 
-    html2canvas(element, { scale: 2 }).then(function (canvas) {
+    html2canvas(element, { scale: 8 }).then(function (canvas) {
         // Convertir la imagen capturada en datos URI
-        const imgData = canvas.toDataURL("image/png");
+        const imgData = canvas.toDataURL("image/jpeg", 0.7); // Cambiar a formato JPEG y ajustar calidad
 
         // Agregar la imagen al PDF
 
@@ -261,14 +262,14 @@ function descargarOrden() {
         var anchoPagina = 210; // Ancho de la página en unidades (por ejemplo, en mm)
 
         // Calcular las coordenadas para centrar la imagen
-        var x = (anchoPagina - 120) / 2;
 
         // Luego, puedes agregar la imagen al PDF centrada en (x, y)
         // X,Y,ancho,alto --> si el alto o ancho es 0 se ajusta a la otra medida automaticamente
-        doc.addImage(imgData, "PNG", 10, 20, 190, 0);
+        doc.addImage(imgData, "JPEG", 5, 20, 200, 0);
 
         // Guardar o mostrar el PDF, según tus necesidades
         // Por ejemplo, para descargar el PDF:
         doc.save("DetalleOrden_"+id+".pdf");
+        document.getElementById("botonDescargar").textContent = "Descargar Orden";
     });
 }
