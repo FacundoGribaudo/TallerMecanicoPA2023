@@ -82,6 +82,13 @@
                     <div class="form-group">
                         <input class="form-control" type="text" id="nombreServicio" name="nombre" placeholder="Nombre" oninput="this.value = this.value.toUpperCase()" required>
                         <input class="form-control" type="number" id="precioHora" name="precioHora" placeholder="Precio/hora" required>
+                        <hr style="color: black; margin: 5px; margin-bottom: 0;">
+                        <label style="text-align: left; color: rgb(63, 61, 61); width: 100%; padding: 5px; font-weight: bold;">Duración Aproximada de Servicio</label>
+                        <div class="form-group ocupa-todo">
+                            <input class="form-control" type="number" id="horasPromedio" name="horasDuracionPromedio" placeholder="Horas aprox" required>
+                            <input class="form-control" type="number" id="minutosPromedio" name="minutosDuracionPromedio" placeholder="Minutos Aprox" required>
+                        </div>
+                        <hr style="color: black; margin: 5px;">
                         <input class="form-control" type="text" id="descripcionServicio" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
                         <input class="form-control" type="number" id="porcentajeDescuentos" name="porcentajeDescuentos" placeholder="% Descuentos" required min="0" max="100" oninput="limitarPorcentajeInput(this)">
                         <input class="form-control" type="number" id="porcentajeImpuestos" name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100" oninput="limitarPorcentajeInput(this)">
@@ -103,6 +110,7 @@
                             <th>ID</th>
                             <th>Nombre Servicio</th>
                             <th>Precio/hora</th>
+                            <th>Duración Aprox</th>
                             <th>Descripcion</th>
                             <th>% Descuentos</th>
                             <th>% Impuestos</th>
@@ -116,6 +124,7 @@
                             <td class="servicioTallerData" th:text="${s.id_servicio}"></td>
                             <td class="servicioTallerData" th:text="${s.nombre}"></td>
                             <td class="servicioTallerData" th:text="'$' + ${s.precioHora}"></td>
+                            <td class="servicioTallerData" th:text="${s.horasDuracionPromedio}+':'+${s.minutosDuracionPromedio}+'hs'"></td>
                             <td class="servicioTallerData" th:text="${s.descripcion}"></td>
                             <td class="servicioTallerData" th:text="${s.porcentajeDescuentos}+'%'"></td>
                             <td class="servicioTallerData" th:text="${s.porcentajeImpuestos}+'%'"></td>

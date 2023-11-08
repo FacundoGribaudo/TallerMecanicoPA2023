@@ -36,11 +36,17 @@ public class ServiciosTaller {
     @OneToMany (mappedBy = "serviciosRealizar")
     private List<OrdenTrabajo> ordenesTrabajo;
 
+    @Column(name = "horasDuracionPromedio")
+    private int horasDuracionPromedio;
+
+    @Column(name = "minutosDuracionPromedio")
+    private int minutosDuracionPromedio;
+
     public ServiciosTaller(){
 
     }
 
-    public ServiciosTaller(String nombre, String descripcion, BigDecimal precioHora, BigDecimal porcentajeDescuentos, BigDecimal porcentajeImpuestos, List<OrdenTrabajo> ordenesTrabajo){
+    public ServiciosTaller(String nombre, String descripcion, BigDecimal precioHora, BigDecimal porcentajeDescuentos, BigDecimal porcentajeImpuestos, List<OrdenTrabajo> ordenesTrabajo, BigDecimal minutosDurProm, BigDecimal horasDurProm){
         super();
         this.nombre = nombre;
         this.descripcion = descripcion; 
@@ -52,7 +58,7 @@ public class ServiciosTaller {
 
     @Override
     public String toString() {
-        return "ServiciosTaller [id_servicio=" + id_servicio + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio="+ precioHora +", porcentajeDescuentos="+porcentajeDescuentos+", porcentajeImpuestos="+porcentajeImpuestos+"]";
+        return "ServiciosTaller [id_servicio=" + id_servicio + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio="+ precioHora +", porcentajeDescuentos="+porcentajeDescuentos+", porcentajeImpuestos="+porcentajeImpuestos+", horasDuracionPromedio="+horasDuracionPromedio+", minutosDuracionPromedio="+minutosDuracionPromedio+"]";
     }
 
 }
