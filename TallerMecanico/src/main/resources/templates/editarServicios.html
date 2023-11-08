@@ -74,7 +74,7 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="margin-top: 20px;">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
                 <h3>EDITAR SERVICIO</h3>
@@ -90,6 +90,20 @@
                             <input class="form-control" type="number" id="precioHora" name="precioHora"
                                 th:value="${servicio_taller.precioHora}" placeholder="Precio/hora" required>
                         </div>
+                        <hr style="color: black; margin: 5px; margin-bottom: 0;">
+                        <label
+                            style="text-align: left; color: rgb(63, 61, 61); width: 100%; padding: 5px; font-weight: bold;">Duración
+                            Aproximada de Servicio</label>
+                        <div class="form-group ocupa-todo">
+                            <label style="color: black;">Horas</label>
+                            <label style="color: black;">Minutos</label>
+                            <input class="form-control" type="number" id="horasPromedio" name="horasDuracionPromedio"
+                                placeholder="Horas aprox" required th:value="${servicio_taller.horasDuracionPromedio}">
+                            <input class="form-control" type="number" id="minutosPromedio"
+                                name="minutosDuracionPromedio" placeholder="Minutos Aprox" required
+                                th:value="${servicio_taller.minutosDuracionPromedio}">
+                        </div>
+                        <hr style="color: black; margin: 5px;">
                         <input class="form-control" type="text" id="modelo" name="descripcion"
                             th:value="${servicio_taller.descripcion}" placeholder="Descripcion Servicio"
                             oninput="this.value = this.value.toUpperCase()" required>

@@ -215,7 +215,7 @@ margin: 5px;
 /* Estilo para el input de número en los input "number" */
 .row input[type="number"]{
     margin-right: 0;
-    height: 30px; /* Ajusta la altura del input */
+    height: 35px; /* Ajusta la altura del input */
     padding: 6px 0 6px 6px;
 }
 
@@ -223,7 +223,7 @@ margin: 5px;
 .row .input-group-text {
     margin:0;
     width: 10px; /* Ajusta el ancho del símbolo de pesos */
-    height: 30px; /* Ajusta la altura del símbolo de pesos */
+    height: 35px; /* Ajusta la altura del símbolo de pesos */
     font-size: 1rem; /* Ajusta el tamaño de fuente del símbolo de pesos */
     display: flex; /* Usa flexbox para centrar verticalmente */
     justify-content: center;
@@ -233,4 +233,8 @@ margin: 5px;
 .fixed-column {
     position: sticky;
     right: 0;
+}
+
+input{
+    height: auto;
 }

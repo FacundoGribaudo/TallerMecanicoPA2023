@@ -1,7 +1,7 @@
 console.log("vinculado detalleOrden.js");
 
 
-$(document).ready( function () {
+$(document).ready(function () {
     $('#miTabla').DataTable({
         "scrollX": true,  // Habilita la barra de desplazamiento horizontal si es necesario
         "scrollY": 300,   // Define una altura máxima para la tabla si es necesario
@@ -27,10 +27,10 @@ function limitarMinutosInput(input) {
 window.addEventListener('DOMContentLoaded', (event) => {
     // Obten la última columna
     const lastColumn = document.querySelector('.fixed-column');
-    
+
     // Calcula la anchura de la última columna
     const lastColumnWidth = lastColumn.offsetWidth;
-    
+
     // Aplica la anchura a la última columna
     lastColumn.style.width = lastColumnWidth + 'px';
 });
@@ -62,7 +62,7 @@ var montoAumentoAgregadoInput = document.getElementsByName("montoAumentoAgregado
 
 // Agregar event listeners para detectar cambios en los campos de entrada
 for (var i = 0; i < precioPorHoraInputs.length; i++) {
-    horasTrabajadasInputs[i].addEventListener("input", function() { 
+    horasTrabajadasInputs[i].addEventListener("input", function () {
         calcularTotal();
         calcularDescuentoDesdePorcentaje();
         calcularPorcentajeDesdeDescuento();
@@ -71,7 +71,7 @@ for (var i = 0; i < precioPorHoraInputs.length; i++) {
         calcularAumentoDesdePorcentaje();
         calcularPorcentajeDesdeAumento();
     });
-    minutosTrabajadosInputs[i].addEventListener("input", function() {
+    minutosTrabajadosInputs[i].addEventListener("input", function () {
         calcularTotal();
         calcularDescuentoDesdePorcentaje();
         calcularPorcentajeDesdeDescuento();
@@ -115,7 +115,7 @@ function calcularTotal() {
         totalServicioInputs[i].value = total.toFixed(2);
         montodescuentoInputs[i].value = descuentoServicio.toFixed(2);
         montoImpuestosInputs[i].value = impuestoServicio.toFixed(2);
-    
+
 
     }
     // Calcular el subtotal
@@ -239,3 +239,36 @@ function calcularPorcentajeDesdeAumento() {
 // Calcular los totales iniciales
 calcularTotal();
 
+
+
+function descargarOrden() {
+    console.log("se descarga la orden");
+
+    const id = document.getElementById("botonDescargar").value;
+    
+
+    const { jsPDF } = window.jspdf;
+	const doc = new jsPDF();
+    const element = document.getElementById("containerOrden");
+
+    html2canvas(element, { scale: 2 }).then(function (canvas) {
+        // Convertir la imagen capturada en datos URI
+        const imgData = canvas.toDataURL("image/png");
+
+        // Agregar la imagen al PDF
+
+        // En base a A4
+        var anchoPagina = 210; // Ancho de la página en unidades (por ejemplo, en mm)
+
+        // Calcular las coordenadas para centrar la imagen
+        var x = (anchoPagina - 120) / 2;
+
+        // Luego, puedes agregar la imagen al PDF centrada en (x, y)
+        // X,Y,ancho,alto --> si el alto o ancho es 0 se ajusta a la otra medida automaticamente
+        doc.addImage(imgData, "PNG", 10, 20, 190, 0);
+
+        // Guardar o mostrar el PDF, según tus necesidades
+        // Por ejemplo, para descargar el PDF:
+        doc.save("DetalleOrden_"+id+".pdf");
+    });
+}
