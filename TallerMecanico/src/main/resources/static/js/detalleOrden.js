@@ -46,18 +46,56 @@ var descuentoInputs = document.getElementsByName("%descuento");
 var montodescuentoInputs = document.getElementsByName("montodescuento");
 var impuestoInputs = document.getElementsByName("%impuesto");
 var montoImpuestosInputs = document.getElementsByName("montoImpuestos");
-var totalInputs = document.getElementsByName("totalServicio");
+var totalServicioInputs = document.getElementsByName("totalServicio");
 var totalDescuentosInputs = document.getElementsByName("totalDescuentos");
 var totalImpuestosInputs = document.getElementsByName("totalImpuestos");
 var subtotalInputs = document.getElementsByName("subtotal");
 var totalHorasInputs = document.getElementsByName("horasTrabajadas");
 var totalMinutosInputs = document.getElementsByName("minutosTrabajados");
 
+var porcentajeDescuentoAgregadoInput = document.getElementsByName("%descuentoAgregado")[0];
+var montoDescuentoAgregadoInput = document.getElementsByName("montoDescuentoAgregado")[0];
+var porcentajeImpuestoAgregadoInput = document.getElementsByName("%impuestoAgregado")[0];
+var montoImpuestoAgregadoInput = document.getElementsByName("montoImpuestoAgregado")[0];
+var porcentajeAumentoAgregadoInput = document.getElementsByName("%aumentoAgregado")[0];
+var montoAumentoAgregadoInput = document.getElementsByName("montoAumentoAgregado")[0];
+
 // Agregar event listeners para detectar cambios en los campos de entrada
 for (var i = 0; i < precioPorHoraInputs.length; i++) {
-    horasTrabajadasInputs[i].addEventListener("input", calcularTotal);
-    minutosTrabajadosInputs[i].addEventListener("input", calcularTotal);
+    horasTrabajadasInputs[i].addEventListener("input", function() { 
+        calcularTotal();
+        calcularDescuentoDesdePorcentaje();
+        calcularPorcentajeDesdeDescuento();
+        calcularImpuestoDesdePorcentaje();
+        calcularPorcentajeDesdeImpuesto();
+        calcularAumentoDesdePorcentaje();
+        calcularPorcentajeDesdeAumento();
+    });
+    minutosTrabajadosInputs[i].addEventListener("input", function() {
+        calcularTotal();
+        calcularDescuentoDesdePorcentaje();
+        calcularPorcentajeDesdeDescuento();
+        calcularImpuestoDesdePorcentaje();
+        calcularPorcentajeDesdeImpuesto();
+        calcularAumentoDesdePorcentaje();
+        calcularPorcentajeDesdeAumento();
+    });
 }
+
+// Agregar event listener para el porcentaje de impuesto agregado
+porcentajeImpuestoAgregadoInput.addEventListener("input", calcularImpuestoDesdePorcentaje);
+// Agregar event listener para el monto de impuesto agregado
+montoImpuestoAgregadoInput.addEventListener("input", calcularPorcentajeDesdeImpuesto);
+
+// Agregar event listener para el porcentaje de descuento agregado
+porcentajeDescuentoAgregadoInput.addEventListener("input", calcularDescuentoDesdePorcentaje);
+// Agregar event listener para el monto de descuento agregado
+montoDescuentoAgregadoInput.addEventListener("input", calcularPorcentajeDesdeDescuento);
+
+// Agregar event listener para el porcentaje de aumento agregado
+porcentajeAumentoAgregadoInput.addEventListener("input", calcularAumentoDesdePorcentaje);
+// Agregar event listener para el monto de aumento agregado
+montoAumentoAgregadoInput.addEventListener("input", calcularPorcentajeDesdeAumento);
 
 // Función para calcular el total en tiempo real
 function calcularTotal() {
@@ -74,7 +112,7 @@ function calcularTotal() {
 
         var total = totalServicio - descuentoServicio + impuestoServicio;
         precioServicioInputs[i].value = totalServicio.toFixed(2);
-        totalInputs[i].value = total.toFixed(2);
+        totalServicioInputs[i].value = total.toFixed(2);
         montodescuentoInputs[i].value = descuentoServicio.toFixed(2);
         montoImpuestosInputs[i].value = impuestoServicio.toFixed(2);
     
@@ -82,8 +120,8 @@ function calcularTotal() {
     }
     // Calcular el subtotal
     var subtotal = 0;
-    for (var i = 0; i < totalInputs.length; i++) {
-        subtotal += parseFloat(totalInputs[i].value) || 0;
+    for (var i = 0; i < totalServicioInputs.length; i++) {
+        subtotal += parseFloat(totalServicioInputs[i].value) || 0;
     }
     subtotalInputs[0].value = subtotal.toFixed(2);
 
@@ -120,7 +158,83 @@ function calcularTotal() {
     // Mostrar el total de horas y minutos trabajados
     totalHorasInputs[0].value = totalHoras;
     totalMinutosInputs[0].value = totalMinutos;
+
+    // Calcular el total
+    var montoImpuestoAgregado = parseFloat(montoImpuestoAgregadoInput.value) || 0;
+    var montoDescuentoAgregado = parseFloat(montoDescuentoAgregadoInput.value) || 0;
+    var montoAumentoAgregado = parseFloat(montoAumentoAgregadoInput.value) || 0;
+
+    var total = subtotal + montoImpuestoAgregado - montoDescuentoAgregado + montoAumentoAgregado;
+    // Asumiendo que tienes un campo en el DOM con nombre "total"
+    var totalInput = document.getElementsByName("total")[0];
+    totalInput.value = total.toFixed(2);
 }
+
+// Función para calcular el impuesto desde el porcentaje de impuesto agregado
+function calcularImpuestoDesdePorcentaje() {
+    var porcentajeAgregado = parseFloat(porcentajeImpuestoAgregadoInput.value) || 0;
+    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
+
+    var impuestoAgregado = (porcentajeAgregado / 100) * subtotal;
+    montoImpuestoAgregadoInput.value = impuestoAgregado.toFixed(2);
+
+    calcularTotal();
+}
+// Función para calcular el porcentaje de impuesto desde el monto de impuesto agregado
+function calcularPorcentajeDesdeImpuesto() {
+    var montoAgregado = parseFloat(montoImpuestoAgregadoInput.value) || 0;
+    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
+
+    var porcentajeAgregado = (montoAgregado / subtotal) * 100;
+    porcentajeImpuestoAgregadoInput.value = porcentajeAgregado.toFixed(1);
+
+    calcularTotal();
+}
+
+
+// Función para calcular el descuento desde el porcentaje de descuento agregado
+function calcularDescuentoDesdePorcentaje() {
+    var porcentajeAgregado = parseFloat(porcentajeDescuentoAgregadoInput.value) || 0;
+    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
+
+    var descuentoAgregado = (porcentajeAgregado / 100) * subtotal;
+    montoDescuentoAgregadoInput.value = descuentoAgregado.toFixed(2);
+
+    calcularTotal();
+}
+// Función para calcular el porcentaje de descuento desde el monto de descuento agregado
+function calcularPorcentajeDesdeDescuento() {
+    var montoAgregado = parseFloat(montoDescuentoAgregadoInput.value) || 0;
+    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
+
+    var porcentajeAgregado = (montoAgregado / subtotal) * 100;
+    porcentajeDescuentoAgregadoInput.value = porcentajeAgregado.toFixed(1);
+
+    calcularTotal();
+}
+
+
+// Función para calcular el aumento desde el porcentaje de aumento agregado
+function calcularAumentoDesdePorcentaje() {
+    var porcentajeAgregado = parseFloat(porcentajeAumentoAgregadoInput.value) || 0;
+    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
+
+    var aumentoAgregado = (porcentajeAgregado / 100) * subtotal;
+    montoAumentoAgregadoInput.value = aumentoAgregado.toFixed(2);
+
+    calcularTotal();
+}
+// Función para calcular el porcentaje de aumento desde el monto de aumento agregado
+function calcularPorcentajeDesdeAumento() {
+    var montoAgregado = parseFloat(montoAumentoAgregadoInput.value) || 0;
+    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
+
+    var porcentajeAgregado = (montoAgregado / subtotal) * 100;
+    porcentajeAumentoAgregadoInput.value = porcentajeAgregado.toFixed(1);
+
+    calcularTotal();
+}
+
 
 // Calcular los totales iniciales
 calcularTotal();
