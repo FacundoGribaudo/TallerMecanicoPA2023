@@ -240,7 +240,7 @@
                 <h4>Subtotal</h4>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="number" step="1" name="subtotal" required class="form-control" readonly>
+                    <input type="number" step="1" name="subtotal" value="0" required class="form-control" readonly>
                 </div>
             </div>
         </div>
@@ -261,11 +261,11 @@
             <div class="col-md-4">
                 <h4>Agregar Impuesto</h4>
                 <div class="input-group">
-                    <input type="number" step="0.1" name="porcentajeImpuesto" class="form-control"
+                    <input type="number" step="0.1" name="%impuestoAgregado" class="form-control"
                         placeholder="Porcentaje">
                     <span class="input-group-text" style="margin-right: 40px;">%</span>
                     <span class="input-group-text">$</span>
-                    <input type="number" step="1" name="montoImpuesto" class="form-control"
+                    <input type="number" step="1" name="montoImpuestoAgregado" class="form-control"
                         placeholder="Monto en Pesos">
                 </div>
             </div>
@@ -274,11 +274,24 @@
             <div class="col-md-4 offset-md-8">
                 <h4>Agregar Descuento</h4>
                 <div class="input-group">
-                    <input type="number" step="0.1" name="porcentajeDescuento" class="form-control"
+                    <input type="number" step="0.1" name="%descuentoAgregado" class="form-control"
                         placeholder="Porcentaje">
                     <span class="input-group-text" style="margin-right: 40px;">%</span>
                     <span class="input-group-text">$</span>
-                    <input type="number" step="1" name="montoDescuento" class="form-control"
+                    <input type="number" step="1" name="montoDescuentoAgregado" class="form-control"
+                        placeholder="Monto en Pesos">
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 offset-md-8">
+                <h4>Agregar Aumento</h4>
+                <div class="input-group">
+                    <input type="number" step="0.1" name="%aumentoAgregado" class="form-control"
+                        placeholder="Porcentaje">
+                    <span class="input-group-text" style="margin-right: 40px;">%</span>
+                    <span class="input-group-text">$</span>
+                    <input type="number" step="1" name="montoAumentoAgregado" class="form-control"
                         placeholder="Monto en Pesos">
                 </div>
             </div>
