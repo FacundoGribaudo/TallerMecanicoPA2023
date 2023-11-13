@@ -74,12 +74,12 @@
         </div>
     </nav>
 
-    <h1>TECNICOS</h1>
+    <h1>TÉCNICOS</h1>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3>NUEVO TECNICO</h3>
+                <h3>NUEVO TÉCNICO</h3>
                 <form id="addUserForm" th:action="@{/saveTecnico}" th:object="${tecnico}" method="POST">
                     <div class="form-group">
                         <input disabled name="nombre" class="form-control" type="text" id="nombreCliente"
@@ -97,17 +97,12 @@
                         <input disabled name="legajo" class="form-control" type="text" id="localidadCliente"
                             placeholder="Legajo" required>
                     </div>
-                    <select disabled name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
 
                     <input disabled class="btn btn-primary form-control" type="submit" value="Agregar Cliente">
                 </form>
             </div>
             <div class="col-md-8">
-                <h3>TECNICOS REGISTRADOS</h3>
+                <h3>TÉCNICOS REGISTRADOS</h3>
                 <form th:action="@{/buscarTecnico}" method="POST" class="d-flex" role="search" id="formBuscar">
                     <input name="datosBuscados" id="inputBuscar" class="form-control me-2" type="search"
                         placeholder="Buscar por Legajo o Apellido" aria-label="Search">
@@ -123,8 +118,7 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Telefono</th>
-                            <th>Estado</th>
-                            <th>Ordenes</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -136,14 +130,10 @@
                             <td class="TECNICOData" th:text="${tecnico.nombre}"></td>
                             <td class="TECNICOData" th:text="${tecnico.apellido}"></td>
                             <td class="TECNICOData" th:text="${tecnico.telefono}"></td>
-                            <td class="TECNICOData" th:text="${tecnico.estado}"></td>
-                            <td id="tdbotones" class="CLIENTEData historialTD"><a class="aHistorial" th:href="@{/ordenesTecnico/}+${tecnico.id_tecnico}">Consultar</a></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}"
-                                    class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud"
-                                    th:href="@{/eliminarTecnico/}+${tecnico.id_tecnico}"
-                                    onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud"
-                                        src="img/delete.png" alt=""></a></td>
+                            <td id="tdbotones"><a title="Historial de Servicios" id="botoncrud" th:href="@{/ordenesTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning" th:attr="nombre=${tecnico.nombre}, apellido=${tecnico.apellido}" onclick="datosTecnico(this)"><img id="imgcrud" src="img/historial.png" alt=""></a></td>
+
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarTecnico/}+${tecnico.id_tecnico}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>

@@ -109,23 +109,27 @@ public class ClienteController {
     }
 
     @PostMapping("/buscarCliente")
-    public String buscarCliente(Model model, @RequestParam("datoCliente") String dni) {
+    public String buscarCliente(Model model, @RequestParam("datoCliente") String datoCliente) {
         List<Cliente> clientes = servicesCliente.listarClientes();
         List<Cliente> clientesBuscados = new ArrayList<Cliente>();
 
-        if (dni != null && !dni.isEmpty() && dni.matches("\\d+")) {
-            int dniEntero = Integer.parseInt(dni);
-            for (Cliente c : clientes) {
-                if (c.getDni().intValue() == dniEntero) {
-                    System.out.println("LOS VALORES COINCIDEN SE BUSCARA...");
-                    clientesBuscados.add(c);
+
+        if (datoCliente != null && !datoCliente.isEmpty()) {
+            if (datoCliente.matches("\\d+")) {
+                // Si el dato ingresado es numérico, buscar por DNI
+                for (Cliente c : clientes) {
+                    if (String.valueOf(c.getDni()).contains(datoCliente)) {
+                        System.out.println("LOS VALORES COINCIDEN SE BUSCARA...");
+                        clientesBuscados.add(c);
+                    }
                 }
-            }
-        } else {
-            for (Cliente c : clientes) {
-                if (c.getApellido().equalsIgnoreCase(dni)) {
-                    System.out.println("LOS APELLIDOS COINCIDEN SE BUSCARA...");
-                    clientesBuscados.add(c);
+            } else {
+                // Si el dato ingresado no es numérico, buscar por apellido
+                for (Cliente c : clientes) {
+                    if (c.getApellido().toLowerCase().contains(datoCliente.toLowerCase())) {
+                        System.out.println("LOS APELLIDOS COINCIDEN SE BUSCARA...");
+                        clientesBuscados.add(c);
+                    }
                 }
             }
         }

@@ -124,7 +124,7 @@ public class ModeloController {
         List<Modelo> modelosBuscados = new ArrayList<Modelo>();
         
         for(Modelo m : modelos){
-            if (m.getNombre().toUpperCase().equals(nombre.toUpperCase())){
+            if (m.getNombre().toUpperCase().contains(nombre.toUpperCase())){
                 modelosBuscados.add(m); 
             }
         }

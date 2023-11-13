@@ -136,7 +136,7 @@ public class MarcaController {
         List<Marca> marcasBuscadas = new ArrayList<Marca>();
 
         for (Marca marca : marcas) {
-            if (marca.getNombre().equalsIgnoreCase(nombre)) {
+            if (marca.getNombre().toUpperCase().contains(nombre.toUpperCase())) {
                 marcasBuscadas.add(marca);
             }
         }

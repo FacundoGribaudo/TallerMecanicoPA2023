@@ -104,7 +104,7 @@ public class ServiciosTallerController {
         List<ServiciosTaller> listaServiciosBuscados = new ArrayList<ServiciosTaller>();
 
         for (ServiciosTaller s : listaServicios) {
-            if (s.getNombre().toUpperCase().equals(nombre_servicio)) {
+            if (s.getNombre().toUpperCase().contains(nombre_servicio.toUpperCase())) {
                 listaServiciosBuscados.add(s);
             }
         }

@@ -52,27 +52,11 @@ public class VehiculoController {
         // Cliente
         List<Cliente> clientes = servicesCliente.listarClientes();
 
-        // //Tecnicos
-        // List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
-        // System.out.println(""+"Los tecnicos son: " + tecnicos);
-        // List<Tecnico> tecnicosActivos = new ArrayList<Tecnico>();
-
         for (Marca marca : marcas) {
             if (marca.getEstado().toUpperCase().equals("activo".toUpperCase())) {
                 marcasActivas.add(marca);
             }
         }
-
-        // //Muestro los tecnicos que estan en estado "activo" --> Disponibles para
-        // trabajar
-        // for (Tecnico t:tecnicos){
-        // if(t.getEstado().toUpperCase().equals("activo".toUpperCase())){
-        // // System.out.println(""+ "Los tecnicos activos son: " + t.getNombre());
-        // tecnicosActivos.add(t);
-        // }
-        // }
-
-        // System.out.println(""+ "Los objetos VEHICULO estan asi: " + vehiculos);
 
         model.addAttribute("vehiculo", vehiculos);
         model.addAttribute("marcasActivas", marcasActivas);
@@ -202,21 +186,26 @@ public class VehiculoController {
 
         List<Cliente> clientes = servicesCliente.listarClientes();
 
+        // Eliminar espacios en blanco de la patente ingresada
+        String patenteSinEspacios = patente.replaceAll("\\s", "").toUpperCase();
+
         for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo.getPatente().equalsIgnoreCase(patente)) {
+            // Eliminar espacios en blanco de la patente del vehículo
+            String patenteVehiculoSinEspacios = vehiculo.getPatente().replaceAll("\\s", "").toUpperCase();
+
+            if (patenteVehiculoSinEspacios.contains(patenteSinEspacios)) {
                 vehiculosBuscados.add(vehiculo);
             } else {
                 // Si no coincide la patente, verificamos si el cliente coincide en apellido
                 for (Cliente cliente : clientes) {
                     if (cliente.getId_cliente() == vehiculo.getCliente().getId_cliente() &&
-                            cliente.getApellido().equalsIgnoreCase(patente)) {
+                            cliente.getApellido().contains(patenteSinEspacios)) {
                         vehiculosBuscados.add(vehiculo);
                         break; // Salimos del bucle interno
                     }
                 }
             }
         }
-        
 
         model.addAttribute("vehiculos", vehiculosBuscados);
 

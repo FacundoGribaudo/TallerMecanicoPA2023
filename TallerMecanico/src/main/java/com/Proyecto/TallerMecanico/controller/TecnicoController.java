@@ -93,19 +93,30 @@ public class TecnicoController {
     }
 
     @PostMapping("/buscarTecnico")
-    public String buscarTecnico(Model model, @RequestParam("datosBuscados") String legajo) {
+    public String buscarTecnico(Model model, @RequestParam("datosBuscados") String datosBuscados) {
         List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
         List<Tecnico> tecnicosEncontrados = new ArrayList<Tecnico>();
 
-        for (Tecnico t : tecnicos) {
-            if (t.getLegajo().toUpperCase().equals(legajo.toUpperCase())) {
-                tecnicosEncontrados.add(t);
+        if (datosBuscados != null && !datosBuscados.isEmpty()) {
+            if (datosBuscados.matches("\\d+")) {
+                // Si el dato ingresado es numérico, buscar por Legajo
+                for (Tecnico t : tecnicos) {
+                    if (String.valueOf(t.getLegajo()).contains(datosBuscados)) {
+                        System.out.println("LOS VALORES COINCIDEN SE BUSCARA...");
+                        tecnicosEncontrados.add(t);
+                    }
+                }
             } else {
-                if (t.getApellido().equalsIgnoreCase(legajo)) {
-                    tecnicosEncontrados.add(t);
+                // Si el dato ingresado no es numérico, buscar por apellido
+                for (Tecnico t : tecnicos) {
+                    if (t.getApellido().toLowerCase().contains(datosBuscados.toLowerCase())) {
+                        System.out.println("LOS APELLIDOS COINCIDEN SE BUSCARA...");
+                        tecnicosEncontrados.add(t);
+                    }
                 }
             }
         }
+
 
         if (tecnicosEncontrados.isEmpty()) {
             model.addAttribute("mensaje", "No se encontraron coincidencias.");
