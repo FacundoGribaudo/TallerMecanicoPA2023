@@ -19,7 +19,6 @@ import com.Proyecto.TallerMecanico.interfaceServices.IserviciosTallerService;
 import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
-import com.Proyecto.TallerMecanico.domain.Cliente;
 import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
 import com.Proyecto.TallerMecanico.domain.ServiciosTaller;
 import com.Proyecto.TallerMecanico.domain.Tecnico;
@@ -157,30 +156,12 @@ public class OrdenTrabajoController {
 
         if (optionalOrdenTrabajo.isPresent()) {
             OrdenTrabajo ordenTrabajo = optionalOrdenTrabajo.get();
-
-            // Formatea la fecha y hora de creación de la orden
-            LocalDateTime fechaHoraOrden = ordenTrabajo.getFechaHoraOrden(); // Obtén la fecha formateada
-
-            // Obtén los datos relacionados (vehículo, cliente, servicios y técnicos)
             Vehiculo vehiculo = ordenTrabajo.getVehiculoPertenece();
-            Cliente cliente = vehiculo.getCliente();
-            List<ServiciosTaller> servicios = ordenTrabajo.getServiciosRealizar();
-            List<Tecnico> tecnicos = ordenTrabajo.getTecnicosOrden();
-            List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
-            List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
-            List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
 
-            model.addAttribute("lista_vehiculos", lista_vehiculos);
-            model.addAttribute("lista_servicios", lista_servicios);
-            model.addAttribute("lista_tecnicos", lista_tecnicos);
             model.addAttribute("ordenTrabajo", ordenTrabajo);
             model.addAttribute("vehiculo", vehiculo);
-            model.addAttribute("cliente", cliente);
-            model.addAttribute("servicios", servicios);
-            model.addAttribute("tecnicos", tecnicos);
             model.addAttribute("serviciosSeleccionados", ordenTrabajo.getServiciosRealizar());
             model.addAttribute("tecnicosSeleccionados", ordenTrabajo.getTecnicosOrden());
-            model.addAttribute("fechaHoraOrden", fechaHoraOrden);
 
             return "detalleOrden";
         } else {
