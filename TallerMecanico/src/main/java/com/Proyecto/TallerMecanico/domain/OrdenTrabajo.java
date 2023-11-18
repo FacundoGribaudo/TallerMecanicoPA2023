@@ -72,7 +72,13 @@ public class OrdenTrabajo {
 
     // Método para agregar horas y minutos para un servicio específico
     public void agregarHorasYMinutosParaServicio(Integer id_servicio, int horas, int minutos) {
-        horasPorServicio.put(id_servicio, horas);
-        minutosPorServicio.put(id_servicio, minutos);
+        // Verificar que id_servicio no sea nulo antes de agregar horas y minutos
+        if (id_servicio != null) {
+            horasPorServicio.put(id_servicio, horas);
+            minutosPorServicio.put(id_servicio, minutos);
+        } else {
+            // Manejar el caso donde id_servicio es nulo
+            throw new IllegalArgumentException("El id del servicio no puede ser nulo");
+        }
     }
 }

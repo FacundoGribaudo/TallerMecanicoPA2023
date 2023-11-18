@@ -180,4 +180,46 @@ public class OrdenTrabajoController {
         }
     }
 
+    @PostMapping("/actualizarHorasMinutos")
+    public String actualizarHorasMinutos(
+        @RequestParam("nroOrden") int nro_orden,
+        @RequestParam("servicioIds") List<Integer> servicioIds,
+        @RequestParam("horas") List<Integer> horas,
+        @RequestParam("minutos") List<Integer> minutos) {
+
+        // Obtén la OrdenTrabajo por su número de orden
+        Optional<OrdenTrabajo> optionalOrdenTrabajo = serviceOT.listarIdOrdenTrabajo(nro_orden);
+
+        if (optionalOrdenTrabajo.isPresent()) {
+            OrdenTrabajo ordenTrabajo = optionalOrdenTrabajo.get();
+
+            // Actualiza las horas y minutos para cada servicio
+            for (int i = 0; i < servicioIds.size(); i++) {
+                Optional<ServiciosTaller> optionalServicio = serTaller.listarIdServicios(servicioIds.get(i));
+
+                if (optionalServicio.isPresent()) {
+                    ServiciosTaller servicio = optionalServicio.get();
+                    int horasParaServicio = horas.get(i);
+                    int minutosParaServicio = minutos.get(i);
+                    serviceOT.agregarHorasYMinutosParaServicio(ordenTrabajo, servicio, horasParaServicio, minutosParaServicio);
+                }
+            }
+
+            // Actualiza las horas y minutos para el servicio específico
+            // Optional<ServiciosTaller> optionalServicio  = serTaller.listarIdServicios(servicioId);
+            // if (optionalServicio.isPresent()) {
+            //     ServiciosTaller servicio = optionalServicio.get();
+            //     serviceOT.agregarHorasYMinutosParaServicio(ordenTrabajo, servicio, horas, minutos);
+
+            // Guarda la OrdenTrabajo actualizada en la base de datos
+            serviceOT.save(ordenTrabajo);
+    
+            // Redirige a la página de detalles de la orden o a donde sea apropiado
+            return "redirect:/detalleOrden/" + nro_orden;
+        } else {
+            return "redirect:/ordenTrabajo";
+        }
+
+    }
+    
 }
