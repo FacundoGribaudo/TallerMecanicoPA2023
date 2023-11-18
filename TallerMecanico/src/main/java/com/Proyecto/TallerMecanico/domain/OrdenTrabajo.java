@@ -3,7 +3,9 @@ package com.Proyecto.TallerMecanico.domain;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.*; 
 import lombok.Data;
@@ -46,6 +48,20 @@ public class OrdenTrabajo {
     inverseJoinColumns = @JoinColumn(name = "id_tecnico"))
     private List<Tecnico> tecnicosOrden;  
 
+    // Mapa para almacenar la relación servicio-horas
+    @ElementCollection
+    @CollectionTable(name = "orden_trabajo_horas", joinColumns = @JoinColumn(name = "nro_orden"))
+    @MapKeyColumn(name = "id_servicio")
+    @Column(name = "horas")
+    private Map<Integer, Integer> horasPorServicio = new HashMap<>();
+
+    // Mapa para almacenar la relación servicio-minutos
+    @ElementCollection
+    @CollectionTable(name = "orden_trabajo_minutos", joinColumns = @JoinColumn(name = "nro_orden"))
+    @MapKeyColumn(name = "id_servicio")
+    @Column(name = "minutos")
+    private Map<Integer, Integer> minutosPorServicio = new HashMap<>();
+
     public OrdenTrabajo(){}
 
     public void setFechaHoraFormateada() {
@@ -54,5 +70,9 @@ public class OrdenTrabajo {
         this.fechaHoraOrdenFormateada = fechaHoraOrden.format(formatter);
     }
 
-
+    // Método para agregar horas y minutos para un servicio específico
+    public void agregarHorasYMinutosParaServicio(Integer id_servicio, int horas, int minutos) {
+        horasPorServicio.put(id_servicio, horas);
+        minutosPorServicio.put(id_servicio, minutos);
+    }
 }

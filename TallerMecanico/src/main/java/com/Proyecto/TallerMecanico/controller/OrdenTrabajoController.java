@@ -82,6 +82,17 @@ public class OrdenTrabajoController {
         // Configurar la fecha de orden en el objeto OrdenTrabajo
         ot.setFechaHoraOrden(fechaHoraOrden);
 
+        // Configurar los valores en los mapas de horas y minutos para cada servicio
+        for (ServiciosTaller servicio : ot.getServiciosRealizar()) {
+            int horasPromedio = servicio.getHorasDuracionPromedio(); // Obtén este valor de donde sea necesario
+            int minutosPromedio = servicio.getMinutosDuracionPromedio(); // Obtén este valor de donde sea necesario
+
+            ot.agregarHorasYMinutosParaServicio(servicio.getId_servicio(), horasPromedio, minutosPromedio);  //ESTABLEZCO ESTOS VALORES EN EL MAPA DE HORAS Y MINUTOS
+            // Imprimir los valores de los maps actualizados
+            System.out.println("Horas por servicio: " + horasPromedio);
+            System.out.println("Minutos por servicio: " + minutosPromedio);
+        }
+        
         // Resto del código para guardar la orden y redirigir
         serviceOT.save(ot);
         return "redirect:/ordenTrabajo";
