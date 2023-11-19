@@ -113,7 +113,7 @@
                                 style="margin-right: 10px; margin-left: 2px; padding-top: 3px; color: black;         white-space: nowrap;">%
                                 Descuento</label>
                             <input class="form-control" type="number" id="porcentajeDescuentos"
-                                name="porcentajeDescuentos" placeholder="% Descuentos" required min="0" max="100"
+                                name="porcentajeDescuentos" placeholder="% Descuentos" required min="0" max="100" step="0.01"
                                 oninput="limitarPorcentajeInput(this)"
                                 th:value="${servicio_taller.porcentajeDescuentos}">
                         </div>
@@ -123,8 +123,7 @@
                                 style="margin-right: 10px; margin-left: 2px; padding-top: 3px; color: black;white-space: nowrap;">%
                                 Impuesto</label>
                             <input class="form-control" type="number" id="porcentajeImpuestos"
-                                name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100"
-                                oninput="limitarPorcentajeInput(this)"
+                                name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100" step="0.01"
                                 th:value="${servicio_taller.porcentajeImpuestos}">
                         </div>
 
@@ -137,5 +136,5 @@
             </div>
         </div>
     </div>
-    <script src="../js/tecnico.js"></script>
+    <script src="../js/servicios.js"></script>
 </body>

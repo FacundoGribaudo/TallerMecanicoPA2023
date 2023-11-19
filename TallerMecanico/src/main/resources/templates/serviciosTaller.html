@@ -91,7 +91,7 @@
                         <hr style="color: black; margin: 5px;">
                         <input class="form-control" type="text" id="descripcionServicio" name="descripcion" placeholder="Descripcion Servicio" oninput="this.value = this.value.toUpperCase()" required>
                         <input class="form-control" type="number" id="porcentajeDescuentos" name="porcentajeDescuentos" placeholder="% Descuentos" required min="0" max="100" oninput="limitarPorcentajeInput(this)">
-                        <input class="form-control" type="number" id="porcentajeImpuestos" name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100" oninput="limitarPorcentajeInput(this)">
+                        <input class="form-control" type="number" id="porcentajeImpuestos" name="porcentajeImpuestos" placeholder="% Impuestos" required min="0" max="100">
                     </div>
 
                     <input type="submit" value="Registrar Servicio" onclick="agregarServicio(event)" class="btn btn-primary form-control"> 

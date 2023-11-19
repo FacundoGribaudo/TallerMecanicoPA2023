@@ -91,7 +91,7 @@
         </div>
     </nav>
 
-    <form th:action="@{/actualizarHorasMinutos}" th:object="${ordenTrabajo}" method="post">
+    <form th:action="@{/actualizarDetalleOrden}" th:object="${ordenTrabajo}" method="post">
         <input type="hidden" name="nroOrden" th:value="${ordenTrabajo.nro_orden}" />
         <div class="container" id="containerOrden">
             <input type="hidden" th:name="nro_orden" th:field="*{nro_orden}" />
@@ -144,7 +144,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="servicio, iterStat: ${serviciosSeleccionados}">
+                            <tr th:each="servicio : ${serviciosSeleccionados}">
                                 <input type="hidden" name="servicioIds" th:value="${servicio.id_servicio}" />
 
                                 <td th:text="${servicio.nombre}"></td>

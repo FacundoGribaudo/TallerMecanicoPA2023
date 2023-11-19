@@ -180,8 +180,8 @@ public class OrdenTrabajoController {
         }
     }
 
-    @PostMapping("/actualizarHorasMinutos")
-    public String actualizarHorasMinutos(
+    @PostMapping("/actualizarDetalleOrden")
+    public String actualizarDetalleOrden(
         @RequestParam("nroOrden") int nro_orden,
         @RequestParam("servicioIds") List<Integer> servicioIds,
         @RequestParam("horas") List<Integer> horas,
@@ -204,13 +204,7 @@ public class OrdenTrabajoController {
                     serviceOT.agregarHorasYMinutosParaServicio(ordenTrabajo, servicio, horasParaServicio, minutosParaServicio);
                 }
             }
-
-            // Actualiza las horas y minutos para el servicio específico
-            // Optional<ServiciosTaller> optionalServicio  = serTaller.listarIdServicios(servicioId);
-            // if (optionalServicio.isPresent()) {
-            //     ServiciosTaller servicio = optionalServicio.get();
-            //     serviceOT.agregarHorasYMinutosParaServicio(ordenTrabajo, servicio, horas, minutos);
-
+            
             // Guarda la OrdenTrabajo actualizada en la base de datos
             serviceOT.save(ordenTrabajo);
     
