@@ -25,9 +25,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     //Llamada a funciones para que se ejecuten al iniciar
     calcularTotal();
-    calcularImpuestoDesdePorcentaje();
-    calcularDescuentoDesdePorcentaje();
-    calcularAumentoDesdePorcentaje();
+    calcularMontoDesdePorcentaje(porcentajeImpuestoAgregadoInput,montoImpuestoAgregadoInput );
+    calcularMontoDesdePorcentaje(porcentajeDescuentoAgregadoInput,montoDescuentoAgregadoInput );
+    calcularMontoDesdePorcentaje(porcentajeAumentoAgregadoInput,montoAumentoAgregadoInput );
 });
 
 function limitarPorcentajeInput(input) {
@@ -70,38 +70,56 @@ var montoAumentoAgregadoInput = document.getElementsByName("montoAumentoAgregado
 for (var i = 0; i < precioPorHoraInputs.length; i++) {
     horasTrabajadasInputs[i].addEventListener("input", function () {
         calcularTotal();
-        calcularDescuentoDesdePorcentaje();
-        calcularPorcentajeDesdeDescuento();
-        calcularImpuestoDesdePorcentaje();
-        calcularPorcentajeDesdeImpuesto();
-        calcularAumentoDesdePorcentaje();
-        calcularPorcentajeDesdeAumento();
+        //Calculo Impuestos
+        calcularMontoDesdePorcentaje(porcentajeImpuestoAgregadoInput,montoImpuestoAgregadoInput);
+        calcularPorcentajeDesdeMonto(montoImpuestoAgregadoInput,porcentajeImpuestoAgregadoInput);
+        //Calculo Descuentos
+        calcularMontoDesdePorcentaje(porcentajeDescuentoAgregadoInput,montoDescuentoAgregadoInput);
+        calcularPorcentajeDesdeMonto(montoDescuentoAgregadoInput,porcentajeDescuentoAgregadoInput);
+        //Calculo Aumento
+        calcularMontoDesdePorcentaje(porcentajeAumentoAgregadoInput,montoAumentoAgregadoInput);
+        calcularPorcentajeDesdeMonto(montoAumentoAgregadoInput,porcentajeAumentoAgregadoInput);
     });
     minutosTrabajadosInputs[i].addEventListener("input", function () {
         calcularTotal();
-        calcularDescuentoDesdePorcentaje();
-        calcularPorcentajeDesdeDescuento();
-        calcularImpuestoDesdePorcentaje();
-        calcularPorcentajeDesdeImpuesto();
-        calcularAumentoDesdePorcentaje();
-        calcularPorcentajeDesdeAumento();
+        //Calculo Impuestos
+        calcularMontoDesdePorcentaje(porcentajeImpuestoAgregadoInput,montoImpuestoAgregadoInput);
+        calcularPorcentajeDesdeMonto(montoImpuestoAgregadoInput,porcentajeImpuestoAgregadoInput);
+        //Calculo Descuentos
+        calcularMontoDesdePorcentaje(porcentajeDescuentoAgregadoInput,montoDescuentoAgregadoInput);
+        calcularPorcentajeDesdeMonto(montoDescuentoAgregadoInput,porcentajeDescuentoAgregadoInput);
+        //Calculo Aumento
+        calcularMontoDesdePorcentaje(porcentajeAumentoAgregadoInput,montoAumentoAgregadoInput);
+        calcularPorcentajeDesdeMonto(montoAumentoAgregadoInput,porcentajeAumentoAgregadoInput);
     });
 }
 
 // Agregar event listener para el porcentaje de impuesto agregado
-porcentajeImpuestoAgregadoInput.addEventListener("input", calcularImpuestoDesdePorcentaje);
+porcentajeImpuestoAgregadoInput.addEventListener("input", function () {
+    calcularMontoDesdePorcentaje(porcentajeImpuestoAgregadoInput, montoImpuestoAgregadoInput);
+});
 // Agregar event listener para el monto de impuesto agregado
-montoImpuestoAgregadoInput.addEventListener("input", calcularPorcentajeDesdeImpuesto);
+montoImpuestoAgregadoInput.addEventListener("input", function () {
+    calcularPorcentajeDesdeMonto(montoImpuestoAgregadoInput, porcentajeImpuestoAgregadoInput);
+});
 
 // Agregar event listener para el porcentaje de descuento agregado
-porcentajeDescuentoAgregadoInput.addEventListener("input", calcularDescuentoDesdePorcentaje);
+porcentajeDescuentoAgregadoInput.addEventListener("input", function () {
+    calcularMontoDesdePorcentaje(porcentajeDescuentoAgregadoInput, montoDescuentoAgregadoInput);
+});
 // Agregar event listener para el monto de descuento agregado
-montoDescuentoAgregadoInput.addEventListener("input", calcularPorcentajeDesdeDescuento);
+montoDescuentoAgregadoInput.addEventListener("input", function () {
+    calcularPorcentajeDesdeMonto(montoDescuentoAgregadoInput, porcentajeDescuentoAgregadoInput);
+});
 
 // Agregar event listener para el porcentaje de aumento agregado
-porcentajeAumentoAgregadoInput.addEventListener("input", calcularAumentoDesdePorcentaje);
+porcentajeAumentoAgregadoInput.addEventListener("input", function () {
+    calcularMontoDesdePorcentaje(porcentajeAumentoAgregadoInput, montoAumentoAgregadoInput);
+});
 // Agregar event listener para el monto de aumento agregado
-montoAumentoAgregadoInput.addEventListener("input", calcularPorcentajeDesdeAumento);
+montoAumentoAgregadoInput.addEventListener("input", function () {
+    calcularPorcentajeDesdeMonto(montoAumentoAgregadoInput, porcentajeAumentoAgregadoInput);
+});
 
 // Función para calcular el total en tiempo real
 function calcularTotal() {
@@ -176,70 +194,27 @@ function calcularTotal() {
     totalInput.value = total.toFixed(2);
 }
 
-// Función para calcular el impuesto desde el porcentaje de impuesto agregado
-function calcularImpuestoDesdePorcentaje() {
-    var porcentajeAgregado = parseFloat(porcentajeImpuestoAgregadoInput.value) || 0;
+// Función para calcular el monto desde el porcentaje
+function calcularMontoDesdePorcentaje(porcentajeAgregado, monto) {
+    var porcentaje = parseFloat(porcentajeAgregado.value) || 0;
     var subtotal = parseFloat(subtotalInputs[0].value) || 0;
 
-    var impuestoAgregado = (porcentajeAgregado / 100) * subtotal;
-    montoImpuestoAgregadoInput.value = impuestoAgregado.toFixed(2);
+    var montoCalculado = (porcentaje / 100) * subtotal;
+    monto.value = montoCalculado.toFixed(2);
 
     calcularTotal();
 }
 // Función para calcular el porcentaje de impuesto desde el monto de impuesto agregado
-function calcularPorcentajeDesdeImpuesto() {
-    var montoAgregado = parseFloat(montoImpuestoAgregadoInput.value) || 0;
+function calcularPorcentajeDesdeMonto(montoAgregado, porcentaje) {
+    var monto = parseFloat(montoAgregado.value) || 0;
     var subtotal = parseFloat(subtotalInputs[0].value) || 0;
 
-    var porcentajeAgregado = (montoAgregado / subtotal) * 100;
-    porcentajeImpuestoAgregadoInput.value = porcentajeAgregado.toFixed(2);
+    var porcentajeCalculado = (monto / subtotal) * 100;
+    porcentaje.value = porcentajeCalculado.toFixed(2);
 
     calcularTotal();
 }
 
-
-// Función para calcular el descuento desde el porcentaje de descuento agregado
-function calcularDescuentoDesdePorcentaje() {
-    var porcentajeAgregado = parseFloat(porcentajeDescuentoAgregadoInput.value) || 0;
-    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
-
-    var descuentoAgregado = (porcentajeAgregado / 100) * subtotal;
-    montoDescuentoAgregadoInput.value = descuentoAgregado.toFixed(2);
-
-    calcularTotal();
-}
-// Función para calcular el porcentaje de descuento desde el monto de descuento agregado
-function calcularPorcentajeDesdeDescuento() {
-    var montoAgregado = parseFloat(montoDescuentoAgregadoInput.value) || 0;
-    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
-
-    var porcentajeAgregado = (montoAgregado / subtotal) * 100;
-    porcentajeDescuentoAgregadoInput.value = porcentajeAgregado.toFixed(2);
-
-    calcularTotal();
-}
-
-
-// Función para calcular el aumento desde el porcentaje de aumento agregado
-function calcularAumentoDesdePorcentaje() {
-    var porcentajeAgregado = parseFloat(porcentajeAumentoAgregadoInput.value) || 0;
-    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
-
-    var aumentoAgregado = (porcentajeAgregado / 100) * subtotal;
-    montoAumentoAgregadoInput.value = aumentoAgregado.toFixed(2);
-
-    calcularTotal();
-}
-// Función para calcular el porcentaje de aumento desde el monto de aumento agregado
-function calcularPorcentajeDesdeAumento() {
-    var montoAgregado = parseFloat(montoAumentoAgregadoInput.value) || 0;
-    var subtotal = parseFloat(subtotalInputs[0].value) || 0;
-
-    var porcentajeAgregado = (montoAgregado / subtotal) * 100;
-    porcentajeAumentoAgregadoInput.value = porcentajeAgregado.toFixed(2);
-
-    calcularTotal();
-}
 
 // Descargar Orden
 function descargarOrden() {
