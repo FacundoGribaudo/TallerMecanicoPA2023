@@ -1,5 +1,6 @@
 package com.Proyecto.TallerMecanico.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,11 @@ public class OrdenTrabajoController {
             System.out.println("Horas por servicio: " + horasPromedio);
             System.out.println("Minutos por servicio: " + minutosPromedio);
         }
-        
+
+        ot.setPorcentajeImpuestoAgregado(new BigDecimal(0));
+        ot.setPorcentajeDescuentoAgregado(new BigDecimal(0));
+        ot.setPorcentajeAumentoAgregado(new BigDecimal(0));
+
         // Resto del código para guardar la orden y redirigir
         serviceOT.save(ot);
         return "redirect:/ordenTrabajo";
@@ -185,7 +190,10 @@ public class OrdenTrabajoController {
         @RequestParam("nroOrden") int nro_orden,
         @RequestParam("servicioIds") List<Integer> servicioIds,
         @RequestParam("horas") List<Integer> horas,
-        @RequestParam("minutos") List<Integer> minutos) {
+        @RequestParam("minutos") List<Integer> minutos,
+        @RequestParam(name = "%impuestoAgregado", required=false ) BigDecimal porcentajeImpuestoAgregado,
+        @RequestParam(name = "%descuentoAgregado", required=false ) BigDecimal porcentajeDescuentoAgregado,
+        @RequestParam(name = "%aumentoAgregado", required=false ) BigDecimal porcentajeAumentoAgregado) {
 
         // Obtén la OrdenTrabajo por su número de orden
         Optional<OrdenTrabajo> optionalOrdenTrabajo = serviceOT.listarIdOrdenTrabajo(nro_orden);
@@ -204,14 +212,29 @@ public class OrdenTrabajoController {
                     serviceOT.agregarHorasYMinutosParaServicio(ordenTrabajo, servicio, horasParaServicio, minutosParaServicio);
                 }
             }
-            
+
+            // Si es null, que se establezca en cero
+            if (porcentajeImpuestoAgregado == null) {
+                porcentajeImpuestoAgregado = BigDecimal.ZERO;
+            }
+            if (porcentajeDescuentoAgregado == null) {
+                porcentajeDescuentoAgregado = BigDecimal.ZERO;
+            }
+            if (porcentajeAumentoAgregado == null) {
+                porcentajeAumentoAgregado = BigDecimal.ZERO;
+            }
+
+            ordenTrabajo.setPorcentajeImpuestoAgregado(porcentajeImpuestoAgregado);
+            ordenTrabajo.setPorcentajeDescuentoAgregado(porcentajeDescuentoAgregado);
+            ordenTrabajo.setPorcentajeAumentoAgregado(porcentajeAumentoAgregado);
+
             // Guarda la OrdenTrabajo actualizada en la base de datos
             serviceOT.save(ordenTrabajo);
     
             // Redirige a la página de detalles de la orden o a donde sea apropiado
             return "redirect:/detalleOrden/" + nro_orden;
         } else {
-            return "redirect:/ordenTrabajo";
+            return null;
         }
 
     }

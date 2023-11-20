@@ -1,6 +1,7 @@
 package com.Proyecto.TallerMecanico.domain;
 
 
+import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -61,6 +62,15 @@ public class OrdenTrabajo {
     @MapKeyColumn(name = "id_servicio")
     @Column(name = "minutos")
     private Map<Integer, Integer> minutosPorServicio = new HashMap<>();
+
+    @Column(name="porcentaje_impuesto_agregado")
+    private BigDecimal porcentajeImpuestoAgregado;
+
+    @Column(name="porcentaje_descuento_agregado")
+    private BigDecimal porcentajeDescuentoAgregado;
+
+    @Column(name="porcentaje_aumento_agregado")
+    private BigDecimal porcentajeAumentoAgregado;
 
     public OrdenTrabajo(){}
 

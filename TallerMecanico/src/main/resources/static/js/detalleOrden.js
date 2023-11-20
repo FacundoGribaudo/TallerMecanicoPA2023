@@ -12,6 +12,24 @@ $(document).ready(function () {
     });
 });
 
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Obten la última columna
+    const lastColumn = document.querySelector('.fixed-column');
+    
+    // Calcula la anchura de la última columna
+    const lastColumnWidth = lastColumn.offsetWidth;
+    
+    // Aplica la anchura a la última columna
+    lastColumn.style.width = lastColumnWidth + 'px';
+
+    //Llamada a funciones para que se ejecuten al iniciar
+    calcularTotal();
+    calcularImpuestoDesdePorcentaje();
+    calcularDescuentoDesdePorcentaje();
+    calcularAumentoDesdePorcentaje();
+});
+
 function limitarPorcentajeInput(input) {
     if (input.value > 100) {
         input.value = 100; // Establece el valor máximo permitido
@@ -23,18 +41,6 @@ function limitarMinutosInput(input) {
         input.value = 59; // Establece el valor máximo permitido
     }
 }
-
-window.addEventListener('DOMContentLoaded', (event) => {
-    // Obten la última columna
-    const lastColumn = document.querySelector('.fixed-column');
-
-    // Calcula la anchura de la última columna
-    const lastColumnWidth = lastColumn.offsetWidth;
-
-    // Aplica la anchura a la última columna
-    lastColumn.style.width = lastColumnWidth + 'px';
-});
-
 
 // --- Calcular precio por horas y minutos ---
 // Obtener referencias a los elementos del DOM por su atributo "name"
@@ -186,7 +192,7 @@ function calcularPorcentajeDesdeImpuesto() {
     var subtotal = parseFloat(subtotalInputs[0].value) || 0;
 
     var porcentajeAgregado = (montoAgregado / subtotal) * 100;
-    porcentajeImpuestoAgregadoInput.value = porcentajeAgregado.toFixed(1);
+    porcentajeImpuestoAgregadoInput.value = porcentajeAgregado.toFixed(2);
 
     calcularTotal();
 }
@@ -208,7 +214,7 @@ function calcularPorcentajeDesdeDescuento() {
     var subtotal = parseFloat(subtotalInputs[0].value) || 0;
 
     var porcentajeAgregado = (montoAgregado / subtotal) * 100;
-    porcentajeDescuentoAgregadoInput.value = porcentajeAgregado.toFixed(1);
+    porcentajeDescuentoAgregadoInput.value = porcentajeAgregado.toFixed(2);
 
     calcularTotal();
 }
@@ -230,17 +236,12 @@ function calcularPorcentajeDesdeAumento() {
     var subtotal = parseFloat(subtotalInputs[0].value) || 0;
 
     var porcentajeAgregado = (montoAgregado / subtotal) * 100;
-    porcentajeAumentoAgregadoInput.value = porcentajeAgregado.toFixed(1);
+    porcentajeAumentoAgregadoInput.value = porcentajeAgregado.toFixed(2);
 
     calcularTotal();
 }
 
-
-// Calcular los totales iniciales
-calcularTotal();
-
-
-
+// Descargar Orden
 function descargarOrden() {
     console.log("se descarga la orden");
 
