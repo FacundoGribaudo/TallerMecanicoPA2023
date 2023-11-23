@@ -219,91 +219,106 @@
             <!-- Total Descuentos fuera de la tabla -->
             <div class="estadisticasMontos" id="detalleDeOrden">
                 <h3>RESUMEN ORDEN NRO. <span th:text="${nro_orden}"></span></h3>
-                <div class="row  text-center">
-                    <div class="col-md-2 offset-md-6">
-                        <h4>Total Descuentos</h4>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="number" step="1" name="totalDescuentos" required class="form-control" readonly>
+                <div class="row">
+                    <!-- Primera Columna -->
+                    <div class="col-md-6">
+                        <div class="col-md-8 offset-md-2">
+                            <h4>Tiempo Total Trabajado</h4>
+                            <div class="input-group">
+                                <input type="number" step="1" name="horasTrabajadas" class="form-control" placeholder="Horas" readonly>
+                                <span class="input-group-text" style="margin-right: 40px;">h</span>
+                                <input type="number" step="1" name="minutosTrabajados" class="form-control" placeholder="Minutos" readonly>
+                                <span class="input-group-text">m</span>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Total Impuestos fuera de la tabla -->
-                    <div class="col-md-2">
-                        <h4>Total Impuestos</h4>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="number" step="1" name="totalImpuestos" required class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <h4>Subtotal</h4>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="number" step="1" name="subtotal" value="0" required class="form-control" readonly>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row text-center justify-content-between">
-                    <div class="col-md-4">
-                        <h4>Tiempo Total Trabajado</h4>
-                        <div class="input-group">
-                            <input type="number" step="1" name="horasTrabajadas" class="form-control" placeholder="Horas"
-                                readonly>
-                            <span class="input-group-text" style="margin-right: 40px;">h</span>
-                            <input type="number" step="1" name="minutosTrabajados" class="form-control"
-                                placeholder="Minutos" readonly>
-                            <span class="input-group-text">m</span>
+                        <div class="col-md-12">
+                            <h4>OBSERVACIONES</h4>
+                            <textarea name="observaciones" class="form-control" rows="8" th:field="${ordenTrabajo.observaciones}"></textarea>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <h4>Agregar Impuesto Final</h4>
-                        <div class="input-group">
-                            <input type="number" step="0.01" min="0" name="%impuestoAgregado" class="form-control"
-                                placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeImpuestoAgregado}">
-                            <span class="input-group-text" style="margin-right: 40px;">%</span>
-                            <span class="input-group-text">$</span>
-                            <input type="number" step="0.01" min="0" name="montoImpuestoAgregado" class="form-control"
-                                placeholder="Monto en Pesos">
+                    <!-- Segunda Columna -->
+                    <div class="col-md-6">
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <h4>Total Descuentos</h4>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="totalDescuentos" required class="form-control" readonly>
+                                </div>
+                            </div>
+                            <!-- Total Impuestos fuera de la tabla -->
+                            <div class="col-md-4">
+                                <h4>Total Impuestos</h4>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="totalImpuestos" required class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Subtotal</h4>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="1" name="subtotal" value="0" required class="form-control" readonly>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="row text-center offset-md-6">
+                            <div class="col">
+                                <h4>Agregar Impuesto Final</h4>
+                                <div class="input-group">
+                                    <input type="number" step="0.01" min="0" name="%impuestoAgregado" class="form-control"
+                                        placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeImpuestoAgregado}">
+                                    <span class="input-group-text" style="margin-right: 20px;">%</span>
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" min="0" name="montoImpuestoAgregado" class="form-control"
+                                        placeholder="Monto en Pesos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center offset-md-6">
+                            <div class="col">
+                                <h4>Agregar Descuento Final</h4>
+                                <div class="input-group">
+                                    <input type="number" step="0.01" min="0" name="%descuentoAgregado" class="form-control"
+                                        placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeDescuentoAgregado}" oninput="limitarPorcentajeInput(this)">
+                                    <span class="input-group-text" style="margin-right: 20px;">%</span>
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" min="0" name="montoDescuentoAgregado" class="form-control"
+                                        placeholder="Monto en Pesos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center offset-md-6">
+                            <div class="col">
+                                <h4>Agregar Aumento Final</h4>
+                                <div class="input-group">
+                                    <input type="number" step="0.01" min="0" name="%aumentoAgregado" class="form-control"
+                                        placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeAumentoAgregado}">
+                                    <span class="input-group-text" style="margin-right: 20px;">%</span>
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" step="0.01" min="0" name="montoAumentoAgregado" class="form-control"
+                                        placeholder="Monto en Pesos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-4 offset-md-6">
+                                <h4>TOTAL</h4>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" name="total" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="row text-center">
-                    <div class="col-md-4 offset-md-8">
-                        <h4>Agregar Descuento Final</h4>
-                        <div class="input-group">
-                            <input type="number" step="0.01" min="0" name="%descuentoAgregado" class="form-control"
-                                placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeDescuentoAgregado}" oninput="limitarPorcentajeInput(this)">
-                            <span class="input-group-text" style="margin-right: 40px;">%</span>
-                            <span class="input-group-text">$</span>
-                            <input type="number" step="0.01" min="0" name="montoDescuentoAgregado" class="form-control"
-                                placeholder="Monto en Pesos">
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4 offset-md-8">
-                        <h4>Agregar Aumento Final</h4>
-                        <div class="input-group">
-                            <input type="number" step="0.01" min="0" name="%aumentoAgregado" class="form-control"
-                                placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeAumentoAgregado}">
-                            <span class="input-group-text" style="margin-right: 40px;">%</span>
-                            <span class="input-group-text">$</span>
-                            <input type="number" step="0.01" min="0" name="montoAumentoAgregado" class="form-control"
-                                placeholder="Monto en Pesos">
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-3 offset-md-8">
-                        <h4>TOTAL</h4>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="number" name="total" class="form-control" readonly>
-                        </div>
-                    </div>
-                </div>
+                
+
+                
             </div>
 
         </div>

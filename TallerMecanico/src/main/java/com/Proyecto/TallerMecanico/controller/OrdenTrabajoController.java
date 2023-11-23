@@ -89,9 +89,6 @@ public class OrdenTrabajoController {
             int minutosPromedio = servicio.getMinutosDuracionPromedio(); // Obtén este valor de donde sea necesario
 
             ot.agregarHorasYMinutosParaServicio(servicio.getId_servicio(), horasPromedio, minutosPromedio);  //ESTABLEZCO ESTOS VALORES EN EL MAPA DE HORAS Y MINUTOS
-            // Imprimir los valores de los maps actualizados
-            System.out.println("Horas por servicio: " + horasPromedio);
-            System.out.println("Minutos por servicio: " + minutosPromedio);
         }
 
         ot.setPorcentajeImpuestoAgregado(new BigDecimal(0));
@@ -193,7 +190,8 @@ public class OrdenTrabajoController {
         @RequestParam("minutos") List<Integer> minutos,
         @RequestParam(name = "%impuestoAgregado", required=false ) BigDecimal porcentajeImpuestoAgregado,
         @RequestParam(name = "%descuentoAgregado", required=false ) BigDecimal porcentajeDescuentoAgregado,
-        @RequestParam(name = "%aumentoAgregado", required=false ) BigDecimal porcentajeAumentoAgregado) {
+        @RequestParam(name = "%aumentoAgregado", required=false ) BigDecimal porcentajeAumentoAgregado,
+        @RequestParam(name = "observaciones") String observaciones) {
 
         // Obtén la OrdenTrabajo por su número de orden
         Optional<OrdenTrabajo> optionalOrdenTrabajo = serviceOT.listarIdOrdenTrabajo(nro_orden);
@@ -228,6 +226,8 @@ public class OrdenTrabajoController {
             ordenTrabajo.setPorcentajeDescuentoAgregado(porcentajeDescuentoAgregado);
             ordenTrabajo.setPorcentajeAumentoAgregado(porcentajeAumentoAgregado);
 
+            ordenTrabajo.setObservaciones(observaciones);
+            
             // Guarda la OrdenTrabajo actualizada en la base de datos
             serviceOT.save(ordenTrabajo);
     

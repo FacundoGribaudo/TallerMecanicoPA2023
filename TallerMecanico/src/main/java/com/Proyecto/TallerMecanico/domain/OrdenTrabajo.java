@@ -72,6 +72,9 @@ public class OrdenTrabajo {
     @Column(name="porcentaje_aumento_agregado")
     private BigDecimal porcentajeAumentoAgregado;
 
+    @Column(name = "observaciones", length = 1000)
+    private String observaciones;
+
     public OrdenTrabajo(){}
 
     public void setFechaHoraFormateada() {
