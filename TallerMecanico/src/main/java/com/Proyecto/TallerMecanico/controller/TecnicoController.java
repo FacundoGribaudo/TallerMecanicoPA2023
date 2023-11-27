@@ -130,23 +130,35 @@ public class TecnicoController {
     }
 
     @GetMapping("/ordenesTecnico/{id_tecnico}")
-    public String mostrarOrdenesTecnico(@PathVariable int id_tecnico, Model model) {
+    public String mostrarOrdenesTecnico(
+        @PathVariable int id_tecnico,
+        @RequestParam(name = "estadoFilter", required = false) String estadoFilter,
+        Model model) {
         List<OrdenTrabajo> tecnicosEnOrdenes = otService.listarOrdenTrabajo(); 
         
         //Lista para el template
         List<OrdenTrabajo> ordenesDelTecnico = new ArrayList<>();
-
-        //Filtramos las ordenes correspondientes al trabajador que se consulta.
-        for(OrdenTrabajo ot : tecnicosEnOrdenes){
-            for(int i=0; i<ot.getTecnicosOrden().size(); i++){
-                if(ot.getTecnicosOrden().get(i).getId_tecnico().equals(id_tecnico)){
-                    System.out.println(""+ " ID TECNICO: " + ot.getTecnicosOrden().get(i).getId_tecnico());
-                    System.out.println(""+" LA ORDEN QUE CORRESPONDE ES: " + ot.getNro_orden());
-                    ordenesDelTecnico.add(ot);
+        
+        // Filtramos las órdenes correspondientes al trabajador que se consulta.
+        for (OrdenTrabajo ot : tecnicosEnOrdenes) {
+            for (int i = 0; i < ot.getTecnicosOrden().size(); i++) {
+                if (ot.getTecnicosOrden().get(i).getId_tecnico().equals(id_tecnico)) {
+                    // Aplicar filtro por estado (si se proporciona)
+                    if (estadoFilter == null || estadoFilter.isEmpty() || ot.getEstado().equals(estadoFilter)) {
+                        ordenesDelTecnico.add(ot);
+                    }
                 }
             }
         }
+
+        if (ordenesDelTecnico.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
+        }
         model.addAttribute("ordenesDelTecnico",ordenesDelTecnico);
+        model.addAttribute("estadoFilter", estadoFilter);
+
         return "ordenesTecnico";
     }
 

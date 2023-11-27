@@ -214,9 +214,11 @@ margin: 5px;
   
 /* Estilo para el input de número en los input "number" */
 .row input[type="number"]{
+    font-size: 15px;
     margin-right: 0;
     height: 35px; /* Ajusta la altura del input */
-    padding: 6px 0 6px 6px;
+    padding: 0;
+    padding-left: 6px;
 }
 
 /* Estilo para el símbolo de pesos en el input-group-text */

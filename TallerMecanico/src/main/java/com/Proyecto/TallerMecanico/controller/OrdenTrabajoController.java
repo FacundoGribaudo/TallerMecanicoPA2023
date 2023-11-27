@@ -95,6 +95,9 @@ public class OrdenTrabajoController {
         ot.setPorcentajeDescuentoAgregado(new BigDecimal(0));
         ot.setPorcentajeAumentoAgregado(new BigDecimal(0));
 
+        // Estableczco estado de la orden en Espera al crearla
+        ot.setEstado("EN ESPERA");
+
         // Resto del código para guardar la orden y redirigir
         serviceOT.save(ot);
         return "redirect:/ordenTrabajo";
@@ -131,7 +134,10 @@ public class OrdenTrabajoController {
     }
 
     @PostMapping("/buscarOrden")
-    public String buscarOrden(Model model, @RequestParam("fechaOrdenBuscar") String orden) {
+    public String buscarOrden(
+        @RequestParam("fechaOrdenBuscar") String fechaOrdenBuscar,
+        @RequestParam("estadoOrdenBuscar") String estadoOrdenBuscar,
+        Model model) {
         List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo();
         List<OrdenTrabajo> ordenTrabajoFiltradas = new ArrayList<>();
 
@@ -139,22 +145,23 @@ public class OrdenTrabajoController {
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
         List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
         
-        System.out.println("FECHA INGRESADA: "+orden);
+        System.out.println("FECHA INGRESADA: "+ fechaOrdenBuscar);
+
         for (OrdenTrabajo ort : ordenTrabajoList) {
-            if (ort.getFechaHoraOrden().toString().contains(orden)) {
+            boolean cumpleFecha = fechaOrdenBuscar.isEmpty() || ort.getFechaHoraOrden().toString().contains(fechaOrdenBuscar);
+            boolean cumpleEstado = estadoOrdenBuscar == null || estadoOrdenBuscar.isEmpty() || ort.getEstado().equals(estadoOrdenBuscar);
+    
+            if (cumpleFecha && cumpleEstado) {
                 ordenTrabajoFiltradas.add(ort);
-                System.out.println("fecha igual");
-            } else {
-                System.out.println("fecha ingresada distinta:");
             }
         }
-
-        if (ordenTrabajoFiltradas.isEmpty() || orden=="") {
+    
+        if (ordenTrabajoFiltradas.isEmpty()) {
             model.addAttribute("mensaje", "No se encontraron coincidencias.");
         } else {
             model.addAttribute("mensaje", null);
         }
-
+        
         model.addAttribute("listaOT", ordenTrabajoFiltradas);
         model.addAttribute("lista_vehiculos", lista_vehiculos);
         model.addAttribute("lista_servicios", lista_servicios);
@@ -191,7 +198,8 @@ public class OrdenTrabajoController {
         @RequestParam(name = "%impuestoAgregado", required=false ) BigDecimal porcentajeImpuestoAgregado,
         @RequestParam(name = "%descuentoAgregado", required=false ) BigDecimal porcentajeDescuentoAgregado,
         @RequestParam(name = "%aumentoAgregado", required=false ) BigDecimal porcentajeAumentoAgregado,
-        @RequestParam(name = "observaciones") String observaciones) {
+        @RequestParam(name = "observaciones") String observaciones,
+        @RequestParam(name = "estado") String estadoOrden) {
 
         // Obtén la OrdenTrabajo por su número de orden
         Optional<OrdenTrabajo> optionalOrdenTrabajo = serviceOT.listarIdOrdenTrabajo(nro_orden);
@@ -228,6 +236,11 @@ public class OrdenTrabajoController {
 
             ordenTrabajo.setObservaciones(observaciones);
             
+            System.out.println("estadoOrden: "+ estadoOrden);
+            ordenTrabajo.setEstado(estadoOrden);
+            System.out.println("---------estadoOrden: "+ estadoOrden);
+
+
             // Guarda la OrdenTrabajo actualizada en la base de datos
             serviceOT.save(ordenTrabajo);
     

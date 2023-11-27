@@ -91,7 +91,7 @@
         </div>
     </nav>
 
-    <form th:action="@{/actualizarDetalleOrden}" th:object="${ordenTrabajo}" method="post">
+    <form id="addUserForm" th:action="@{/actualizarDetalleOrden}" th:object="${ordenTrabajo}" method="post">
         <input type="hidden" name="nroOrden" th:value="${ordenTrabajo.nro_orden}" />
         <div class="container" id="containerOrden">
             <input type="hidden" th:name="nro_orden" th:field="*{nro_orden}" />
@@ -117,12 +117,23 @@
 
                 <!-- Segunda columna (derecha) -->
 
-                <div class="col-md-6" style="height: 219.6px; display: flex; flex-direction: column;">
+                <div class="col-md-6" style="height: 211.3px; display: flex; flex-direction: column;">
                     <h4>TÉCNICOS</h4>
-                    <div class="form-check select-container" style="flex: 1;">
+                    <div class="form-check select-container" style="margin-top: 0;">
                         <ul style="padding-left: 20px;">
                             <li th:each="ts : ${tecnicosSeleccionados}" th:text="${ts.nombre} + ' ' +${ts.apellido} "></li>
                         </ul>
+                    </div>
+                    
+                    <div class="col-md-5 offset-md-7">
+                        <h4>ESTADO</h4>
+                        <select required name="estadoOrden" id="estadoOrden" th:field="*{estado}" onchange="actualizarOrden()"
+                        class="form-select" form="addUserForm" style="margin: 0px auto 3px">
+                            <option value="EN ESPERA">EN ESPERA</option>
+                            <option value="EN PROGRESO">EN PROGRESO</option>
+                            <option value="ESPERANDO REPUESTOS">ESPERANDO REPUESTOS</option>
+                            <option value="COMPLETADA">COMPLETADA</option>
+                        </select>
                     </div>
                 </div>
 

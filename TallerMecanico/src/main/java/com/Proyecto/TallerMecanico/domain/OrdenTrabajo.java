@@ -75,6 +75,9 @@ public class OrdenTrabajo {
     @Column(name = "observaciones", length = 1000)
     private String observaciones;
 
+    @Column(name = "estado")
+    private String estado;
+
     public OrdenTrabajo(){}
 
     public void setFechaHoraFormateada() {

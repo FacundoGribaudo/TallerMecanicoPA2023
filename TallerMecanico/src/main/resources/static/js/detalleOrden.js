@@ -1,5 +1,8 @@
 console.log("vinculado detalleOrden.js");
 
+function actualizarOrden(){
+    document.getElementById("addUserForm").submit();
+}
 
 $(document).ready(function () {
     $('#miTabla').DataTable({

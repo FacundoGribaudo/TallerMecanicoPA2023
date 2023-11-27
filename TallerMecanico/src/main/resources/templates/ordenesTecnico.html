@@ -76,20 +76,19 @@
         </div>
     </nav>
 
-    <!-- DATOS QUE SE TRAEN -->
-    <!-- <table>
-        <tbody>
-            <tr th:each="orden : ${ordenesDelTecnico}">
-                <td th:text="${orden}" style="color: black;"></td>
-            </tr>
-        </tbody>
-    </table> -->
-
     <div class="container">
         <div class="row" style="margin-top: 100px;">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <h3 id="tecnicoDeConsulta" style="text-align: center;"></h3>
-                <table id="userTable" class="table table-striped">
+                <select name="estadoFilter" id="estadoFilter" class="form-select" onchange="filtrarPorEstado()" style="width: 250px; margin: 3px 0px 8px auto;">
+                    <option value="">Seleccionar Estado</option>
+                    <option value="EN ESPERA">EN ESPERA</option>
+                    <option value="EN PROGRESO">EN PROGRESO</option>
+                    <option value="ESPERANDO REPUESTOS">ESPERANDO REPUESTOS</option>
+                    <option value="COMPLETADA">COMPLETADA</option>
+                </select>
+                <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+                <table id="userTable" class="table table-striped" th:if="${mensaje} == null">
                     <thead>
                         <tr>
                             <th>Nro. Orden</th>
@@ -97,13 +96,14 @@
                             <th>Vehículo</th>
                             <th>Servico</th>
                             <th>Descripcion</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="orden : ${ordenesDelTecnico}">
                             <td class="HISTORIALData" th:text="${orden.nro_orden}"></td>
                             <td class="HISTORIALData"
-                                th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy')}"></td>
+                                th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy - HH:mm')}"></td>
                             <td class="HISTORIALData" th:text="${orden.vehiculoPertenece.patente}"></td>
                             <td class="HISTORIALData">
                                 <ol style="padding-left: 10px;">
@@ -115,6 +115,7 @@
                                     <li th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.descripcion}"></li>
                                 </ol>
                             </td> 
+                            <td class="ORDENData" th:text="${orden.estado}"></td> 
                         </tr>
                     </tbody>
                 </table>
