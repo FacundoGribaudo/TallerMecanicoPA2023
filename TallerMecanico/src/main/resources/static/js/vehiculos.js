@@ -88,6 +88,9 @@ function cerrarFormSelect(e) {
     var elemento = document.getElementById("formCrearClienteSelect");
     elemento.style.display = "none";
 
+    var elemento = document.getElementById("formCrearVehiculoSelect");
+    elemento.style.display = "none";
+
 }
 
 //validaciones para crear desde select

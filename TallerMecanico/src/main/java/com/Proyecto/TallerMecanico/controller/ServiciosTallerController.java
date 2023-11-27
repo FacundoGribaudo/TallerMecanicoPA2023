@@ -61,6 +61,30 @@ public class ServiciosTallerController {
         return "redirect:/serviciosTaller";
     }
 
+    @PostMapping("/registrarServicioIntuitivo")
+    public String registrarServicioIntuituvo(ServiciosTaller s) {
+        List<ServiciosTaller> servicios = SerTallerService.listarServicios();
+
+        for (ServiciosTaller servicioExistente : servicios) {
+            if (!servicioExistente.getId_servicio().equals(s.getId_servicio())
+                    && servicioExistente.getNombre().equals(s.getNombre())) {
+                // Si ya existe un servicio con el mismo nombre y un ID diferente, redirige con
+                // un mensaje de servicio repetido
+                return "redirect:/ordenTrabajo?mensaje=servicioRepetido";
+            }
+        }
+
+        if (s.getPorcentajeDescuentos() == null) {
+            s.setPorcentajeDescuentos(BigDecimal.ZERO);
+        }
+        if (s.getPorcentajeImpuestos() == null) {
+            s.setPorcentajeImpuestos(BigDecimal.ZERO);
+        } 
+
+        SerTallerService.save(s);
+        return "redirect:/ordenTrabajo";
+    }
+
     @GetMapping("/eliminarServicio/{id_servicio}")
     public String eliminarServicioTaller(Model model, @PathVariable int id_servicio) {
         List<OrdenTrabajo> ordenes = otService.listarOrdenTrabajo();

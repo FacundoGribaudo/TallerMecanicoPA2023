@@ -49,6 +49,21 @@ public class TecnicoController {
         return "redirect:/tecnicos";
     }
 
+    @PostMapping("/saveTecnicoSelect")
+    public String guardarTecnicoSelect(Tecnico t) {
+        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
+
+        for (Tecnico tecnicoExistente : tecnicos) {
+            if (!tecnicoExistente.getId_tecnico().equals(t.getId_tecnico())
+                    && tecnicoExistente.getLegajo().equals(t.getLegajo())) {
+                // Si ya existe el DNI, redirige con mensaje de Cliente repetido
+                return "redirect:/ordenTrabajo?mensaje=tecnicoRepetido";
+            }
+        }
+        servicesTecnico.save(t);
+        return "redirect:/ordenTrabajo";
+    }
+
     // solo se elimina si un tecnico no esta asociado a una orden de trabajo
     // Ver si se puede borrar el tecnico y que se elimine de la orden, sin eliminar
     // la orden

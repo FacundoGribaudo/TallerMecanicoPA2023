@@ -1,5 +1,8 @@
 console.log("vinculado.js");
 
+const params = new URLSearchParams(window.location.search);
+const mensaje = params.get('mensaje');
+
 function agregarOrdenTrabajo(e) {
     e.preventDefault();
 
@@ -76,3 +79,53 @@ document.addEventListener("DOMContentLoaded", function () {
         eliminarSeleccionServicios.style.display = "none";
     });
 });
+
+
+function mostrarFondo() {
+    var fondo = document.getElementById("fondoFormCrearSelect");
+    fondo.style.display = "block";
+}
+
+function mostrarFormVehiculosSelect(e) {
+    e.preventDefault();
+
+    mostrarFondo();
+    var elemento = document.getElementById("formCrearVehiculoSelect");
+    elemento.style.display = "block";
+}
+
+function mostrarFormServicioSelect(e) {
+
+    mostrarFondo();
+
+
+    var elemento = document.getElementById("formCrearServicioSelect");
+    elemento.style.display = "block";
+}
+
+function mostrarFormTecnicoSelect(e) {
+    e.preventDefault();
+
+    mostrarFondo();
+
+
+    var elemento = document.getElementById("formCrearTecnicoSelect");
+    elemento.style.display = "block";
+}
+
+function cerrarFormCrear(e) {
+    e.preventDefault();
+
+    var fondo = document.getElementById("fondoFormCrearSelect");
+    fondo.style.display = "none";
+
+    var elemento = document.getElementById("formCrearVehiculoSelect");
+    elemento.style.display = "none";
+
+    var elemento = document.getElementById("formCrearServicioSelect");
+    elemento.style.display = "none";
+
+    var elemento = document.getElementById("formCrearTecnicoSelect");
+    elemento.style.display = "none";
+
+}
