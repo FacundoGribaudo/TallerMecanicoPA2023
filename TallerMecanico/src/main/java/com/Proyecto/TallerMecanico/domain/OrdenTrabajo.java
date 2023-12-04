@@ -3,7 +3,6 @@ package com.Proyecto.TallerMecanico.domain;
 
 import java.math.BigDecimal;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,14 +23,10 @@ public class OrdenTrabajo {
     //Fecha en que se hizo la orden de trabajo
     @Column(name="fecha_orden")
     private LocalDateTime fechaHoraOrden;
-    // Campo adicional para almacenar la fecha y hora de la orden formateada
-    private String fechaHoraOrdenFormateada;
 
     //Fecha en que se registro la orden de trabajo
     @Column(name="fecha_hora_creacion_orden")
     private LocalDateTime fechaHoraCreacionOrden = LocalDateTime.now();
-    // Campo adicional para almacenar la fecha y hora formateada
-    private String fechaHoraCreacionFormateada;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "id_vehiculo")
@@ -79,12 +74,6 @@ public class OrdenTrabajo {
     private String estado;
 
     public OrdenTrabajo(){}
-
-    public void setFechaHoraFormateada() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
-        this.fechaHoraCreacionFormateada = fechaHoraCreacionOrden.format(formatter);
-        this.fechaHoraOrdenFormateada = fechaHoraOrden.format(formatter);
-    }
 
     // Método para agregar horas y minutos para un servicio específico
     public void agregarHorasYMinutosParaServicio(Integer id_servicio, int horas, int minutos) {

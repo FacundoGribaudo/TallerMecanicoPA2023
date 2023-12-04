@@ -129,7 +129,7 @@
                                 <li th:each="tecnico : ${ot.tecnicosOrden}" th:text="${tecnico.nombre} + ' ' +${tecnico.apellido} "></li>
                             </ul>
                         </td>              
-                        <td class="ORDENData" th:text="${#strings.substring(ot.fechaHoraOrden, 8, 10) + '/' + #strings.substring(ot.fechaHoraOrden, 5, 7) + '/' + #strings.substring(ot.fechaHoraOrden, 0, 4) + ' - ' + #strings.substring(ot.fechaHoraOrden, 11)}"></td>
+                        <td class="ORDENData" th:text="${#temporals.format(ot.fechaHoraOrden, 'dd/MM/yyyy - HH:mm') + 'hs'}"></td>
                         <td class="ORDENData" th:text="${ot.estado}"></td>
                         <td id="tdbotones" style="padding-top:5px;"><a id="botoncrud" th:href="@{/detalleOrden/}+${ot.nro_orden}" class="btn btn-warning" title="Detalle de Orden"><img id="imgcrud" src="img/detalle.png" alt=""></a></td>
                         <td id="tdbotones" style="padding-top:5px;"><a id="botoncrud" th:href="@{/editarOrden/}+${ot.nro_orden}" class="btn btn-warning" title="Editar Orden"><img id="imgcrud" src="img/edit.png" alt=""></a></td>

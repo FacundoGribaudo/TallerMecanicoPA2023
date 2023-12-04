@@ -110,9 +110,7 @@
                     </p>
 
                     <h4>FECHA DE ORDEN</h4>
-                    <p class="form-control"
-                        th:text="${#strings.substring(ordenTrabajo.fechaHoraOrden, 8, 10) + '/' + #strings.substring(ordenTrabajo.fechaHoraOrden, 5, 7) + '/' + #strings.substring(ordenTrabajo.fechaHoraOrden, 0, 4) + ' - ' + #strings.substring(ordenTrabajo.fechaHoraOrden, 11)} + 'hs'">
-                    </p>
+                    <p class="form-control" th:text="${#temporals.format(ordenTrabajo.fechaHoraOrden, 'dd/MM/yyyy - HH:mm') + 'hs'}"></p>
                 </div>
 
                 <!-- Segunda columna (derecha) -->

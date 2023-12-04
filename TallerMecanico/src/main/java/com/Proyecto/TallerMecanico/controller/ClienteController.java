@@ -160,7 +160,6 @@ public class ClienteController {
         List<OrdenTrabajo> otHistorial = new ArrayList<>();
 
         for (OrdenTrabajo ot : otRegistrados) {
-            ot.setFechaHoraFormateada();
             for (Vehiculo v2 : vehiculosRegistrados) {
                 if (ot.getVehiculoPertenece().getId_vehiculo() == v2.getId_vehiculo()
                         && v2.getCliente().getId_cliente() == id_cliente) {

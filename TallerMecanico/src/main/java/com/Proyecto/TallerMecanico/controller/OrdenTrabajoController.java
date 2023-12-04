@@ -43,11 +43,6 @@ public class OrdenTrabajoController {
         // Listas
         List<OrdenTrabajo> ordenTrabajoList = serviceOT.listarOrdenTrabajo();
 
-        // Formatear la fecha y hora en el formato deseado (dd/MM/yyyy HH:mm:ss)
-        for (OrdenTrabajo ordenTrabajo : ordenTrabajoList) {
-            ordenTrabajo.setFechaHoraFormateada();
-        }
-
         List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
         List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();

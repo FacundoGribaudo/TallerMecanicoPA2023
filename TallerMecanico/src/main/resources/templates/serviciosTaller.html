@@ -124,7 +124,7 @@
                             <td class="servicioTallerData" th:text="${s.id_servicio}"></td>
                             <td class="servicioTallerData" th:text="${s.nombre}"></td>
                             <td class="servicioTallerData" th:text="'$' + ${s.precioHora}"></td>
-                            <td class="servicioTallerData" th:text="${s.horasDuracionPromedio}+':'+${s.minutosDuracionPromedio}+'hs'"></td>
+                            <td class="servicioTallerData" th:text="${s.horasDuracionPromedio} + ':' + (${s.minutosDuracionPromedio} &lt; 10 ? '0' + ${s.minutosDuracionPromedio} : ${s.minutosDuracionPromedio}) + 'hs'"></td>
                             <td class="servicioTallerData" th:text="${s.descripcion}"></td>
                             <td class="servicioTallerData" th:text="${s.porcentajeDescuentos}+'%'"></td>
                             <td class="servicioTallerData" th:text="${s.porcentajeImpuestos}+'%'"></td>

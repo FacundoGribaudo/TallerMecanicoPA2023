@@ -103,7 +103,7 @@
                         <tr th:each="orden : ${ordenesDelTecnico}">
                             <td class="HISTORIALData" th:text="${orden.nro_orden}"></td>
                             <td class="HISTORIALData"
-                                th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy - HH:mm')}"></td>
+                                th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy - HH:mm') + 'hs'}"></td>
                             <td class="HISTORIALData" th:text="${orden.vehiculoPertenece.patente}"></td>
                             <td class="HISTORIALData">
                                 <ol style="padding-left: 10px;">
