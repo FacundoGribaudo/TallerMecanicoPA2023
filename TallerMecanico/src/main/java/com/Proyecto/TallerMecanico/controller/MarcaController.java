@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Proyecto.TallerMecanico.domain.Marca;
+import com.Proyecto.TallerMecanico.domain.MarcasEliminadas;
 import com.Proyecto.TallerMecanico.domain.Modelo;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
 import com.Proyecto.TallerMecanico.interfaceServices.IModeloServices;
 import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
+import com.Proyecto.TallerMecanico.interfaceServices.ImarcasEliminadasServicios;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
+import com.Proyecto.TallerMecanico.interfaces.IMarcasEliminadas;
+
+
 
 @Controller
 @RequestMapping
@@ -29,6 +34,8 @@ public class MarcaController {
     private IvehiculoServices servicesVehiculo;
     @Autowired
     private IModeloServices servicesModelo;
+    @Autowired
+    private ImarcasEliminadasServicios servicesMarcaEliminada; 
 
     @GetMapping("/marca")
     public String listar(Model model) {
@@ -87,6 +94,7 @@ public class MarcaController {
     public String eliminarMarca(Model model, @PathVariable int id_marca) {
         List<Modelo> modelos = servicesModelo.listarModelos();
         List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+        List<Marca> marcas = servicesMarca.listarMarcas();
 
         Boolean eliminarMarca = true;
 
@@ -111,6 +119,19 @@ public class MarcaController {
         // Si la marca está asociada solo a modelos, eliminarla y sus modelos
         if (eliminarMarca) {
             System.out.println("Se puede eliminar, no está asociada a vehículos");
+
+            //Duplico el objeto antes de eliminarlo para lograr el "historial"
+            for (Marca m : marcas){
+                if(m.getId_marca().equals(id_marca)){
+                
+                    //Creo el nuevo objeto copiando los atributos del que vamos a liminar y lo persisitimos
+                    MarcasEliminadas me = new MarcasEliminadas(m.getNombre(), m.getEstado());
+                    servicesMarcaEliminada.saveMarcaEliminada(me);
+
+                }
+            }
+
+            //A continuacion eliminamos el correspondiente 
             servicesMarca.delete(id_marca);
 
             // Eliminar modelos asociados a la marca

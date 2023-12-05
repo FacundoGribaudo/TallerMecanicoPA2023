@@ -27,14 +27,12 @@ public class MarcaServices implements ImarcaServices {
 
     @Override
     public int save(Marca m) {
-       int res=0;
-       Marca marca = data.save(m);
-       if(!marca.equals(null)){
-           return 1; 
-       }
-       
-       return res;
-       
+        int res=0;
+        Marca marca = data.save(m);
+        if(!marca.equals(null)){
+            return 1; 
+        }
+        return res;
     }
 
     @Override

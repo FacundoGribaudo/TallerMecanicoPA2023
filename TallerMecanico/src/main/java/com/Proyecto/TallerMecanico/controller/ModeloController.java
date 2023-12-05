@@ -91,6 +91,7 @@ public class ModeloController {
         
         if(eliminarModelo == true){
             System.out.println("si PODES ELIMINAR, NO ESTA RELACIONADO");
+
             servicesModelo.delete(id_modelo);
         }else{System.out.println("NO PODES ELIMINAR, ESTA RELACIONADO");}
 
