@@ -90,10 +90,7 @@
                     <h3>MARCAS ELIMINADAS</h3>
                     <form class="d-flex" role="search" id="formBuscar" th:action="@{/registrosEliminados/buscar}" method="POST">
                         <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar nombre marca" aria-label="Search" name="nombreMarca" oninput="this.value = this.value.toUpperCase()">
-                        Desde:
-                        <input name="fechaDesdeBuscar" id="inputBuscar" class="form-control me-2" type="date" style="width: 250px;" form="formBuscar" > 
-                        Hasta:
-                        <input name="fechaHastaBuscar" id="inputBuscar" class="form-control me-2" type="date" style="width: 250px;" form="formBuscar" > 
+                        <input name="fechaOrdenBuscar" id="inputBuscar" class="form-control me-2" type="date" style="width: 250px;" form="formBuscar" > 
                         
                         <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                     </form>
@@ -108,7 +105,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="marca : ${marcasEliminadas}">
+                            <tr th:each="marca : ${marcasEliminadasBuscadas}">
                                 <td th:text="${marca.nombre}"></td>
                                 <td th:text="${marca.estado}"></td>
                                 <td th:text="${marca.fecha_eliminado}"></td>
@@ -116,7 +113,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a th:href="@{/vaciarHistorialMarca}" type="button" class="btn btn-danger"> Vaciar Historial</a>                
+                    <a id="botonVolverBucar" th:href="@{/registrosEliminados}"><img src="img/return.png" id="imgVolver"></a>               
                 </div>
             </div>
         </div>

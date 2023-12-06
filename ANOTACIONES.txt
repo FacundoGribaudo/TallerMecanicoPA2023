@@ -22,3 +22,11 @@ ORDEN DE TRABAJO
 - Jconsole (para ver rendimiento) https://www.ibm.com/docs/es/sdk-java-technology/8?topic=reference-using-jconsole
 - Generar Informes/Documentos/Estadisticas graficas
 - Implementar Junit para testing. Hacegurarnos que se cumplan los criterios de aceptacion. 
+
+
+--------------------- ENTREGA 3 ---------------------
+- Hay que hacer carter de confirmacion a la hora de reestablecer un registro (onda que aparezca el cartel "seguro de reestablecer este")
+- Hay que hacer carter de confirmacion a la hora de VACIAR EL HISTORIAL DE ELIMINACION (onda que aparezca el cartel "seguro que quiere vaciar el historial")
+- Acomodar busqueda de "Registros eliminados marca" 
+- Arreglar imagen de flecha para volver en la buqueda de los registros "marca" eliminados
+- Mensaje de que no se encuentran coincidencia de busquedas en los registros eliminados?¿ (no salta mensaje)
