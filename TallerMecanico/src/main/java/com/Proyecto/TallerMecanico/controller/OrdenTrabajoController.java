@@ -247,4 +247,12 @@ public class OrdenTrabajoController {
 
     }
     
+    @GetMapping("/estadisticas/ordentrabajo")
+    public String estadisticasOrden(){
+        return "estadisticas";
+    }
+
+
+
+
 }

@@ -144,4 +144,10 @@ public class ServiciosTallerController {
 
     }
 
+    @GetMapping("/estadisticas/serviciostaller")
+    public String estadisticasOrden(){
+        return "estadisticasServicios";
+    }
+
+
 }

@@ -78,6 +78,17 @@
                             <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -100,7 +111,12 @@
                     src="img/ordenTrabajo.png" height="42px" alt="">
             </a>
         </div>
-    </div>
+        <!--<div class="row">
+            <a th:href="@{/api/estadisticas/datosot}" class="col-4 cuadradito" style="padding-top: 28px;">ESTADISTICAS <br><img
+                src="img/ordenTrabajo.png" height="42px" alt="">
+        </a>
+        </div>
+    </div>-->
 
 </body>
 

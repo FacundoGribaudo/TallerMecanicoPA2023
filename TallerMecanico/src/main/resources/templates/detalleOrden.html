@@ -96,6 +96,17 @@
                             <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -152,8 +163,8 @@
                             <tr>
                                 <th style="width: 130px;">Nombre Servicio</th>
                                 <th style="width: 110px;">Precio/hora</th>
-                                <th style="width: auto;">Horas</th>
-                                <th style="width: auto;">Minutos</th>
+                                <th style="width: auto;">Horas Trabajadas</th>
+                                <th style="width: auto;">Minutos Trabajados</th>
                                 <th style="width: 120px;">Precio</th>
                                 <th style="width: 105px;">%Descuento</th>
                                 <th style="width: 110px;">Descuento</th>

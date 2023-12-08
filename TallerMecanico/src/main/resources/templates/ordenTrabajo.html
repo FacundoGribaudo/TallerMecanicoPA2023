@@ -19,7 +19,6 @@
 
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
-
 </head>
 
 <body>
@@ -77,6 +76,17 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
                             <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
                         </ul>
                     </li>
@@ -217,7 +227,9 @@
                             </ul>
                         </td>
                         <td class="ORDENData" th:text="${#temporals.format(ot.fechaHoraOrden, 'dd/MM/yyyy - HH:mm') + 'hs'}"></td>
-                        <td class="ORDENData" th:text="${ot.estado}"></td>
+                        
+                        <td class="ORDENData" th:text="${ot.estado}" id="estadoColor"></td>
+
                         <td id="tdbotones" style="padding-top:5px;"><a id="botoncrud"
                                 th:href="@{/detalleOrden/}+${ot.nro_orden}" class="btn btn-warning"
                                 title="Detalle de Orden"><img id="imgcrud" src="img/detalle.png" alt=""></a></td>
@@ -231,8 +243,10 @@
                     </tr>
                 </tbody>
             </table>
+            
         </div>
     </div>
+
 
     <!-- crear intuitivo -->
     <div class="fondoFormCrearSelect" id="fondoFormCrearSelect"></div>
@@ -341,6 +355,7 @@
 
     <script src="js/eliminar.js"></script>
     <script src="js/agregarOrdenTrabajo.js"></script>
+    <script src="js/estadoColor.js"></script>
 
 </body>
 
