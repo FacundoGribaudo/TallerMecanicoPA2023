@@ -29,9 +29,10 @@ public class Modelo {
 
     }
 
-    public Modelo(String nombre, String estado, String marca) {
+    public Modelo(String nombre, String estado, Marca marca) {
         this.nombre = nombre;
         this.estado = estado;
+        this.marca = marca; 
     }  
 
     /* 
