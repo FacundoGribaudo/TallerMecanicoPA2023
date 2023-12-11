@@ -59,7 +59,7 @@ div.row {
     /* fallback for old browsers */
 }
 
-#imgVolver{
+#imgVolver {
     background-color: white;
     width: 50px;
     height: 50px;
@@ -67,7 +67,7 @@ div.row {
     border-radius: 50%;
 }
 
-#imgVolver:hover{
+#imgVolver:hover {
     background-color: #1abc86;
 }
 
@@ -107,8 +107,10 @@ div.row {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    height: 150px; /* Establece la altura fija */
-    overflow-y: auto; /* barra de desplazamiento vertical */
+    height: 150px;
+    /* Establece la altura fija */
+    overflow-y: auto;
+    /* barra de desplazamiento vertical */
 }
 
 .form-check input[type="checkbox"] {
@@ -120,28 +122,39 @@ div.row {
 
 .form-check label {
     display: block;
-    margin: 5px 0; /* Espaciado entre las etiquetas */
-    background-color: #f5f5f5; /* Color de fondo */
-    border: 1px solid #ccc; /* Borde alrededor de las etiquetas */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre las etiquetas */
-    transition: background-color 0.2s, border-color 0.2s; /* Transición suave al pasar el cursor */
+    margin: 5px 0;
+    /* Espaciado entre las etiquetas */
+    background-color: #f5f5f5;
+    /* Color de fondo */
+    border: 1px solid #ccc;
+    /* Borde alrededor de las etiquetas */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre las etiquetas */
+    transition: background-color 0.2s, border-color 0.2s;
+    /* Transición suave al pasar el cursor */
 }
 
 .form-check label:hover {
-    background-color: #e5e5e5; /* Cambia el color de fondo al pasar el cursor */
+    background-color: #e5e5e5;
+    /* Cambia el color de fondo al pasar el cursor */
 }
 
 /* Opcional: Estilo para las etiquetas seleccionadas */
-.form-check input:checked + label {
-    background-color: #007bff; /* Cambia el color de fondo cuando la casilla está marcada */
-    color: #fff; /* Cambia el color del texto cuando la casilla está marcada */
-    border-color: #007bff; /* Cambia el borde cuando la casilla está marcada */
+.form-check input:checked+label {
+    background-color: #007bff;
+    /* Cambia el color de fondo cuando la casilla está marcada */
+    color: #fff;
+    /* Cambia el color del texto cuando la casilla está marcada */
+    border-color: #007bff;
+    /* Cambia el borde cuando la casilla está marcada */
 }
 
 /* Opcional: Estilo para el texto dentro de las etiquetas */
 .form-check label span {
-    font-weight: bold; /* Hace que el texto sea negrita */
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
 }
 
 
@@ -180,54 +193,72 @@ div.row {
 
 /* Estilo del contenedor general de DataTables */
 .dataTables_wrapper {
-    background-color: #f5f5f5; /* Color de fondo del contenedor */
-    padding: 10px; /* Espaciado interno del contenedor */
-    border: 1px solid #ddd; /* Borde del contenedor */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra del contenedor */
-    margin: 10px 0 10px; /* Espacio entre la tabla y el contenedor */
-  }
-  
-  /* Estilo para la etiqueta de "Mostrar X registros" (opcional) */
-  .dataTables_length label {
-    font-weight: bold; /* Hace que el texto sea negrita */
-  }
-  
-  /* Estilo para el selector de "Mostrar X registros" (opcional) */
-  .dataTables_length select {
-    border: 1px solid #ddd; /* Borde del selector */
-    border-radius: 5px; /* Bordes redondeados */
-  }
-  
-  /* Estilo para la etiqueta de "Buscar" (opcional) */
-  .dataTables_filter label {
-    font-weight: bold; /* Hace que el texto sea negrita */
+    background-color: #f5f5f5;
+    /* Color de fondo del contenedor */
+    padding: 10px;
+    /* Espaciado interno del contenedor */
+    border: 1px solid #ddd;
+    /* Borde del contenedor */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Sombra del contenedor */
+    margin: 10px 0 10px;
+    /* Espacio entre la tabla y el contenedor */
 }
-  
+
+/* Estilo para la etiqueta de "Mostrar X registros" (opcional) */
+.dataTables_length label {
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
+}
+
+/* Estilo para el selector de "Mostrar X registros" (opcional) */
+.dataTables_length select {
+    border: 1px solid #ddd;
+    /* Borde del selector */
+    border-radius: 5px;
+    /* Bordes redondeados */
+}
+
+/* Estilo para la etiqueta de "Buscar" (opcional) */
+.dataTables_filter label {
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
+}
+
 /* Estilo para el cuadro de búsqueda (opcional) */
 .dataTables_filter input {
-padding: 5px; /* Espaciado del cuadro de búsqueda */
-border: 1px solid #ddd; /* Borde del cuadro de búsqueda */
-border-radius: 5px; /* Bordes redondeados */
-margin: 5px;
+    padding: 5px;
+    /* Espaciado del cuadro de búsqueda */
+    border: 1px solid #ddd;
+    /* Borde del cuadro de búsqueda */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    margin: 5px;
 }
-  
+
 /* Estilo para el input de número en los input "number" */
-.row input[type="number"]{
+.row input[type="number"] {
     font-size: 15px;
     margin-right: 0;
-    height: 35px; /* Ajusta la altura del input */
+    height: 35px;
+    /* Ajusta la altura del input */
     padding: 0;
     padding-left: 6px;
 }
 
 /* Estilo para el símbolo de pesos en el input-group-text */
 .row .input-group-text {
-    margin:0;
-    width: 10px; /* Ajusta el ancho del símbolo de pesos */
-    height: 35px; /* Ajusta la altura del símbolo de pesos */
-    font-size: 1rem; /* Ajusta el tamaño de fuente del símbolo de pesos */
-    display: flex; /* Usa flexbox para centrar verticalmente */
+    margin: 0;
+    width: 10px;
+    /* Ajusta el ancho del símbolo de pesos */
+    height: 35px;
+    /* Ajusta la altura del símbolo de pesos */
+    font-size: 1rem;
+    /* Ajusta el tamaño de fuente del símbolo de pesos */
+    display: flex;
+    /* Usa flexbox para centrar verticalmente */
     justify-content: center;
 }
 
@@ -237,6 +268,20 @@ margin: 5px;
     right: 0;
 }
 
-input{
+input {
     height: auto;
+}
+
+.formBuscarRegistrosEliminados{
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: flex-end;
+    grid-column-gap: 8px;
+    margin-bottom: 10px !important;
+}
+
+.fechaDesde, .fechaHasta{
+    text-align: left;
+    color: black;
+    width: auto;
 }

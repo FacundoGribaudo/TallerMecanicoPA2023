@@ -85,7 +85,7 @@ public class RegistrosEliminadosController {
 
             if (nombreMarca != "" && fechaDesdeFormat != "" && fechaHastaFormat != ""){
                 for (MarcasEliminadas me: marcasEliminadas){
-                    if (me.getNombre().equals(nombreMarca) && me.getFecha_eliminado().compareTo(fechaDesdeFormat) >= 0 && me.getFecha_eliminado().compareTo(fechaHastaFormat) <= 0){
+                    if (me.getNombre().contains(nombreMarca) && me.getFecha_eliminado().compareTo(fechaDesdeFormat) >= 0 && me.getFecha_eliminado().compareTo(fechaHastaFormat) <= 0){
                         marcasEliminadasBuscadas.add(me);
                         //System.out.println(""+"BUSCADO:: " + me);
                     }
@@ -93,7 +93,7 @@ public class RegistrosEliminadosController {
             }
         } else if (nombreMarca != "" && fechaDesdeBuscar == "" && fechaHastaBuscar == ""){ //Alternativa solo filtro nombre
             for (MarcasEliminadas me: marcasEliminadas){
-                if (me.getNombre().equals(nombreMarca)){
+                if (me.getNombre().contains(nombreMarca)){
                     marcasEliminadasBuscadas.add(me);
                     //System.out.println(""+"NOMBRE BUSCADO: " + me);
                 }

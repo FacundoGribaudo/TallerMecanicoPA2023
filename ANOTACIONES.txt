@@ -31,6 +31,4 @@ ORDEN DE TRABAJO
 - Arreglar imagen de flecha para volver en la buqueda de los registros "marca" eliminados
 - Mensaje de que no se encuentran coincidencia de busquedas en los registros eliminados?¿ (no salta mensaje)
 - Mensaje de que no se encuentran coincidencias a la hora de buscar registros eliminados mediante un filtro
-
-
 - Cartel de confirmacion de eliminar OT

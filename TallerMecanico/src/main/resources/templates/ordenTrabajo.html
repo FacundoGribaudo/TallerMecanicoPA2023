@@ -236,7 +236,7 @@
                         <td id="tdbotones" style="padding-top:5px;"><a id="botoncrud"
                                 th:href="@{/editarOrden/}+${ot.nro_orden}" class="btn btn-warning"
                                 title="Editar Orden"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                        <td id="tdbotones" style="padding-top:5px;"><a onclick="return eliminarVehiculo()" type="submit"
+                        <td id="tdbotones" style="padding-top:5px;"><a onclick="return confirmarEliminar()" type="submit"
                                 id="botoncrud" th:href="@{/eliminarOrden/}+${ot.nro_orden}" class="btn btn-danger"
                                 title="Eliminar Orden"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
 
