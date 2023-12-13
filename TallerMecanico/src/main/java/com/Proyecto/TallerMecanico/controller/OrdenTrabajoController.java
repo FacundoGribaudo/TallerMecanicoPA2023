@@ -15,11 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Proyecto.TallerMecanico.interfaceServices.IModeloServices;
+import com.Proyecto.TallerMecanico.interfaceServices.IclienteServices;
+import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IordenTrabajoService;
 import com.Proyecto.TallerMecanico.interfaceServices.IserviciosTallerService;
 import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
+import com.Proyecto.TallerMecanico.domain.Cliente;
+import com.Proyecto.TallerMecanico.domain.Marca;
+import com.Proyecto.TallerMecanico.domain.Modelo;
 import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
 import com.Proyecto.TallerMecanico.domain.ServiciosTaller;
 import com.Proyecto.TallerMecanico.domain.Tecnico;
@@ -36,6 +42,12 @@ public class OrdenTrabajoController {
     private IserviciosTallerService serTaller;
     @Autowired
     private ItecnicoServices tecnicoService;
+    @Autowired
+    private ImarcaServices servicesMarca;
+    @Autowired
+    private IModeloServices servicesModelo;
+    @Autowired
+    private IclienteServices servicesCliente;
 
     @GetMapping("/ordenTrabajo")
     public String listarOrdenTrabajo(Model model) {
@@ -46,12 +58,20 @@ public class OrdenTrabajoController {
         List<Vehiculo> lista_vehiculos = vehiculoService.listarVehiculos();
         List<ServiciosTaller> lista_servicios = serTaller.listarServicios();
         List<Tecnico> lista_tecnicos = tecnicoService.listarTecnico();
+        List<Marca> marcas = servicesMarca.listarMarcas();
+        List<Modelo> modelos = servicesModelo.listarModelos();
+        List<Cliente> clientes = servicesCliente.listarClientes();
+        
+        
 
         // Render HTML
         model.addAttribute("listaOT", ordenTrabajoList);
         model.addAttribute("lista_vehiculos", lista_vehiculos);
         model.addAttribute("lista_servicios", lista_servicios);
         model.addAttribute("lista_tecnicos", lista_tecnicos);
+        model.addAttribute("marcasActivas", marcas);
+        model.addAttribute("modelosPermitidos", modelos);
+        model.addAttribute("clientes", clientes); 
 
         return "ordenTrabajo";
     }

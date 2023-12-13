@@ -115,6 +115,7 @@ public class VehiculoController {
         }
 
         // Si no existe un vehículo con la misma patente, guarda el vehículo
+        System.out.println("EL OBJETO VEHICULO NUEVO ES: " + v);
         servicesVehiculo.save(v);
         return "redirect:/ordenTrabajo";
     }
