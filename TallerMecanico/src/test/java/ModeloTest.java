@@ -21,7 +21,7 @@ public class ModeloTest {
 
 
     /*
-     * TEST1 - PARA VERIFICAR QUE ES POSIBLE GUARDAR OBJETOS "MARCA"
+     * TEST1 - PARA VERIFICAR QUE ES POSIBLE GUARDAR OBJETOS "MODELO"
      */
     @Test
     public void  testGuardarModelo(){

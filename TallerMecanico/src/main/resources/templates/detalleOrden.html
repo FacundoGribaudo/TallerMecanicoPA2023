@@ -181,29 +181,29 @@
                                 <td>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" step="0.01" name="precioHora" required
+                                        <input  type="number" step="0.01" name="precioHora" required
                                             th:value="${servicio.precioHora}" class="form-control" readonly>
                                     </div>
                                 </td>
 
                                 <td>
-                                    <input type="number" name="horas" required 
+                                    <input id="horasreales" type="number" name="horas" required 
                                     th:value="${ordenTrabajo.horasPorServicio[servicio.id_servicio]}" class="form-control">
                                 </td>
                                 <td>
-                                    <input type="number" name="minutos" required max="59"
+                                    <input id="minutosreales" type="number" name="minutos" required max="59"
                                         th:value="${ordenTrabajo.minutosPorServicio[servicio.id_servicio]}" class="form-control"
                                         oninput="limitarMinutosInput(this)">
                                 </td>
                                 <td>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" step="1" name="precio" required class="form-control" readonly>
+                                        <input id="preciofinal" type="number" step="1" name="precio" required class="form-control" readonly>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input type="number" step="0.1" name="%descuento" required
+                                        <input id="descuentofinal" type="number" step="0.1" name="%descuento" required
                                             th:value="${servicio.porcentajeDescuentos}" class="form-control" min="0"
                                             max="100" oninput="limitarPorcentajeInput(this)" readonly
                                             style="text-align: right;">
@@ -213,13 +213,13 @@
                                 <td>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" step="1" name="montodescuento" required class="form-control"
+                                        <input id="montodescuentofinal" type="number" step="1" name="montodescuento" required class="form-control"
                                             readonly>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input type="number" step="0.1" name="%impuesto" required
+                                        <input id="impuestofinal" type="number" step="0.1" name="%impuesto" required
                                             th:value="${servicio.porcentajeImpuestos}" class="form-control" min="0"
                                             max="100" oninput="limitarPorcentajeInput(this)" readonly
                                             style="text-align: right;">
@@ -229,14 +229,14 @@
                                 <td>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" step="1" name="montoImpuestos" required class="form-control"
+                                        <input id="montoimpuestofinal" type="number" step="1" name="montoImpuestos" required class="form-control"
                                             readonly>
                                     </div>
                                 </td>
                                 <td class="fixed-column">
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" step="1" name="totalServicio" required class="form-control"
+                                        <input id="totalserviciofinal" type="number" step="1" name="totalServicio" required class="form-control"
                                             readonly>
                                     </div>
                                 </td>
@@ -299,11 +299,11 @@
                             <div class="col">
                                 <h4>Agregar Impuesto Final</h4>
                                 <div class="input-group">
-                                    <input type="number" step="0.01" min="0" name="%impuestoAgregado" class="form-control"
+                                    <input id="impuestoagregadofinal" type="number" step="0.01" min="0" name="%impuestoAgregado" class="form-control"
                                         placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeImpuestoAgregado}">
                                     <span class="input-group-text" style="margin-right: 20px;">%</span>
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="0.01" min="0" name="montoImpuestoAgregado" class="form-control"
+                                    <input id="montoimpuestoagregadofinal" type="number" step="0.01" min="0" name="montoImpuestoAgregado" class="form-control"
                                         placeholder="Monto en Pesos">
                                 </div>
                             </div>
@@ -312,11 +312,11 @@
                             <div class="col">
                                 <h4>Agregar Descuento Final</h4>
                                 <div class="input-group">
-                                    <input type="number" step="0.01" min="0" name="%descuentoAgregado" class="form-control"
+                                    <input id="descuentoagregado" type="number" step="0.01" min="0" name="%descuentoAgregado" class="form-control"
                                         placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeDescuentoAgregado}" oninput="limitarPorcentajeInput(this)">
                                     <span class="input-group-text" style="margin-right: 20px;">%</span>
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="0.01" min="0" name="montoDescuentoAgregado" class="form-control"
+                                    <input id="montodescuentoagragadofinal" type="number" step="0.01" min="0" name="montoDescuentoAgregado" class="form-control"
                                         placeholder="Monto en Pesos">
                                 </div>
                             </div>
@@ -325,11 +325,11 @@
                             <div class="col">
                                 <h4>Agregar Aumento Final</h4>
                                 <div class="input-group">
-                                    <input type="number" step="0.01" min="0" name="%aumentoAgregado" class="form-control"
+                                    <input id="aumentofinal" type="number" step="0.01" min="0" name="%aumentoAgregado" class="form-control"
                                         placeholder="Porcentaje" th:value="${ordenTrabajo.porcentajeAumentoAgregado}">
                                     <span class="input-group-text" style="margin-right: 20px;">%</span>
                                     <span class="input-group-text">$</span>
-                                    <input type="number" step="0.01" min="0" name="montoAumentoAgregado" class="form-control"
+                                    <input id="montoaumentofinal" type="number" step="0.01" min="0" name="montoAumentoAgregado" class="form-control"
                                         placeholder="Monto en Pesos">
                                 </div>
                             </div>

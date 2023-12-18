@@ -1,5 +1,6 @@
 console.log("vinculado detalleOrden.js");
 
+
 function actualizarOrden(){
     document.getElementById("addUserForm").submit();
 }
@@ -219,11 +220,20 @@ function calcularPorcentajeDesdeMonto(montoAgregado, porcentaje) {
 }
 
 
+const ordenesDecargadas = []
+localStorage.setItem('ordenesDescargadasLS', JSON.stringify(ordenesDecargadas))
+const descargasLocalStorage = JSON.parse(localStorage.getItem('ordenesDescargadasLS')) || [];
+console.log("LISTA: " + descargasLocalStorage);
+
 // Descargar Orden
 function descargarOrden() {
+    var impreso = false;
+
     console.log("se descarga la orden");
 
     const id = document.getElementById("botonDescargar").value;
+    ordenesDecargadas.push(id);
+
     document.getElementById("botonDescargar").textContent = "Descargando...";
     
 
@@ -250,5 +260,50 @@ function descargarOrden() {
         // Por ejemplo, para descargar el PDF:
         doc.save("DetalleOrden_"+id+".pdf");
         document.getElementById("botonDescargar").textContent = "Descargar Orden";
+
+        impreso = true;
+        
+
+
+        //Bloqueo los campos
+
+        /*
+            ESTA BIEN, SE BLOQUEAN LOS CAMPOS, PERO CUANDO RECARGO LA PAGINA, SE VUELVE A CARGAR EL JS CON LO CUAL,
+            NO SABE QUE YA SE APLICO SOBRE ESTE HTML CON LO CUAL SE VUELVEN A LIBERAR TODOS LOS CAMPOS
+            MI IDEA ES CREAR UNA LSITA CON LAS ID DE LAS ORDENES QUE YA ESTAN DESCARGARDAS Y RECORRER, EL TEMA ES QUE
+            CUANDO RECARGO, ESA LISTA SE VACIA, Y POR ENDE NO ME GUARDA CUALES YA HAN SIDO DESCARGADAS
+        */
+
+            //TODO terminar - Ver como mantener permanente lista de ID para bloquear campos
+
+        if ( impreso === true){
+            var horasreales = document.getElementById("horasreales")
+            horasreales.disabled = true; 
+            var minutosreales = document.getElementById("minutosreales")
+            minutosreales.disabled = true; 
+            var impuestoagregado = document.getElementById("impuestoagregadofinal")
+            impuestoagregado.disabled = true; 
+
+            var montoImpuestoAgregado = document.getElementById("montoimpuestoagregadofinal")
+            montoImpuestoAgregado.disabled = true; 
+
+            var descuentoAgregado = document.getElementById("descuentoagregado")
+            descuentoAgregado.disabled = true; 
+
+            var montoDescuentoAgregado = document.getElementById("montodescuentoagragadofinal")
+            montoDescuentoAgregado.disabled = true; 
+
+            var aumentoAgregado = document.getElementById("aumentofinal")
+            aumentoAgregado.disabled = true; 
+
+            var montoAumentoAgregado = document.getElementById("montoaumentofinal")
+            montoAumentoAgregado.disabled = true; 
+
+            var estadoOrden = document.getElementById("estadoOrden")
+            estadoOrden.disabled = true; 
+
+            
+        }
+        
     });
 }

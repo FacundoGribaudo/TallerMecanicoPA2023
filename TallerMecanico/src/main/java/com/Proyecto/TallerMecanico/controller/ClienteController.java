@@ -1,5 +1,7 @@
 package com.Proyecto.TallerMecanico.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -164,9 +166,7 @@ public class ClienteController {
                 if (ot.getVehiculoPertenece().getId_vehiculo() == v2.getId_vehiculo()
                         && v2.getCliente().getId_cliente() == id_cliente) {
                     otHistorial.add(ot);
-                } else {
-
-                }
+                } 
             }
             
         }
@@ -178,16 +178,52 @@ public class ClienteController {
         }
 
         String nombreCl = "";
+        Integer clienteID = 0;
         for (Cliente cl : clienteHistorial) {
             nombreCl = "" + cl.getNombre() + " " + cl.getApellido();
+            clienteID = cl.getId_cliente();
             System.out.println("" + "DATOS CLIENTE = " + nombreCl);
         }
         
         model.addAttribute("cliente", nombreCl);
+        model.addAttribute("clienteID", clienteID);
         model.addAttribute("datos_orden", otHistorial);
         return "historialServiciosCliente";
 
     }
 
+    @PostMapping("/buscarOrdenEnCliente/{id_cliente}")
+    public String buscarOrdenEnCliente(Model model, @RequestParam("fechaBuscada") String fechaBuscada, @PathVariable int id_cliente){
+
+        //Lista sobre la que busco
+        List<OrdenTrabajo> otBuscada = otService.listarOrdenTrabajo();
+        List<OrdenTrabajo> otEncontradas = new ArrayList<>();
+        List<Cliente> clientesRegistrados = servicesCliente.listarClientes();
+        
+        //Formateo la fecha para poder coincidir con la DB
+        String fechaBuscadaFormat = LocalDate.parse(fechaBuscada).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));;
+
+        //Itero la lista, buscando las ordenes que coincidan con la fecha. 
+        for (OrdenTrabajo ot : otBuscada){
+            if (ot.getFechaHoraOrden().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).equals(fechaBuscadaFormat) && ot.getVehiculoPertenece().getCliente().getId_cliente().equals(id_cliente)){
+                otEncontradas.add(ot);
+            }
+        }
+
+        String nombreCl = "";
+        Integer clienteID = 0;
+        for (Cliente cl : clientesRegistrados) {
+            if (cl.getId_cliente().equals(id_cliente)){
+                nombreCl = "" + cl.getNombre() + " " + cl.getApellido();
+                clienteID = id_cliente;
+            }
+        }
+        
+        model.addAttribute("cliente", nombreCl);
+        model.addAttribute("clienteID", clienteID);
+        model.addAttribute("datos_orden", otEncontradas);
+
+        return "ordenBuscadaEnCliente";
+    }
 
 }
