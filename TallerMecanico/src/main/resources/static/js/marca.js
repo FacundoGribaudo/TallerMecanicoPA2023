@@ -4,14 +4,14 @@ function validarFormulario(event) {
 
     const marca = document.getElementById("inputMarca").value;
     const estado = document.getElementById("inputState").value;
-    if (marca=="" || !isNaN(marca)){
+    if (marca == "" || !isNaN(marca)) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'La marca no puede ser un número ni estar vacía',
         })
         return;
-    }else if(estado == "Estado"){
+    } else if (estado == "Estado") {
         Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -19,7 +19,7 @@ function validarFormulario(event) {
         })
         return;
     }
-    else{
+    else {
         document.getElementById("addUserForm").submit();
     }
 }
@@ -28,12 +28,18 @@ function validarFormulario(event) {
 const params = new URLSearchParams(window.location.search);
 const mensaje = params.get('mensaje');
 
-// Verificar si el valor del parámetro 'mensaje' es igual a 'true' y mostrar una alerta
-if (mensaje == 'false') {
+// Verificar si el valor del parámetro 'mensaje' es igual a 'noEliminar' y mostrar una alerta
+if (mensaje === 'noEliminar') {
     Swal.fire(
         'Error!',
         'Esta marca está asociada a un vehículo registrado, no es posible borrar',
         'error'
+    );
+} else if (mensaje === 'eliminar') {
+    Swal.fire(
+        'Atención!',
+        'La marca ha sido eliminada, junto con sus modelos registrados.',
+        'warning'
     );
 }
 
@@ -41,3 +47,8 @@ if (mensaje == 'false') {
 if (mensaje === 'marcaRepetida') {
     Swal.fire('Error!', 'Ya existe esta Marca registrada', 'error');
 }
+
+// Eliminar el parámetro 'mensaje' de la URL después de mostrar la alerta
+params.delete('mensaje');
+const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+history.replaceState({}, document.title, newUrl);

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Mecánico</title>
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!--CSS-->
+    <link rel="stylesheet" href="../css/gen.css">
+    <link rel="stylesheet" href="../css/crud.css">
+
+    <!--ICONO-->
+    <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand" id="barraNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas
+                                    Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de
+                                    Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <h1>REGISTROS ELIMINADOS</h1>
+
+    <div class="container">
+        <div class="col-md-8 mx-auto">
+            <h3>MARCAS ELIMINADAS</h3>
+            <form class="d-flex formBuscarRegistrosEliminados" role="search" id="formRegEliminado"
+                th:action="@{/registrosEliminados/buscar}" method="POST">
+                <div>
+                    <input id="inputBuscarNombre" class="form-control ocupa2" type="search" placeholder="Buscar nombre marca"
+                        aria-label="Search" name="nombreMarca" oninput="this.value = this.value.toUpperCase()" style="width: 230px;" form="formRegEliminado">
+                </div>
+                <div class="fechaDesde">
+                    <span>Desde</span>
+                    <input name="fechaDesdeBuscar" id="inputBuscarDesde" class="form-control me-2" type="date" style="width: 100%;" form="formRegEliminado">
+                </div>
+                <div class="fechaHasta">
+                    <span>Hasta</span>
+                    <input name="fechaHastaBuscar" id="inputBuscarHasta" class="form-control me-2" type="date"
+                        style="width: 100%;" form="formRegEliminado">
+                </div>
+                <div>
+                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"alt="" width="25" onclick="verificarBuscarRegEliminado(event)" ></button>
+                </div>
+
+
+            </form>
+            <table id="userTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estado Final</th>
+                        <th>Fecha Eliminado</th>
+                        <th>Restablecer</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="marca : ${marcasEliminadas}">
+                        <td th:text="${marca.nombre}"></td>
+                        <td th:text="${marca.estado}"></td>
+                        <td th:text="${marca.fecha_eliminado}"></td>
+                        <td><a type="button" class="btn btn-warning"
+                                th:href="@{/recuperarRegistro/}+${marca.id_marcaEliminada}"
+                                onclick="return confirmarRecuperar()">Restablecer</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/vaciarHistorialMarca}" type="button" class="btn btn-danger"
+                onclick="return vaciarHistorial()"> Vaciar Historial</a>
+        </div>
+    </div>
+    </div>
+
+    <script src="js/recuperarRegistro.js"></script>
+</body>
+
+</html>

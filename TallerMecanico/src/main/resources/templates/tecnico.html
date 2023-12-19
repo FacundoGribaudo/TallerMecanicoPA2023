@@ -20,37 +20,73 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg" id="barraNav">
+    <nav class="navbar navbar-expand" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -75,22 +111,14 @@
                     <div class="form-group">
                         <input name="legajo" class="form-control" type="text" id="legajoTecnico" placeholder="Legajo" required>
                     </div>
-                    <select name="estado" id="estadoTecnico" class="form-select" form="addUserForm">
-                        <option value="Activo" selected>Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
 
-                    <select name="vehiculo" id="vehiculoTecnico" class="form-select" form="addUserForm">
-                        <option selected hidden>Vehiculo</option>
-                        <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}" th:text="${v.marca.nombre}+' '+${v.modelo.nombre}+' - '+${v.patente}"></option>
-                    </select>
                     <input onclick="agregarTecnico(event)" class="btn btn-primary form-control" type="submit" value="Agregar Técnico">
                 </form>
             </div>
             <div class="col-md-8">
                 <h3>TÉCNICOS REGISTRADOS</h3>
                 <form th:action="@{/buscarTecnico}" method="POST" class="d-flex" role="search" id="formBuscar">
-                    <input name="datosBuscados" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Legajo" aria-label="Search">
+                    <input name="datosBuscados" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar por Legajo o Apellido" aria-label="Search">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
                 </form>
                 <table id="userTable" class="table table-striped">
@@ -101,21 +129,20 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Telefono</th>
-                            <th>Vehiculo Asignado</th>
-                            <th>Estado</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="tecnico : ${tecnicos}">
+                        <tr th:each="tecnico : ${lista_tecnicos}">
                             <td class="TECNICOData" th:text="${tecnico.id_tecnico}"></td>
                             <td class="TECNICOData" th:text="${tecnico.legajo}"></td>
                             <td class="TECNICOData" th:text="${tecnico.nombre}"></td>
                             <td class="TECNICOData" th:text="${tecnico.apellido}"></td>
                             <td class="TECNICOData" th:text="${tecnico.telefono}"></td>
-                            <td class="TECNICOData" th:text="${tecnico.vehiculo.marca.nombre}+' '+${tecnico.vehiculo.modelo.nombre}+' - '+${tecnico.vehiculo.patente}"></td>
-                            <td class="TECNICOData" th:text="${tecnico.estado}"></td>
+                            <td id="tdbotones"><a title="Historial de Servicios" id="botoncrud" th:href="@{/ordenesTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning" th:attr="nombre=${tecnico.nombre}, apellido=${tecnico.apellido}" onclick="datosTecnico(this)"><img id="imgcrud" src="img/historial.png" alt=""></a></td>
+
                             <td id="tdbotones"><a id="botoncrud" th:href="@{/editarTecnico/}+${tecnico.id_tecnico}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
                             <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarTecnico/}+${tecnico.id_tecnico}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>

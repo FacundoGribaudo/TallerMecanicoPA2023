@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega el enlace a la biblioteca Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Taller Mecánico</title>
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!--CSS-->
+    <link rel="stylesheet" href="../css/gen.css">
+    <link rel="stylesheet" href="../css/crud.css">
+    <link rel="stylesheet" href="../css/editar.css">
+
+    <!--ICONO-->
+    <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+
+    <!-- PARA DESCARGAR ESTADISTICA -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand" id="barraNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h1>SERVICIOS REALIZADOS</h1>
+    
+<!-- Contenedor para el gráfico (más grande) -->
+<div id="contenedorImprimir" style="width: 700px; height: 600px; margin: -10px 200px 450px 450px; padding-top:0px; padding:5px;">
+    <!-- Formulario para introducir el rango de fechas -->
+    <form id="filtroFechas" class="d-flex align-items-end" style="margin-top:10px;">
+        <div class="me-2">
+            <label for="fechaInicio" style="color:black;">Fecha Desde:</label>
+            <input type="datetime-local" id="fechaInicio" name="fechaInicio" class="form-control" style="width: 250px; margin:0px;" required>
+        </div>
+
+        <div class="me-2">
+            <label for="fechaFin" style="color:black;">Fecha Hasta:</label>
+            <input type="datetime-local" id="fechaFin" name="fechaFin" class="form-control" style="width: 250px;" required>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="aplicarFiltro()">Aplicar Filtro</button>
+    </form>
+
+    <!-- Contenedor para el mensaje de resultados no encontrados -->
+    <div id="mensajeResultado" class="alert alert-danger" role="alert" style="margin-top:10px; width:640px;">    
+        No se realizaron servicios durante el rango de fechas especificado.
+    </div>
+
+    <canvas id="miGrafico" width="700" height="600"></canvas>
+    <div  class="d-flex justify-content-center align-items-center flex-column">
+        <button id="botonDescargar" type="button" class="btn btn-success"
+            onclick="descargarEstadisticasOT()">Descargar Grafico
+        </button>
+    </div>
+</div>
+
+<script>
+    let miGrafico; // Almacena la referencia al gráfico actual
+
+    // Obtén datos desde el backend y actualiza el gráfico
+    async function actualizarGrafico(fechaInicio, fechaFin) {
+        // Destruye el gráfico actual antes de crear uno nuevo
+        if (miGrafico) {
+            miGrafico.destroy();
+        }
+
+        const response = await fetch('/api/estadisticas/datosot');
+        const data = await response.json();
+
+        // Estructurar datos para el gráfico de torta
+        const servicios = {};
+
+        data.forEach((orden) => {
+            const fechaOrden = new Date(orden.fechaHoraCreacionOrden);
+
+            // Aplica el filtro de fechas
+            if (fechaOrden >= fechaInicio && fechaOrden <= fechaFin) {
+                orden.serviciosRealizar.forEach((servicio) => {
+                    const nombreServicio = servicio.nombre;
+
+                    if (!servicios[nombreServicio]) {
+                        servicios[nombreServicio] = 1;
+                    } else {
+                        servicios[nombreServicio]++;
+                    }
+                });
+            }
+        });
+
+        // Configuración del gráfico de torta
+        const labels = Object.keys(servicios);
+        const dataValues = Object.values(servicios);
+        const backgroundColors = ['#FF6384', '#36A2EB', '#FFCE56', '#B5FF50', '#DA22FF' ]; // Puedes agregar más colores según sea necesario
+
+        const config = {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: backgroundColors.slice(0, labels.length),
+                }],
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                },
+                layout: {
+                    padding: {
+                        top: 0, // Puedes ajustar este valor según sea necesario
+                    },
+                },
+            },
+        };
+
+        // Dibuja el gráfico o muestra el mensaje si no hay resultados
+        const ctx = document.getElementById('miGrafico').getContext('2d');
+        const mensajeResultado = document.getElementById('mensajeResultado');
+
+        if (labels.length > 0) {
+            mensajeResultado.style.display = 'none';
+            miGrafico = new Chart(ctx, config);
+        } else {
+            mensajeResultado.style.display = 'block';
+        }
+    }
+
+    // Función para aplicar el filtro al hacer clic en el botón
+    function aplicarFiltro() {
+        // Obtiene las fechas del formulario
+        const fechaInicio = new Date(document.getElementById('fechaInicio').value);
+        const fechaFin = new Date(document.getElementById('fechaFin').value);
+
+        // Llama a la función para actualizar el gráfico al aplicar el filtro
+        actualizarGrafico(fechaInicio, fechaFin);
+    }
+
+    // Llama a la función para aplicar el filtro automáticamente después de cargar la página
+    window.onload = function () {
+        // Obtiene fechas predeterminadas
+        const fechaFin = new Date().toISOString().slice(0, 16); // Formato aceptado por datetime-local
+        const fechaInicio = new Date();
+        fechaInicio.setMonth(fechaInicio.getMonth() - 1);
+
+        // Establece fechas predeterminadas en el formulario
+        document.getElementById('fechaInicio').value = fechaInicio.toISOString().slice(0, 16);
+        document.getElementById('fechaFin').value = fechaFin;
+
+        // Actualiza el gráfico con fechas predeterminadas
+        aplicarFiltro();
+    };
+</script>
+
+    <script src="/js/estadisticas.js"></script>
+
+</body>
+</html>

@@ -57,5 +57,8 @@ public class Vehiculo {
         this.kilometros = kilometros; 
      }
 
-
+    @Override
+    public String toString() {
+        return "Vehiculo [id_vehiculo=" + id_vehiculo + ", patente=" + patente + ", kilometros=" + kilometros + "]";
+    }
 }

@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "515e3176-aaad-4f6d-b406-7e9bd33742f0",
+		"name": "API TallerMecanico2023",
+		"description": "Peticiones HTTP para la implementacion de PostMan en el trabajo integrador \"TallerMecanico2023\"",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29600610"
+	},
+	"item": [
+		{
+			"name": "Listar Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nombre\": \"SANTIAGO\",\r\n        \"apellido\": \"GIMENEZ\",\r\n        \"dni\": 43883934,\r\n        \"telefono\": 3534297983,\r\n        \"localidad\": \"VILLA MARIA\",\r\n        \"nroLicencia\": \"3\",\r\n        \"vtoLicencia\": \"2023-12-22\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/guardar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"guardar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/borrar/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"borrar",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id_cliente\": 4,\r\n        \"nombre\": \"PEDRO\",\r\n        \"apellido\": \"MARTINEZ\",\r\n        \"dni\": 43883934,\r\n        \"telefono\": 3534297983,\r\n        \"localidad\": \"VILLA MARIA\",\r\n        \"nroLicencia\": \"2\",\r\n        \"vtoLicencia\": \"2023-12-22\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/modificar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"modificar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/buscar/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"buscar",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

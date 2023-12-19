@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller Mecánico</title>
     <!--BOOTSTRAP-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
+
     <!--CSS-->
     <link rel="stylesheet" href="../css/gen.css">
     <link rel="stylesheet" href="../css/crud.css">
@@ -17,39 +21,76 @@
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
 
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-lg" id="barraNav">
+    <nav class="navbar navbar-expand" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -59,30 +100,35 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4" style="text-align: center;">
+            <div class="col-md-4">
                 <h3>NUEVA MARCA</h3>
-                    
+
                 <form id="addUserForm" th:action="@{/save}" th:object="${marca}" method="POST">
                     <div style="margin-bottom: 6px;">
-                        <input disabled name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca" aria-label="Search">
-                    </div>  
-                   <div style="margin-bottom: 6px;"> 
-                       <select disabled name="estado" id="inputState" class="form-select" form="addUserForm">
-                        <option selected hidden>Estado</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                      </select>
-                   </div>
-                    <input disabled onclick="validarFormulario(event)" type="submit" value="Agregar marca" class="btn btn-primary form-control">
+                        <input disabled name="nombre" id="inputMarca" class="form-control me-2" type="text"
+                            placeholder="Marca" aria-label="Search">
+                    </div>
+                    <div style="margin-bottom: 6px;">
+                        <select disabled name="estado" id="inputState" class="form-select" form="addUserForm">
+                            <option selected hidden>Estado</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                    <input disabled onclick="validarFormulario(event)" type="submit" value="Agregar marca"
+                        class="btn btn-primary form-control">
                 </form>
             </div>
             <div class="col-md-8">
                 <h3>MARCAS REGISTRADAS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscar}" method="POST">
-                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar nombre marca" aria-label="Search" name="nombre" oninput="this.value = this.value.toUpperCase()">
-                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png" alt="" width="25"></button>
+                    <input id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar nombre marca"
+                        aria-label="Search" name="nombre" oninput="this.value = this.value.toUpperCase()">
+                    <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
+                            alt="" width="25"></button>
                 </form>
-                <table id="userTable" class="table table-striped">
+                <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+                <table id="userTable" class="table table-striped" th:if="${mensaje} == null">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -97,18 +143,23 @@
                             <td class="MARCAData" th:text="${marca.id_marca}"></td>
                             <td class="MARCAData" th:text="${marca.nombre}"></td>
                             <td class="MARCAData" th:text="${marca.estado}"></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarMarca/}+${marca.id_marca}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a type="submit" id="botoncrud" th:href="@{/eliminarMarca/}+${marca.id_marca}" onclick="return confirmarEliminar()" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarMarca/}+${marca.id_marca}"
+                                    class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a type="submit" id="botoncrud"
+                                    th:href="@{/eliminarMarca/}+${marca.id_marca}" onclick="return confirmarEliminar()"
+                                    class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
-                <a id="botonVolverBucar" th:href="@{/marca}"><img src="img/return.png" width="35px"></a>
+                <a id="botonVolverBucar" th:href="@{/marca}"><img src="img/return.png" id="imgVolver"></a>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
     <script src="js/marca.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script src="js/eliminar.js"></script>
 </body>
+
 </html>

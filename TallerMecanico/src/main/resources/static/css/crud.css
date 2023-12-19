@@ -1,12 +1,12 @@
-body{
+body {
   background: #c4d8ec;
 }
 
-.row{
+.row {
   margin-top: 5%;
 }
 
-#datoAuto{
+#datoAuto {
   color: white;
 }
 
@@ -18,25 +18,32 @@ h3 {
   letter-spacing: .1em;
 }
 
-form{
+h4 {
+  font-size: 18px;
+  font-weight: bolder;
+  color: #555;
+  margin: 10px 0 0;
+}
+
+form {
   text-align: center;
 }
 
-input{
+input {
   margin-top: 3px;
   margin-right: 10px;
 }
 
-select{
+select {
   margin-top: 3px;
 }
 
-#tdbotones{
+#tdbotones {
   padding: 0;
   width: 50px;
 }
 
-#botoncrud{
+#botoncrud {
   border: none;
   background: none;
   padding: 0;
@@ -44,27 +51,75 @@ select{
   width: 40px;
 }
 
-#imgcrud{
+#imgcrud {
   height: 90%;
   width: 90%;
 }
 
-#inputMarca{
+#inputMarca {
   border-radius: 12px;
 }
 
-#botonAgregar{
+#botonAgregar {
   margin-top: 5px;
 }
 
-.historialTD{
+.historialTD {
   padding-top: 8px !important;
 }
 
-.aHistorial{
+.aHistorial {
   color: rgb(78, 78, 78);
 }
 
-.aHistorial:hover{
+.aHistorial:hover {
   color: #0b5ed7;
+}
+
+.divSelectYCrear {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botonCrearIntuitivo {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.botonCrearIntuitivo:hover {
+  background-color: #1abc86;
+}
+
+.ocupa-todo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 3px;
+}
+
+.form-control {
+  margin: 0;
+  margin-bottom: 3px;
+}
+
+.estadisticasMontos{
+  background-color: rgba(255, 255, 255, 0.657);
+  padding: 30px;
+  width: 100%;
+  border-radius: 30px;
+  border: 3px solid black;
+}
+
+.crearIntuitivoOT{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -59,6 +59,23 @@ public class ModeloController {
         servicesModelo.save(mo); 
         return "redirect:/modelo";
     }
+
+    @PostMapping("/saveModeloSelect")
+    public String saveModeloSelect(Modelo mo) {
+        List<Modelo> modelos = servicesModelo.listarModelos();
+
+        for (Modelo modeloExistente : modelos) {
+            if(!modeloExistente.getId_modelo().equals(mo.getId_modelo()) && modeloExistente.getNombre().toUpperCase().equals(mo.getNombre().toUpperCase())) {
+                //Se controla que NO se repita el modelo en la misma marca. Puede existir el mismo modelo pero de distinta MARCA
+                if (modeloExistente.getMarca().getNombre().toUpperCase().equals(mo.getMarca().getNombre().toUpperCase())){ 
+                    //Si ya existe el Modelo, redirige con mensaje de Modelo repetido
+                    return "redirect:/vehiculos?mensaje=modeloRepetido";
+                }
+            }
+        }
+        servicesModelo.save(mo); 
+        return "redirect:/vehiculos";
+    }
  
     @GetMapping("/eliminarModelo/{id_modelo}")
     public String delete(Modelo modelo,@PathVariable int id_modelo){
@@ -74,6 +91,7 @@ public class ModeloController {
         
         if(eliminarModelo == true){
             System.out.println("si PODES ELIMINAR, NO ESTA RELACIONADO");
+
             servicesModelo.delete(id_modelo);
         }else{System.out.println("NO PODES ELIMINAR, ESTA RELACIONADO");}
 
@@ -107,13 +125,16 @@ public class ModeloController {
         List<Modelo> modelosBuscados = new ArrayList<Modelo>();
         
         for(Modelo m : modelos){
-            if (m.getNombre().toUpperCase().equals(nombre.toUpperCase())){
+            if (m.getNombre().toUpperCase().contains(nombre.toUpperCase())){
                 modelosBuscados.add(m); 
             }
         }
+       
 
-        if (modelosBuscados.size() == 0){
-            modelosBuscados = modelos; 
+        if (modelosBuscados.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
         model.addAttribute("modelos", modelosBuscados);

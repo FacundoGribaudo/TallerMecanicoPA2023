@@ -10,7 +10,7 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--CSS-->
@@ -24,10 +24,10 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg" id="barraNav">
+    <nav class="navbar navbar-expand" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -37,25 +37,59 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -70,33 +104,60 @@
                 <h3>NUEVO VEHÍCULO</h3>
                 <form id="addUserForm" th:action="@{/saveVehiculo}" th:object="${vehiculo}" method="POST">
                     <div class="form-group">
-                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente" required oninput="this.value = this.value.toUpperCase()">
-                        <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros" required>
-                        <input name="ano" class="form-control" type="text" id="anioFabr" placeholder="Año Fabricacion" required>
+                        <input name="patente" class="form-control" type="text" id="patente" placeholder="Patente"
+                            required oninput="this.value = this.value.toUpperCase()">
+                        <input name="kilometros" class="form-control" type="text" id="km" placeholder="Kilometros"
+                            required>
+                        <input name="ano" class="form-control" type="text" id="anioFabr" placeholder="Año Fabricacion"
+                            required>
                     </div>
-                    <select required name="marca" id="marcaAuto" class="form-select" form="addUserForm" onchange="cargarModelosPorMarca()">
-                        <option selected hidden>Marca</option>
-                        <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
-                            th:text="${marca.nombre}"></option>
-                    </select>
-                    <select required name="modelo" id="modeloAuto" class="form-select" form="addUserForm">
-                        <option selected hidden>Modelo</option>
-                        <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
-                            th:text="${modelo.nombre}"></option>
-                    </select>
-                    <select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
-                        <option selected hidden>Cliente</option>
-                        <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
-                            th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
-                    </select>
-                    <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo" class="btn btn-primary form-control">
+                    <div class="form-group divSelectYCrear">
+                        <select required name="marca" id="marcaAuto" class="form-select" form="addUserForm"
+                            onchange="cargarModelosPorMarca()">
+                            <option selected hidden>Marca</option>
+                            <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
+                                th:text="${marca.nombre}"></option>
+                        </select>
+                        <button class="botonCrearIntuitivo" onclick="mostrarFormMarcaSelect(event)">
+                            <img src="img/mas.png" height="40px" alt="">
+                        </button>
+                    </div>
+                    <div class="form-group divSelectYCrear">
+                        <select required name="modelo" id="modeloAuto" class="form-select" form="addUserForm">
+                            <option selected hidden>Modelo</option>
+                            <option th:each="modelo : ${modelosPermitidos}" th:value="${modelo.id_modelo}"
+                                th:text="${modelo.nombre}"></option>
+                        </select>
+                        <button class="botonCrearIntuitivo" onclick="mostrarFormModeloSelect(event)">
+                            <img src="img/mas.png" height="40px" alt="">
+                        </button>
+                    </div>
+                    <div class="form-group divSelectYCrear">
+                        <select required name="cliente" id="clienteAuto" class="form-select" form="addUserForm">
+                            <option selected hidden>Cliente</option>
+                            <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}"
+                                th:text="${cliente.nombre}+' '+${cliente.apellido}"></option>
+                        </select>
+                        <button class="botonCrearIntuitivo" onclick="mostrarFormClienteSelect(event)">
+                            <img src="img/mas.png" height="40px" alt="">
+                        </button>
+                    </div>
+
+                    <div class="form-group" style="display: flex; margin-top: 5px;">
+                        <input id="botonAgregar" onclick="agregarVehiculo(event)" type="submit" value="Agregar vehiculo"
+                            class="btn btn-primary form-control">
+                        <input readonly id="botonAgregar" style="margin-left: 10px;" value="Limpiar Campos" type="text" class="btn btn-warning form-control" onclick="limpiarForm()" />
+                    </div>
+
                 </form>
             </div>
 
             <div class="col-md-8">
                 <h3>VEHÍCULOS REGISTRADOS</h3>
                 <form class="d-flex" role="search" id="formBuscar" th:action="@{/buscarVehiculo}" method="POST">
-                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search" placeholder="Buscar Patente" aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                    <input name="patente" id="inputBuscar" class="form-control me-2" type="search"
+                        placeholder="Buscar por Patente o Apellido" aria-label="Search"
+                        oninput="this.value = this.value.toUpperCase()">
                     <button id="botonBuscar" class="btn btn-outline-success" type="submit"><img src="../img/lupa.png"
                             alt="" width="25"></button>
                 </form>
@@ -122,9 +183,13 @@
                             <td class="VEHICULOData" th:text="${vehiculo.marca.nombre}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.modelo.nombre}"></td>
                             <td class="VEHICULOData" th:text="${vehiculo.ano}"></td>
-                            <td class="VEHICULOData" th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}"></td>
-                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
-                            <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud" th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-danger"><img id="imgcrud" src="img/delete.png" alt=""></a></td>                        
+                            <td class="VEHICULOData"
+                                th:text="${vehiculo.cliente.nombre}+' '+${vehiculo.cliente.apellido}"></td>
+                            <td id="tdbotones"><a id="botoncrud" th:href="@{/editarVehiculo/}+${vehiculo.id_vehiculo}"
+                                    class="btn btn-warning"><img id="imgcrud" src="img/edit.png" alt=""></a></td>
+                            <td id="tdbotones"><a onclick="return eliminarVehiculo()" type="submit" id="botoncrud"
+                                    th:href="@{/eliminarVehiculo/}+${vehiculo.id_vehiculo}" class="btn btn-danger"><img
+                                        id="imgcrud" src="img/delete.png" alt=""></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -132,8 +197,96 @@
         </div>
     </div>
 
+    <div class="fondoFormCrearSelect" id="fondoFormCrearSelect"></div>
+
+    <div class="formCrearSelect" id="formCrearMarcaSelect">
+        <div style="text-align: center;">
+            <button onclick="cerrarFormSelect(event)" id="botonCerrarFormSelect">
+                <img src="img/cancelar.png" width="30px" alt="">
+            </button>
+            <h3>NUEVA MARCA</h3>
+
+            <form id="formSelectMarca" th:action="@{/saveMarcaSelect}" th:object="${marca}" method="POST">
+                <div style="margin-bottom: 6px;">
+                    <input name="nombre" id="inputMarca" class="form-control me-2" type="text" placeholder="Marca"
+                        aria-label="Search" oninput="this.value = this.value.toUpperCase()">
+                </div>
+                <div style="margin-bottom: 6px;">
+                    <select name="estado" id="inputState" class="form-select" form="formSelectMarca">
+                        <option value="Activo" selected>Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+                <input onclick="validarSelectMarca(event)" type="submit" value="Agregar marca"
+                    class="btn btn-primary form-control">
+            </form>
+        </div>
+    </div>
+
+    <div class="formCrearSelect" id="formCrearModeloSelect">
+        <div>
+            <button onclick="cerrarFormSelect(event)" id="botonCerrarFormSelect">
+                <img src="img/cancelar.png" width="30px" alt="">
+            </button>
+            <h3>NUEVO MODELO</h3>
+            <form id="formSelectModelo" th:action="@{/saveModeloSelect}" th:object="${modelo}" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" id="modelo" name="nombre" placeholder="Nombre"
+                        oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <select name="estado" id="estadoModelo" class="form-select" form="formSelectModelo">
+                    <option value="Activo" selected>Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <select name="marca" id="marcaModelo" class="form-select" form="formSelectModelo">
+                    <option selected hidden>Marca</option>
+                    <option th:each="marca : ${marcasActivas}" th:value="${marca.id_marca}"
+                                th:text="${marca.nombre}"></option>
+                </select>
+                <input onclick="validarSelectModelo(event)" class="btn btn-primary form-control" type="submit"
+                    id="submitBtn" value="Agregar modelo"></input>
+            </form>
+        </div>
+    </div>
+
+    <div class="formCrearSelect" id="formCrearClienteSelect">
+        <div>
+            <button onclick="cerrarFormSelect(event)" id="botonCerrarFormSelect">
+                <img src="img/cancelar.png" width="30px" alt="">
+            </button>
+            <h3>NUEVO CLIENTE</h3>
+            <form id="formSelectCliente" th:action="@{/saveClienteSelect}" th:object="${cliente}" method="POST">
+                <div class="form-group">
+                    <input name="nombre" class="form-control" type="text" id="nombreCliente" placeholder="Nombre"
+                        oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <div class="form-group">
+                    <input name="apellido" class="form-control" type="text" id="apellidoCliente" placeholder="Apellido"
+                        oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <div class="form-group">
+                    <input name="dni" class="form-control" type="text" id="dniCliente" placeholder="DNI" maxlength="8"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input name="telefono" class="form-control" type="text" id="telefonoCliente" placeholder="Telefono"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input name="localidad" class="form-control" type="text" id="localidadCliente"
+                        placeholder="Localidad" oninput="this.value = this.value.toUpperCase()" required>
+                </div>
+                <div class="botonesFormSelect form-group">
+                    <input id="botonAgregar" onclick="validarSelectCliente(event)" type="submit" value="Agregar Cliente"
+                        class="btn btn-primary form-control">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
     <script src="js/vehiculos.js"></script>
-    <script src="js/eliminar.js"></script>
 
 </body>
 

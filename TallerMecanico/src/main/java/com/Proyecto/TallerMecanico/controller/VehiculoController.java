@@ -18,13 +18,11 @@ import com.Proyecto.TallerMecanico.domain.Cliente;
 import com.Proyecto.TallerMecanico.domain.Marca;
 import com.Proyecto.TallerMecanico.domain.Modelo;
 import com.Proyecto.TallerMecanico.domain.OrdenTrabajo;
-import com.Proyecto.TallerMecanico.domain.Tecnico;
 import com.Proyecto.TallerMecanico.domain.Vehiculo;
 import com.Proyecto.TallerMecanico.interfaceServices.IModeloServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IclienteServices;
 import com.Proyecto.TallerMecanico.interfaceServices.ImarcaServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IordenTrabajoService;
-import com.Proyecto.TallerMecanico.interfaceServices.ItecnicoServices;
 import com.Proyecto.TallerMecanico.interfaceServices.IvehiculoServices;
 
 @Controller
@@ -40,8 +38,6 @@ public class VehiculoController {
     @Autowired
     private IclienteServices servicesCliente;
     @Autowired
-    private ItecnicoServices servicesTecnico;
-    @Autowired
     private IordenTrabajoService servicesOT;
 
     @GetMapping("/vehiculos")
@@ -56,27 +52,11 @@ public class VehiculoController {
         // Cliente
         List<Cliente> clientes = servicesCliente.listarClientes();
 
-        // //Tecnicos
-        // List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
-        // System.out.println(""+"Los tecnicos son: " + tecnicos);
-        // List<Tecnico> tecnicosActivos = new ArrayList<Tecnico>();
-
         for (Marca marca : marcas) {
             if (marca.getEstado().toUpperCase().equals("activo".toUpperCase())) {
                 marcasActivas.add(marca);
             }
         }
-
-        // //Muestro los tecnicos que estan en estado "activo" --> Disponibles para
-        // trabajar
-        // for (Tecnico t:tecnicos){
-        // if(t.getEstado().toUpperCase().equals("activo".toUpperCase())){
-        // // System.out.println(""+ "Los tecnicos activos son: " + t.getNombre());
-        // tecnicosActivos.add(t);
-        // }
-        // }
-
-        // System.out.println(""+ "Los objetos VEHICULO estan asi: " + vehiculos);
 
         model.addAttribute("vehiculo", vehiculos);
         model.addAttribute("marcasActivas", marcasActivas);
@@ -121,21 +101,31 @@ public class VehiculoController {
         return "redirect:/vehiculos";
     }
 
+    @PostMapping("/saveVehiculoSelect")
+    public String guardarVehiculoSelect(Vehiculo v) {
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+
+        for (Vehiculo vehiculoExistente : vehiculos) {
+            if (!vehiculoExistente.getId_vehiculo().equals(v.getId_vehiculo())
+                    && vehiculoExistente.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())) {
+                // Si ya existe un vehículo con la misma patente, redirige con mensaje de
+                // patente repetida
+                return "redirect:/ordenTrabajo?mensaje=patenteRepetida";
+            }
+        }
+
+        // Si no existe un vehículo con la misma patente, guarda el vehículo
+        System.out.println("EL OBJETO VEHICULO NUEVO ES: " + v);
+        servicesVehiculo.save(v);
+        return "redirect:/ordenTrabajo";
+    }
+
     @GetMapping("/eliminarVehiculo/{id_vehiculo}")
     public String eliminarVehiculo(Model model, @PathVariable int id_vehiculo) {
-        List<Tecnico> tecnicos = servicesTecnico.listarTecnico();
         List<OrdenTrabajo> ordenesTrabajo = servicesOT.listarOrdenTrabajo();
 
         Boolean tecnicoAsociado = false;
         Boolean oTAsociada = false;
-
-        // Verificar si el vehículo está asociado a un técnico
-        for (Tecnico t : tecnicos) {
-            if (t.getVehiculo().getId_vehiculo().equals(id_vehiculo)) {
-                tecnicoAsociado = true;
-                break; // Puedes salir del bucle tan pronto como encuentres una asociación
-            }
-        }
 
         // verificar si tiene orden de trabajo asociada
         for (OrdenTrabajo ot : ordenesTrabajo) {
@@ -210,24 +200,41 @@ public class VehiculoController {
 
     @PostMapping("/buscarVehiculo")
     public String buscarVehiculo(Model model, String patente) {
+        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos();
+        List<Vehiculo> vehiculosBuscados = new ArrayList<Vehiculo>();
 
-        List<Vehiculo> vehiculos = servicesVehiculo.listarVehiculos(); // Traigo todos los objetos de la db
-        List<Vehiculo> vehiculosBuscados = new ArrayList<Vehiculo>(); // Un segundo array que me almacena los objetos
-                                                                      // vehiculos que coinciden con la patente buscada
+        List<Cliente> clientes = servicesCliente.listarClientes();
 
-        for (int i = 0; i < vehiculos.size(); i++) {
-            if (vehiculos.get(i).getPatente().toUpperCase().equals(patente.toUpperCase())) {
-                vehiculosBuscados.add(vehiculos.get(i));
+        // Eliminar espacios en blanco de la patente ingresada
+        String patenteSinEspacios = patente.replaceAll("\\s", "").toUpperCase();
+
+        for (Vehiculo vehiculo : vehiculos) {
+            // Eliminar espacios en blanco de la patente del vehículo
+            String patenteVehiculoSinEspacios = vehiculo.getPatente().replaceAll("\\s", "").toUpperCase();
+
+            if (patenteVehiculoSinEspacios.contains(patenteSinEspacios)) {
+                vehiculosBuscados.add(vehiculo);
+            } else {
+                // Si no coincide la patente, verificamos si el cliente coincide en apellido
+                for (Cliente cliente : clientes) {
+                    if (cliente.getId_cliente() == vehiculo.getCliente().getId_cliente() &&
+                            cliente.getApellido().contains(patenteSinEspacios)) {
+                        vehiculosBuscados.add(vehiculo);
+                        break; // Salimos del bucle interno
+                    }
+                }
             }
         }
 
-        if (vehiculosBuscados.size() == 0) {
-            vehiculosBuscados = vehiculos;
+        model.addAttribute("vehiculos", vehiculosBuscados);
+
+        if (vehiculosBuscados.isEmpty()) {
+            model.addAttribute("mensaje", "No se encontraron coincidencias.");
+        } else {
+            model.addAttribute("mensaje", null);
         }
 
-        model.addAttribute("vehiculo", vehiculosBuscados);
         return "buscarVehiculo";
-
     }
 
 }

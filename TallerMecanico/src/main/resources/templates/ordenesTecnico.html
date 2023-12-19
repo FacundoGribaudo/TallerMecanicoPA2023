@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Mecánico</title>
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!--CSS-->
+    <link rel="stylesheet" href="../css/gen.css">
+    <link rel="stylesheet" href="../css/crud.css">
+
+    <!--ICONO-->
+    <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand" id="barraNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-12">
+                <h3 id="tecnicoDeConsulta" style="text-align: center;"></h3>
+                <select name="estadoFilter" id="estadoFilter" class="form-select" onchange="filtrarPorEstado()" style="width: 250px; margin: 3px 0px 8px auto;">
+                    <option value="">Seleccionar Estado</option>
+                    <option value="EN ESPERA">EN ESPERA</option>
+                    <option value="EN PROGRESO">EN PROGRESO</option>
+                    <option value="ESPERANDO REPUESTOS">ESPERANDO REPUESTOS</option>
+                    <option value="COMPLETADA">COMPLETADA</option>
+                </select>
+                <p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
+                <table id="userTable" class="table table-striped" th:if="${mensaje} == null">
+                    <thead>
+                        <tr>
+                            <th>Nro. Orden</th>
+                            <th>Fecha Orden</th>
+                            <th>Vehículo</th>
+                            <th>Servico</th>
+                            <th>Descripcion</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="orden : ${ordenesDelTecnico}">
+                            <td class="HISTORIALData" th:text="${orden.nro_orden}"></td>
+                            <td class="HISTORIALData"
+                                th:text="${#temporals.format(orden.fechaHoraOrden, 'dd/MM/yyyy - HH:mm') + 'hs'}"></td>
+                            <td class="HISTORIALData" th:text="${orden.vehiculoPertenece.patente}"></td>
+                            <td class="HISTORIALData">
+                                <ol style="padding-left: 10px;">
+                                    <li th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.nombre}"></li>
+                                </ol>
+                            </td>                             
+                            <td class="HISTORIALData">
+                                <ol style="padding-left: 10px;">
+                                    <li th:each="servicio : ${orden.serviciosRealizar}" th:text="${servicio.descripcion}"></li>
+                                </ol>
+                            </td> 
+                            <td class="ORDENData" th:text="${orden.estado}"></td> 
+                        </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/tecnicos}"><input type="button" value="Volver" class="btn btn-warning"></a>
+            </div>
+        </div>
+    </div>
+    <script src="../js/ordenTecnico.js"></script>
+
+</body>
+
+</html>

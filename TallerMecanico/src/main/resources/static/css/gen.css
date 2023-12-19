@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap');
-html,body{
+
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -7,12 +9,12 @@ html,body{
     font-family: 'Poppins', sans-serif;
 }
 
-.navbar{
+.navbar {
     background-color: #000000bb;
 }
 
 
-h1{
+h1 {
     text-align: center;
     margin: 0;
     margin-top: 20px;
@@ -22,27 +24,28 @@ h1{
     color: #333333;
 }
 
-.container{
+.container {
     padding: 0;
-    margin-top: 1%;
+    margin: 1% auto;
 }
 
-div.row{
+div.row {
     margin-top: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+
 }
 
-#formBuscar{
+#formBuscar {
     margin-bottom: 5px;
 }
 
-#inputBuscar{
+#inputBuscar {
     border-radius: 25px;
 }
 
-#botonBuscar{
+#botonBuscar {
     height: 50px;
     width: 55px;
     border-radius: 55%;
@@ -51,17 +54,234 @@ div.row{
     padding: 0;
 }
 
-#botonBuscar:hover{
-    background-color:#1abc86 ;   /* fallback for old browsers */
+#botonBuscar:hover {
+    background-color: #1abc86;
+    /* fallback for old browsers */
 }
 
-#botonVolverBucar{
-    position: fixed;
-    padding: 5px; 
-    background-color: white; 
+#imgVolver {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
     border-radius: 50%;
 }
 
-#botonVolverBucar:hover{
+#imgVolver:hover {
     background-color: #1abc86;
+}
+
+.fondoFormCrearSelect {
+    position: fixed;
+    display: none;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.731);
+}
+
+.formCrearSelect {
+    position: fixed;
+    z-index: 2;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    height: auto;
+    width: 430px;
+    background-color: #000000;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    padding: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 15px;
+}
+
+.select-container {
+    color: black;
+    margin-top: 5px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 150px;
+    /* Establece la altura fija */
+    overflow-y: auto;
+    /* barra de desplazamiento vertical */
+}
+
+.form-check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    float: left;
+}
+
+.form-check label {
+    display: block;
+    margin: 5px 0;
+    /* Espaciado entre las etiquetas */
+    background-color: #f5f5f5;
+    /* Color de fondo */
+    border: 1px solid #ccc;
+    /* Borde alrededor de las etiquetas */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre las etiquetas */
+    transition: background-color 0.2s, border-color 0.2s;
+    /* Transición suave al pasar el cursor */
+}
+
+.form-check label:hover {
+    background-color: #e5e5e5;
+    /* Cambia el color de fondo al pasar el cursor */
+}
+
+/* Opcional: Estilo para las etiquetas seleccionadas */
+.form-check input:checked+label {
+    background-color: #007bff;
+    /* Cambia el color de fondo cuando la casilla está marcada */
+    color: #fff;
+    /* Cambia el color del texto cuando la casilla está marcada */
+    border-color: #007bff;
+    /* Cambia el borde cuando la casilla está marcada */
+}
+
+/* Opcional: Estilo para el texto dentro de las etiquetas */
+.form-check label span {
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
+}
+
+
+#botonCerrarFormSelect {
+    background: none;
+    padding: 0;
+    position: fixed;
+    right: 25px;
+    top: 10px;
+    border: none;
+    border-radius: 50px;
+    padding: 2px;
+}
+
+#botonCerrarFormSelect:hover {
+    background-color: #ffffff;
+}
+
+/* barra de navegacion */
+.nav-item {
+    position: relative;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 10px;
+}
+
+/* Estilo del contenedor general de DataTables */
+.dataTables_wrapper {
+    background-color: #f5f5f5;
+    /* Color de fondo del contenedor */
+    padding: 10px;
+    /* Espaciado interno del contenedor */
+    border: 1px solid #ddd;
+    /* Borde del contenedor */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Sombra del contenedor */
+    margin: 10px 0 10px;
+    /* Espacio entre la tabla y el contenedor */
+}
+
+/* Estilo para la etiqueta de "Mostrar X registros" (opcional) */
+.dataTables_length label {
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
+}
+
+/* Estilo para el selector de "Mostrar X registros" (opcional) */
+.dataTables_length select {
+    border: 1px solid #ddd;
+    /* Borde del selector */
+    border-radius: 5px;
+    /* Bordes redondeados */
+}
+
+/* Estilo para la etiqueta de "Buscar" (opcional) */
+.dataTables_filter label {
+    font-weight: bold;
+    /* Hace que el texto sea negrita */
+}
+
+/* Estilo para el cuadro de búsqueda (opcional) */
+.dataTables_filter input {
+    padding: 5px;
+    /* Espaciado del cuadro de búsqueda */
+    border: 1px solid #ddd;
+    /* Borde del cuadro de búsqueda */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    margin: 5px;
+}
+
+/* Estilo para el input de número en los input "number" */
+.row input[type="number"] {
+    font-size: 15px;
+    margin-right: 0;
+    height: 35px;
+    /* Ajusta la altura del input */
+    padding: 0;
+    padding-left: 6px;
+}
+
+/* Estilo para el símbolo de pesos en el input-group-text */
+.row .input-group-text {
+    margin: 0;
+    width: 10px;
+    /* Ajusta el ancho del símbolo de pesos */
+    height: 35px;
+    /* Ajusta la altura del símbolo de pesos */
+    font-size: 1rem;
+    /* Ajusta el tamaño de fuente del símbolo de pesos */
+    display: flex;
+    /* Usa flexbox para centrar verticalmente */
+    justify-content: center;
+}
+
+/* Ulima columna fija */
+.fixed-column {
+    position: sticky;
+    right: 0;
+}
+
+input {
+    height: auto;
+}
+
+.formBuscarRegistrosEliminados{
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: flex-end;
+    grid-column-gap: 8px;
+    margin-bottom: 10px !important;
+}
+
+.fechaDesde, .fechaHasta{
+    text-align: left;
+    color: black;
+    width: auto;
 }

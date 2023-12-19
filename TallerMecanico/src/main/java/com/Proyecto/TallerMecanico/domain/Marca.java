@@ -26,7 +26,7 @@ public class Marca {
     }
     
     public Marca(String nombre, String estado){
-       super(); 
+        super(); 
         //this.id_marca = id;
         this.nombre = nombre;
         this.estado = estado;

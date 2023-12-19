@@ -31,18 +31,26 @@ public class Cliente {
     @Column(name = "localidad")
     private String localidad;
 
+    @Column(name = "nroLicencia")
+    private String nroLicencia;
+
+    @Column(name = "vtoLicencia")
+    private String vtoLicencia;
+
 
     public Cliente(){
 
     }
 
-    public Cliente(String nombre, String apellido, BigInteger dni, BigInteger tel, String loc){
+    public Cliente(String nombre, String apellido, BigInteger dni, BigInteger tel, String loc, String nroLic, String vtoLic){
         super();
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni; 
         this.telefono = tel;
         this.localidad = loc; 
+        this.nroLicencia = nroLic;
+        this.vtoLicencia = vtoLic;
     }
 
 

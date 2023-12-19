@@ -21,7 +21,7 @@ public class Modelo {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "id_marca")
     private Marca marca; 
 
@@ -29,9 +29,10 @@ public class Modelo {
 
     }
 
-    public Modelo(String nombre, String estado, String marca) {
+    public Modelo(String nombre, String estado, Marca marca) {
         this.nombre = nombre;
         this.estado = estado;
+        this.marca = marca; 
     }  
 
     /* 

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller Mecánico</title>
     <!--BOOTSTRAP-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
@@ -18,42 +22,89 @@
     <!--ICONO-->
     <link rel="shortcut icon" href="../../img/icono.png" type="image/x-icon">
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg" id="barraNav">
+    <nav class="navbar navbar-expand" id="barraNav">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="../../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
+                <img src="../img/icono.png" alt="Logo" width="25" class="d-inline-block align-text-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/vehiculos}">Vehículo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/marca}">Marca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/modelo}">Modelo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/clientes}">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/tecnicos}">Técnicos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/serviciosTaller}">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" th:href="@{/ordenTrabajo}">Orden Trabajo</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Vehículos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos}">Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/marca}">Marca</a></li>
+                            <li><a class="dropdown-item" th:href="@{/modelo}">Modelo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/serviciosTaller}">Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/ordenTrabajo}">Orden de Trabajo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Persona
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes}">Clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Registros Eliminados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/registrosEliminados}">Marcas Eliminadas</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/serviciostaller}">Estadisticas Servicios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/estadisticas/ordentrabajo}">Estadisticas Ordenes de Trabajo</a></li>
+                            <!--<li><a class="dropdown-item" th:href="@{/tecnicos}">Técnicos</a></li>-->
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+
+    <!-- <table>
+        <tbody>
+            <tr th:each="tec : ${tecnico}">
+                <td th:text="${tec}" style="color: black;"></td>
+            </tr>
+        </tbody>
+    </table> -->
+
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
@@ -61,35 +112,32 @@
                 <form id="addUserForm" th:action="@{/saveTecnico}" th:object="${tecnico}" method="POST">
                     <input type="hidden" name="id_tecnico" th:field="*{id_tecnico}">
                     <div class="form-group">
-                        <input hidden name="legajo" class="form-control" type="text" id="legajoTecnico" placeholder="Legajo" required th:value="${tecnico.legajo}">
+                        <input hidden name="legajo" class="form-control" type="text" id="legajoTecnico"
+                            placeholder="Legajo" required th:value="${tecnico.legajo}">
                         <input type="text" class="form-control" disabled th:value="${tecnico.legajo}">
                     </div>
                     <div class="form-group">
-                        <input name="nombre" class="form-control" type="text" id="nombreTecnico" placeholder="Nombre" required th:value="${tecnico.nombre}" oninput="this.value = this.value.toUpperCase()">
+                        <input name="nombre" class="form-control" type="text" id="nombreTecnico" placeholder="Nombre"
+                            required th:value="${tecnico.nombre}" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
-                        <input name="apellido" class="form-control" type="text" id="apellidoTecnico" placeholder="Apellido" required th:value="${tecnico.apellido}" oninput="this.value = this.value.toUpperCase()">
+                        <input name="apellido" class="form-control" type="text" id="apellidoTecnico"
+                            placeholder="Apellido" required th:value="${tecnico.apellido}"
+                            oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
-                        <input name="telefono" class="form-control" type="text" id="telefonoTecnico" placeholder="Telefono" required th:value="${tecnico.telefono}">
+                        <input name="telefono" class="form-control" type="text" id="telefonoTecnico"
+                            placeholder="Telefono" required th:value="${tecnico.telefono}">
                     </div>
-                    <select name="estado" id="estadoTecnico" class="form-select" form="addUserForm">
-                        <option selected hidden th:value="${tecnico.estado}" th:text="${tecnico.estado}"></option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
-                    <select name="vehiculo" id="vehiculoTecnico" class="form-select" form="addUserForm">
-                        <option selected hidden th:value="${tecnico.vehiculo.id_vehiculo}" th:text="${tecnico.vehiculo.marca.nombre}+' '+${tecnico.vehiculo.modelo.nombre}+' - '+${tecnico.vehiculo.patente}"></option>
-                        <option th:each="v : ${vehiculos}" th:value="${v.id_vehiculo}" th:text="${v.marca.nombre}+' '+${v.modelo.nombre}+' - '+${v.patente}"></option>
-                    </select>
                     <div id="botones">
                         <input onclick="agregarTecnico(event)" type="submit" value="Actualizar" class="btn btn-success">
                         <a th:href="@{/tecnicos}"><input type="button" value="Cancelar" class="btn btn-warning"></a>
                     </div>
-                    
-                </form>  
+
+                </form>
             </div>
         </div>
-    </div> 
+    </div>
+    
     <script src="../js/tecnico.js"></script>
 </body>
