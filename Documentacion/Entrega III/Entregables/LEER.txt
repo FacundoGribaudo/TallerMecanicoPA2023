@@ -1,0 +1,19 @@
+En este directorio se encuentran los siguientes archivos
+
+- DB_PersonalizadaTallerMecanico.sql ---> Este es el script de la db para cargar informacion por defecto para probar rapidamente el sistema y no tener que cargar datos de forma manual.
+
+PASOS PARA IMPLEMENTAR EL SCRIPT SQL
+Para trabajar con la DB hicimos utilizacion de MySQL Workbench, por lo cual recompendamos hacer uso de la misma herramienta.
+
+1- Dentro de MySQL Workbench creamos un nuevo "schema" con el nombre --> tallermecanico (tal cual esta, sin Mayus)
+2- Ejecutamos el codigo spring boot para que JPA pueda crear las entidades correspondientes (Si es schema creado anteriormente tiene otro nombre, no funcionara. Se debera cambiar la configuracion de la DB en el sistema)
+3- Dentro del apartado "administration" de MySQL Workbench seleccionamos la opcion "Data Import/Resotre" (EL SISTEMA DEBE ESTAR APAGADO ANTES DE IMPORTAR LA DATA)
+4- Seleccionamos la opcion "Import from Self-contained file" y buscamos el script .sql incluido en este directorio.
+5- En el apartado "Default target schema" seleccionamos el schema "tallermecanico" 
+6- Finalmente seleccionamos la opcion "Start import" 
+7- Iniciamos nuevamente el sistema. En este momento ya tendremos informacion cargada.  
+	
+
+*******************************************************************
+
+- API TallerMecanico2023.postman_collections.json ---> Este es un archivo que se importa en Postman y que incluye una colleccion con las distintas peticiones (GET, POST, PUT, DELETE) las cuales fueron implementadas en el sistema. Puede verse con mas detalle los end-points en el controlador "ClienteRESTControler.java"
