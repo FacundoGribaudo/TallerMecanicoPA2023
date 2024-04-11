@@ -28,11 +28,16 @@ public class MarcaServices implements ImarcaServices {
     @Override
     public int save(Marca m) {
         int res=0;
-        Marca marca = data.save(m);
-        if(!marca.equals(null)){
-            return 1; 
+        try{
+            Marca marca = data.save(m); 
+            if(!marca.equals(null)){
+                return 1; 
+            }
+            return res;
+
+        }catch(Exception e){
+            throw new RuntimeException("Error al guardar la marca", e);
         }
-        return res;
     }
 
     @Override

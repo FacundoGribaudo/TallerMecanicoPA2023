@@ -1,5 +1,6 @@
 package com.Proyecto.TallerMecanico.domain;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Marca {
     private Integer id_marca;
     
     @Column(name="nombre")
+    @NonNull
     private String nombre;
 
     @Column(name="estado")
