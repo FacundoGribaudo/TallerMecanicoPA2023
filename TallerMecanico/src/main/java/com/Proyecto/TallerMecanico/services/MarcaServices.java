@@ -10,39 +10,33 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MarcaServices implements ImarcaServices {
-    
-    @Autowired 
+
+    @Autowired
     private IMarca data;
-    
-    
+
     @Override
     public List<Marca> listarMarcas() {
-        return (List<Marca>)data.findAll();
+        return (List<Marca>) data.findAll();
     }
 
     @Override
     public Optional<Marca> listarIdMarca(int id) {
-        return data.findById(id); 
+        return data.findById(id);
     }
 
     @Override
     public int save(Marca m) {
-        int res=0;
-        try{
-            Marca marca = data.save(m); 
-            if(!marca.equals(null)){
-                return 1; 
-            }
-            return res;
-
-        }catch(Exception e){
-            throw new RuntimeException("Error al guardar la marca", e);
+        Marca marca = data.save(m);
+        if (marca != null) {
+            return 1;
         }
+        return 0;
+
     }
 
     @Override
     public void delete(int id) {
         data.deleteById(id);
     }
-    
+
 }
